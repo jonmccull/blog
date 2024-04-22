@@ -4,8 +4,10 @@ publishedAt: '2024-04-22'
 summary: 'And a new blog'
 ---
 
-==Hello==, world.[^1]
+# Hello, world.
+
+This is a new thing.[^1]
 
 [^1]: This is a footnote.
 
-![](/assets/Vivaldi Web Panel.webp)
+![image](app/blog/assets/Vivaldi Web Panel.webp)
