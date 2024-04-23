@@ -146,5 +146,5 @@ table {
 
 .title {
   text-wrap: balance;
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-6xl font-medium tracking-tight mt-6 mb-2;
 }
