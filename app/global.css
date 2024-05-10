@@ -16,6 +16,7 @@
   --sh-entity: #e25a1c;
   --color-grey-04: #dedede;
   --color-underline-links: #2cafed;
+  --color-neutral-1:#e4e7ea;
   --space-4: 4px;
   --space-8: 8px;
   --radius-md: 4px;
@@ -81,23 +82,17 @@ html {
   @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
 }
 
-.prose code {
-  @apply px-1 py-0.5 rounded-lg;
-}
-
 .prose pre code {
-  @apply p-0;
-  border: 1px solid --color-grey-04);
-  line-height: 1.5;
+  @apply px-1 py-0.5 rounded-lg;
+  padding: 0
 }
 
-.prose code span {
-  @apply font-medium;
-  background: #e5e7eb;
-  font-size: .9em;
-  border-radius: var(--radius-md);
-  padding: 0.25rem 0 0.25rem 0;
-  
+.prose code {
+  font-size: .8125rem;
+  background-color: #e4e7ea;
+  background-color: var(--color-neutral-1);
+  padding: .25rem;
+  border-radius: 8px
 }
 
 .prose img {
