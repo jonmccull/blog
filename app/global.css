@@ -15,6 +15,7 @@
   --sh-property: #e25a1c;
   --sh-entity: #e25a1c;
   --color-grey-04: #dedede;
+  --color-underline-links: #2cafed;
   --space-4: 4px;
   --space-8: 8px;
   --radius-md: 4px;
@@ -51,9 +52,22 @@ html {
 }
 
 .prose a {
-  @apply underline transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
-}
-
+     color: var(--color-links);
+     -webkit-text-decoration: underline;
+     text-decoration: underline;
+     text-decoration-thickness: .12em;
+     text-decoration-color: #2cafed;
+     text-decoration-color: var(--color-underline-links);
+     text-underline-offset: .1ex;
+     transition: text-underline-offset .2s,-webkit-text-decoration .1s ease-in-out;
+     transition: text-underline-offset .2s,text-decoration .1s ease-in-out;
+     transition: text-underline-offset .2s,text-decoration .1s ease-in-out,-webkit-text-decoration .1s ease-in-out
+ }
+ 
+ a:hover,a:focus {
+     text-decoration-thickness: .2em
+ }
+ 
 .prose .anchor:after {
   @apply text-neutral-300 dark:text-neutral-700;
   content: '#';
