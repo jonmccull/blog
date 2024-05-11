@@ -57,6 +57,10 @@ export function getJobs() {
 
 export function formatDate(date: string, includeRelative = false) {
   let currentDate = new Date()
+  if (date.includes('Present')) {
+   return "Present"
+  }
+  
   if (!date.includes('T')) {
     date = `${date}T00:00:00`
   }
