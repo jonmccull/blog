@@ -16,20 +16,27 @@ export function JobExperience() {
           return 1
         })
         .map((job) => (
-          <Link
-            key={job.slug}
-            className="flex flex-col space-y-1 mb-4"
-            href={`/cv/${job.slug}`}
-          >
-            <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
-              <p className="text-neutral-600 dark:text-neutral-400 tabular-nums">
-                {formatDate(job.metadata.startDate, false)}
+            <div className="grid w-full grid-cols-5 grid-flow-row gap-2">
+                <p className="col-span-2 font-semibold text-neutral-900 dark:text-neutral-100 tracking-tight">
+                  {job.metadata.position}
+                </p>
+
+                <p className="col-span-1 font-semibold text-right text-neutral-900 dark:text-neutral-100 tracking-tight">
+                  // {job.metadata.title}
+                </p>
+                
+                <p className="col-span-2 text-right text-neutral-600 dark:text-neutral-400 tabular-nums">
+                  {formatDate(job.metadata.startDate, false)} → {formatDate(job.metadata.endDate, false)}
+                </p>
+              
+              <p className="col-span-3 text-neutral-900 dark:text-neutral-100 tracking-tight mb-8">
+                {job.metadata.description}
               </p>
-              <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
-                {job.metadata.title}
-              </p>
+             
             </div>
-          </Link>
+            
+            
+          
         ))}
     </div>
   )

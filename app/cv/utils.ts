@@ -3,6 +3,7 @@ import path from 'path'
 
 type Metadata = {
   title: string
+  position: string
   companyLink: string
   startDate: string
   endDate: string
@@ -78,8 +79,7 @@ export function formatDate(date: string, includeRelative = false) {
   }
 
   let fullDate = targetDate.toLocaleString('en-us', {
-    month: 'long',
-    day: 'numeric',
+    month: 'short',
     year: 'numeric',
   })
 
