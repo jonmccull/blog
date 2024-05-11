@@ -7,9 +7,12 @@ export const metadata = {
 export default function Page() {
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
+      <h1 className="mb-2 text-2xl font-semibold tracking-tighter">
         Jon McCullough
       </h1>
+      <p className="job-dates mb-8 text-neutral-900 dark:text-neutral-100 tracking-tight">
+        <a href="https://www.linkedin.com/in/jonmccullough/">LinkedIn</a> ⋅ <a href="mailto:hey@jonm.cc">hey@jonm.cc</a>
+      </p>
       <h2 className="font-semibold text-2xl mb-8 tracking-tighter">
         Profile
       </h2>
