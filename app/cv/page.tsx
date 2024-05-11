@@ -1,4 +1,20 @@
+import { JobExperience } from 'app/components/jobs'
+
+export const metadata = {
+  title: 'Job Experience'
+}
+
 export default function Page() {
+  return (
+    <section>
+      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Experience</h1>
+      <JobExperience />
+    </section>
+  )
+}
+
+/*
+ export default function Page() {
   return (
     <section>
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
@@ -170,3 +186,4 @@ export default function Page() {
     </section>
   )
 }
+*/
