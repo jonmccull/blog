@@ -56,7 +56,7 @@ export default function Page() {
         Apr 2016 → Dec 2016
       </p>
       
-      <h2 className="cv-section-title text-2xl font-semibold tracking-tighter">
+      <h2 className="cv-section-title text-2xl mb-8 font-semibold tracking-tighter">
         Education
       </h2>
       
