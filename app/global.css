@@ -52,7 +52,7 @@ html {
   @apply visible;
 }
 
-.prose a {
+.prose a, .jobListingLink {
      color: var(--color-links);
      -webkit-text-decoration: underline;
      text-decoration: underline;
@@ -64,20 +64,6 @@ html {
      transition: text-underline-offset .2s,text-decoration .1s ease-in-out;
      transition: text-underline-offset .2s,text-decoration .1s ease-in-out,-webkit-text-decoration .1s ease-in-out
  }
- 
- .job-title a, .job-description a {
-   color: var(--color-links);
-    -webkit-text-decoration: underline;
-    text-decoration: underline;
-    text-decoration-thickness: .12em;
-    text-decoration-color: #2cafed;
-    text-decoration-color: var(--color-underline-links);
-    text-underline-offset: .1ex;
-    transition: text-underline-offset .2s,-webkit-text-decoration .1s ease-in-out;
-    transition: text-underline-offset .2s,text-decoration .1s ease-in-out;
-    transition: text-underline-offset .2s,text-decoration .1s ease-in-out,-webkit-text-decoration .1s ease-in-out
- }
- 
  
  a:hover,a:focus {
      text-decoration-thickness: .2em

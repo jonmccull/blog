@@ -11,7 +11,7 @@ export default function Page() {
         Jon McCullough
       </h1>
       <p className="job-dates mb-8 text-neutral-900 dark:text-neutral-100 tracking-tight">
-        <a href="https://www.linkedin.com/in/jonmccullough/">LinkedIn</a> ⋅ <a href="mailto:hey@jonm.cc">hey@jonm.cc</a>
+        <a className="jobListingLink" href="https://www.linkedin.com/in/jonmccullough/">LinkedIn</a> ⋅ <a className="jobListingLink" href="mailto:hey@jonm.cc">hey@jonm.cc</a>
       </p>
       <h2 className="font-semibold text-2xl mb-8 tracking-tighter">
         Profile
@@ -39,13 +39,13 @@ export default function Page() {
       </p>
         
       <p className="font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums">
-        AI TRAINER // <a href="https://iris.ai/">Iris AI</a></p>
+        AI TRAINER // <a className="jobListingLink" href="https://iris.ai/">Iris AI</a></p>
       <p className="job-dates mb-4 text-neutral-900 dark:text-neutral-100 tracking-tight">
         Jun 2016 → Dec 2016
       </p>
         
       <p className="font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums">
-        PROJECT MANAGER // <a href="https://superside.com/">Superside</a></p>
+        PROJECT MANAGER // <a className="jobListingLink" href="https://superside.com/">Superside</a></p>
       <p className="job-dates mb-4 text-neutral-900 dark:text-neutral-100 tracking-tight">
         Apr 2016 → Oct 2016
       </p>
