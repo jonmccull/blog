@@ -17,12 +17,11 @@ export function JobExperience() {
         })
         .map((job) => (
             <div className="grid w-full grid-cols-5 grid-flow-row gap-2">
-                <p className="col-span-2 font-semibold text-neutral-900 dark:text-neutral-100 tracking-tight">
-                  {job.metadata.position}
-                </p>
-
-                <p className="col-span-1 font-semibold text-right text-neutral-900 dark:text-neutral-100 tracking-tight">
-                  // {job.metadata.title}
+                <p className="col-span-3 font-semibold text-neutral-900 dark:text-neutral-100 tracking-tight">
+                  {job.metadata.position} // <Link legacyBehavior href={job.metadata.companyLink}><a className="underline" target="_blank" rel="noopener noreferrer">
+                          {job.metadata.title}
+                      </a>
+                  </Link>
                 </p>
                 
                 <p className="col-span-2 text-right text-neutral-600 dark:text-neutral-400 tabular-nums">
