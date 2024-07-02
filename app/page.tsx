@@ -11,8 +11,11 @@ export default function Page() {
         {`I'm Jon, a product marketer working with the positioning and growth of software products.`}
       </p>
       <p className="mb-4">
-        <a href="/cv">CV</a>
+        <a href="https://www.linkedin.com/in/jonmccullough/">LinkedIn</a> ⋅ <a href="/cv">CV</a> ⋅ <a href="mailto:hey@jonm.cc">Mail</a> 
       </p>
+      <h2 className="mb-8 text-2xl font-semibold tracking-tighter">
+        Posts
+      </h2>
       <div className="my-8">
         <BlogPosts />
       </div>
