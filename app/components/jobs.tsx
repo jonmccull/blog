@@ -6,7 +6,7 @@ export function JobExperience() {
 
   return (
     <div>
-      {allJobs
+      { allJobs
         .sort((a, b) => {
           if (
             new Date(a.metadata.startDate) > new Date(b.metadata.startDate)
@@ -40,9 +40,6 @@ export function JobExperience() {
               </p>
              
             </div>
-            
-            
-          
         ))}
     </div>
   )
