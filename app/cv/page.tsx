@@ -1,7 +1,7 @@
 import { JobExperience } from 'app/components/jobs'
 
 export const metadata = {
-  title: 'Job Experience'
+  title: 'Jon McCullough - CV'
 }
 
 export default function Page() {
