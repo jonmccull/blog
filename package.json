@@ -21,5 +21,12 @@
     "sugar-high": "^0.6.1",
     "tailwindcss": "4.0.0-alpha.13",
     "typescript": "5.3.3"
-  }
+  },
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "postcss.config.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
 }
