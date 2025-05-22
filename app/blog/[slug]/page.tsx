@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import { getPostBySlug } from '../../lib/blog'
+import { getPostBySlug, getAllPosts } from '../../lib/blog'
 import Image from '../../components/Image'
 
 interface Props {
@@ -13,6 +13,14 @@ const components = {
   Image,
 }
 
+// Generate static pages at build time
+export async function generateStaticParams() {
+  const posts = await getAllPosts()
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+
 export async function generateMetadata({ params }: Props) {
   const post = await getPostBySlug(params.slug)
 
@@ -23,6 +31,12 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: post.title,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      publishedTime: post.date,
+    },
   }
 }
 
