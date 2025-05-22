@@ -24,6 +24,24 @@ export default function Footer() {
           className="group flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
           rel="noopener noreferrer"
           target="_blank"
+          href="mailto:jon@jonmccullough.com"
+        >
+          <span>mail</span>
+          <ArrowIcon />
+        </a>
+        <a
+          className="group flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+          rel="noopener noreferrer"
+          target="_blank"
+          href="https://www.linkedin.com/in/jonmccullough/"
+        >
+          <span>linkedin</span>
+          <ArrowIcon />
+        </a>
+        <a
+          className="group flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+          rel="noopener noreferrer"
+          target="_blank"
           href="/rss"
         >
           <span>rss</span>

@@ -4,19 +4,20 @@ import { useEffect, useState } from 'react'
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     const stored = localStorage.getItem('theme')
-    if (
-      stored === 'dark' ||
-      (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-      setTheme('dark')
+    const isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    setTheme(isDark ? 'dark' : 'light')
+    if (isDark) {
       document.documentElement.classList.add('dark')
     }
   }, [])
 
   useEffect(() => {
+    if (!mounted) return
     if (theme === 'dark') {
       document.documentElement.classList.add('dark')
       localStorage.setItem('theme', 'dark')
@@ -24,13 +25,17 @@ export default function ThemeToggle() {
       document.documentElement.classList.remove('dark')
       localStorage.setItem('theme', 'light')
     }
-  }, [theme])
+  }, [theme, mounted])
+
+  if (!mounted) {
+    return null
+  }
 
   return (
     <button
       aria-label="Toggle Dark Mode"
       type="button"
-      className="flex h-9 w-9 items-center justify-center rounded-lg ring-zinc-300 transition-all hover:ring-2"
+      className="flex h-9 w-9 items-center justify-center rounded-lg"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >
       <svg
