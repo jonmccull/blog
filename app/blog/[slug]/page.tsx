@@ -1,54 +1,44 @@
 import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getPostBySlug, getAllPosts } from '../../lib/blog'
-import Image from '../../components/Image'
+import { mdxComponents } from '../../components/mdx-components'
+import type { Post, BlogPageProps } from '../../types/blog'
 
-type Post = {
-  title: string
-  date: string
-  readingTime: string
-  content: string
-  excerpt: string
-  slug: string
-}
-
-type Props = {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-const components = {
-  Image,
-}
-
-// Generate static pages at build time
 export async function generateStaticParams() {
   const posts = await getAllPosts()
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
+  return posts.map(({ slug }) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: BlogPageProps) {
   const post = await getPostBySlug(params.slug)
 
   if (!post) {
     return {}
   }
 
+  const { title, excerpt, date } = post
+
   return {
-    title: post.title,
-    description: post.excerpt,
+    title,
+    description: excerpt,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title,
+      description: excerpt,
       type: 'article',
-      publishedTime: post.date,
+      publishedTime: date,
     },
   }
 }
 
-export default async function BlogPost({ params }: Props) {
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+export default async function BlogPost({ params }: BlogPageProps) {
   const post = await getPostBySlug(params.slug)
 
   if (!post) {
@@ -61,18 +51,12 @@ export default async function BlogPost({ params }: Props) {
     <article className="prose prose-neutral dark:prose-invert">
       <h1 className="font-bold tracking-tighter">{title}</h1>
       <div className="flex gap-3 items-center text-sm text-neutral-600 dark:text-neutral-400 mb-8">
-        <time dateTime={date}>
-          {new Date(date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </time>
+        <time dateTime={date}>{formatDate(date)}</time>
         <span>•</span>
         <span>{readingTime}</span>
       </div>
       {/* @ts-expect-error - MDXRemote types are not properly set up for RSC */}
-      <MDXRemote source={content} components={components} />
+      <MDXRemote source={content} components={mdxComponents} />
     </article>
   )
 }
