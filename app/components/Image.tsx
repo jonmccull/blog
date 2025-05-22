@@ -1,3 +1,5 @@
+'use client'
+
 import NextImage, { ImageProps as NextImageProps } from 'next/image'
 import { useState } from 'react'
 
@@ -7,7 +9,7 @@ type ImageProps = {
 } & Omit<NextImageProps, 'alt'>
 
 export default function Image({ alt, caption, ...props }: ImageProps) {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setLoading] = useState(true)
 
   return (
     <figure className="my-8">
@@ -19,11 +21,10 @@ export default function Image({ alt, caption, ...props }: ImageProps) {
         <NextImage
           className={`
             duration-700 ease-in-out
-            ${isLoading ? 'scale-[1.02] blur-xl grayscale' : 'scale-100 blur-0 grayscale-0'}
+            ${isLoading ? 'grayscale blur-2xl scale-110' : 'grayscale-0 blur-0 scale-100'}
           `}
-          onLoadingComplete={() => setIsLoading(false)}
+          onLoadingComplete={() => setLoading(false)}
           alt={alt}
-          quality={100}
           {...props}
         />
       </div>

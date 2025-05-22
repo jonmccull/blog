@@ -1,8 +1,8 @@
+import { motion } from '../components/motion'
+import { FadeIn } from '../components/cv/FadeIn'
 import { Section } from '../components/cv/Section'
 import { ExperienceItem } from '../components/cv/ExperienceItem'
 import { JobExperience } from '../components/jobs'
-import { FadeIn } from '../components/cv/FadeIn'
-import { motion } from 'framer-motion'
 
 export const metadata = {
   title: 'Jon McCullough - CV',
