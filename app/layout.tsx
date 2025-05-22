@@ -16,10 +16,12 @@ export const metadata: Metadata = {
     default: 'Jon McCullough',
     template: '%s | Jon McCullough',
   },
-  description: 'Jon McCullough is a Canadian product marketer based in Norway working at Doist. Welcome to his digital garden. 🌳',
+  description:
+    'Jon McCullough is a Canadian product marketer based in Norway working at Doist. Welcome to his digital garden. 🌳',
   openGraph: {
     title: 'Jon McCullough',
-    description: 'Jon McCullough is a Canadian product marketer based in Norway working at Doist. Welcome to his digital garden. 🌳',
+    description:
+      'Jon McCullough is a Canadian product marketer based in Norway working at Doist. Welcome to his digital garden. 🌳',
     url: baseUrl,
     siteName: 'Jon McCullough',
     locale: 'en_US',
@@ -36,7 +38,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Jon McCullough',
-    description: 'Jon McCullough is a Canadian product marketer based in Norway working at Doist. Welcome to his digital garden. 🌳',
+    description:
+      'Jon McCullough is a Canadian product marketer based in Norway working at Doist. Welcome to his digital garden. 🌳',
   },
   robots: {
     index: true,
@@ -71,11 +74,7 @@ const websiteSchema = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"

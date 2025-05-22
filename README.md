@@ -17,18 +17,20 @@ A modern, accessible personal website built with Next.js, TypeScript, and Tailwi
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or pnpm
 
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/blog.git
    cd blog
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    # or
@@ -36,6 +38,7 @@ A modern, accessible personal website built with Next.js, TypeScript, and Tailwi
    ```
 
 3. Start the development server:
+
    ```bash
    npm run dev
    # or

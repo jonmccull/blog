@@ -35,4 +35,4 @@ export default function Image({ alt, caption, ...props }: ImageProps) {
       )}
     </figure>
   )
-} 
+}

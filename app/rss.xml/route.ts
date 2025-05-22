@@ -1,4 +1,5 @@
 import { baseUrl } from '../sitemap'
+import { getAllPosts } from '../lib/posts'
 
 export async function GET() {
   const posts = await getAllPosts() // You'll need to implement this function
@@ -32,4 +33,4 @@ export async function GET() {
       'Cache-Control': 's-maxage=3600, stale-while-revalidate',
     },
   })
-} 
+}

@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
 ::selection {
-  background-color: #FFFEB1;
+  background-color: #fffeb1;
 }
 
 :root {
-  --sh-class: rgba(0,0,0,.88);
+  --sh-class: rgba(0, 0, 0, 0.88);
   --sh-identifier: #354150;
   --sh-sign: #8996a3;
   --sh-string: #007f7a;
@@ -16,7 +16,7 @@
   --sh-entity: #e25a1c;
   --color-grey-04: #dedede;
   --color-underline-links: #2cafed;
-  --color-neutral-1:#e4e7ea;
+  --color-neutral-1: #e4e7ea;
   --space-4: 4px;
   --space-8: 8px;
   --radius-md: 4px;
@@ -52,23 +52,32 @@ html {
   @apply visible;
 }
 
-.prose a, .jobListingLink {
-     color: var(--color-links);
-     -webkit-text-decoration: underline;
-     text-decoration: underline;
-     text-decoration-thickness: .12em;
-     text-decoration-color: #2cafed;
-     text-decoration-color: var(--color-underline-links);
-     text-underline-offset: .1ex;
-     transition: text-underline-offset .2s,-webkit-text-decoration .1s ease-in-out;
-     transition: text-underline-offset .2s,text-decoration .1s ease-in-out;
-     transition: text-underline-offset .2s,text-decoration .1s ease-in-out,-webkit-text-decoration .1s ease-in-out
- }
- 
- a:hover,a:focus {
-     text-decoration-thickness: .2em
- }
- 
+.prose a,
+.jobListingLink {
+  color: var(--color-links);
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  text-decoration-thickness: 0.12em;
+  text-decoration-color: #2cafed;
+  text-decoration-color: var(--color-underline-links);
+  text-underline-offset: 0.1ex;
+  transition:
+    text-underline-offset 0.2s,
+    -webkit-text-decoration 0.1s ease-in-out;
+  transition:
+    text-underline-offset 0.2s,
+    text-decoration 0.1s ease-in-out;
+  transition:
+    text-underline-offset 0.2s,
+    text-decoration 0.1s ease-in-out,
+    -webkit-text-decoration 0.1s ease-in-out;
+}
+
+a:hover,
+a:focus {
+  text-decoration-thickness: 0.2em;
+}
+
 .prose .anchor:after {
   @apply text-neutral-300 dark:text-neutral-700;
   content: '#';
@@ -84,15 +93,15 @@ html {
 
 .prose pre code {
   @apply px-1 py-0.5 rounded-lg;
-  padding: 0
+  padding: 0;
 }
 
 .prose code {
-  font-size: .8125rem;
+  font-size: 0.8125rem;
   background-color: #e4e7ea;
   background-color: var(--color-neutral-1);
-  padding: .25rem;
-  border-radius: 8px
+  padding: 0.25rem;
+  border-radius: 8px;
 }
 
 .prose img {
@@ -168,17 +177,17 @@ table {
 }
 
 .video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    overflow: hidden;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
 }
 
 .video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 hr {
@@ -187,5 +196,5 @@ hr {
   margin: var(--spacing-2x-large) 0;
   border-top: 1px solid #cbd2d8;
   border-top: 1px solid var(--color-neutral-2);
-  width: 40%
+  width: 40%;
 }

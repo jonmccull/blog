@@ -19,12 +19,7 @@ const stagger = {
 
 export default function CVPage() {
   return (
-    <MotionArticle
-      initial="initial"
-      animate="animate"
-      variants={stagger}
-      className="max-w-2xl"
-    >
+    <MotionArticle initial="initial" animate="animate" variants={stagger} className="max-w-2xl">
       {/* Header */}
       <FadeIn>
         <header className="mb-12">

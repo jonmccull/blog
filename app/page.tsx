@@ -1,18 +1,26 @@
-import { BlogPosts } from 'app/components/posts'
-import { JobExperience } from 'app/components/jobs'
+export const metadata = {
+  title: 'Jon McCullough',
+  description: 'Product marketing leader with 10+ years of experience in B2C and B2B.',
+}
 
-export default function Page() {
+export default function HomePage() {
   return (
-    <section>
-      <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        Jon McCullough
-      </h1>
-      <p className="mb-4">
-        I'm Jon, a marketer specializing in the positioning and growth of software products. Right now I'm a Product Marketer at Doist, working on taking a market-leading todo list app, <a href="https://www.todoist.com/" className="hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors" target="_blank" rel="noopener noreferrer">Todoist</a>, to the next level.
+    <div className="max-w-2xl">
+      <h1 className="text-3xl font-bold tracking-tighter mb-8">Jon McCullough</h1>
+      <p className="prose dark:prose-invert mb-8">
+        I&apos;m a Canadian product marketer based in Norway, and now I&apos;m a Product Marketer at Doist,
+        working on taking a market-leading todo list app,{' '}
+        <a
+          href="https://www.todoist.com/"
+          className="hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Todoist
+        </a>
+        , to new heights.{' '}
+        <a href="mailto:hey@jonm.cc">Mail</a>
       </p>
-      <p className="mb-4">
-        <a href="https://www.linkedin.com/in/jonmccullough/">LinkedIn</a> ⋅ <a href="/cv">CV</a> ⋅ <a href="mailto:hey@jonm.cc">Mail</a> 
-      </p>
-    </section>
+    </div>
   )
 }

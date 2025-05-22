@@ -1,12 +1,7 @@
 const CACHE_NAME = 'blog-cache-v1'
 
 // Assets to cache
-const STATIC_ASSETS = [
-  '/',
-  '/blog',
-  '/manifest.json',
-  '/favicon.ico',
-]
+const STATIC_ASSETS = ['/', '/blog', '/manifest.json', '/favicon.ico']
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -20,16 +15,19 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
       // Return cached version or fetch new version
-      return response || fetch(event.request).then((response) => {
-        // Cache new successful responses
-        if (response.ok) {
-          const responseClone = response.clone()
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone)
-          })
-        }
-        return response
-      })
+      return (
+        response ||
+        fetch(event.request).then((response) => {
+          // Cache new successful responses
+          if (response.ok) {
+            const responseClone = response.clone()
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseClone)
+            })
+          }
+          return response
+        })
+      )
     })
   )
 })
@@ -45,4 +43,4 @@ self.addEventListener('activate', (event) => {
       )
     })
   )
-}) 
+})

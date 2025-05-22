@@ -21,4 +21,4 @@ export function FadeIn({ children, delay = 0 }: FadeInProps) {
       {children}
     </MotionDiv>
   )
-} 
+}

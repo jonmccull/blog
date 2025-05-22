@@ -1,13 +1,17 @@
 'use client'
 
-import { motion as m, AnimatePresence } from 'framer-motion'
+import { motion as m } from 'framer-motion'
 
 // Re-export specific components we need
 export const motion = {
   div: m.div,
   article: m.article,
   section: m.section,
-  // Add other motion components as needed
+  h2: m.h2,
+  h3: m.h3,
+  span: m.span,
+  p: m.p,
+  a: m.a,
 }
 
-export { AnimatePresence } 
+export { AnimatePresence } from 'framer-motion'

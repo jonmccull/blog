@@ -1,22 +1,18 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, HTMLMotionProps } from 'framer-motion'
 
 interface MotionDivProps {
   children: React.ReactNode
-  initial?: any
-  animate?: any
-  transition?: any
+  initial?: HTMLMotionProps<'div'>['initial']
+  animate?: HTMLMotionProps<'div'>['animate']
+  transition?: HTMLMotionProps<'div'>['transition']
 }
 
 export default function MotionDiv({ children, initial, animate, transition }: MotionDivProps) {
   return (
-    <motion.div
-      initial={initial}
-      animate={animate}
-      transition={transition}
-    >
+    <motion.div initial={initial} animate={animate} transition={transition}>
       {children}
     </motion.div>
   )
-} 
+}

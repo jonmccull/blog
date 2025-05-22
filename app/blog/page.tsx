@@ -23,7 +23,13 @@ export default async function BlogPage() {
   return (
     <section>
       <h1 className="font-bold text-2xl mb-8 tracking-tighter">Blog</h1>
-      <Suspense fallback={Array(3).fill(0).map((_, i) => <PostSkeleton key={i} />)}>
+      <Suspense
+        fallback={Array(3)
+          .fill(0)
+          .map((_, i) => (
+            <PostSkeleton key={i} />
+          ))}
+      >
         <div className="prose prose-neutral dark:prose-invert">
           {posts.map((post) => (
             <article key={post.slug} className="mb-8">

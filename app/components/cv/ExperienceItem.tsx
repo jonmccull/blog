@@ -1,4 +1,6 @@
-import { motion } from 'framer-motion'
+'use client'
+
+import { motion } from '../motion'
 
 interface ExperienceItemProps {
   position: string
@@ -18,16 +20,9 @@ export function ExperienceItem({
   description,
 }: ExperienceItemProps) {
   return (
-    <motion.div
-      className="mb-6 last:mb-0"
-      whileHover={{ x: 2 }}
-      transition={{ duration: 0.2 }}
-    >
+    <motion.div className="mb-6 last:mb-0" whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
       <div className="flex justify-between items-start mb-1">
-        <motion.h3
-          className="font-semibold text-neutral-900 dark:text-neutral-100"
-          layout
-        >
+        <motion.h3 className="font-semibold text-neutral-900 dark:text-neutral-100" layout>
           {position}
           {company && (
             <>
@@ -68,4 +63,4 @@ export function ExperienceItem({
       )}
     </motion.div>
   )
-} 
+}

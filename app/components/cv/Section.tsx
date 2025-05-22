@@ -1,4 +1,6 @@
-import { motion } from 'framer-motion'
+'use client'
+
+import { motion } from '../motion'
 
 interface SectionProps {
   title: string
@@ -14,13 +16,10 @@ export function Section({ title, children }: SectionProps) {
       viewport={{ once: true }}
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
     >
-      <motion.h2
-        className="font-semibold text-2xl mb-6 tracking-tighter"
-        layout
-      >
+      <motion.h2 className="font-semibold text-2xl mb-6 tracking-tighter" layout>
         {title}
       </motion.h2>
       {children}
     </motion.section>
   )
-} 
+}
