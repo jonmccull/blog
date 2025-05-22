@@ -17,6 +17,7 @@
   --color-grey-04: #dedede;
   --color-underline-links: #2cafed;
   --color-neutral-1: #e4e7ea;
+  --color-neutral-1-dark: #2d2d2d;
   --space-4: 4px;
   --space-8: 8px;
   --radius-md: 4px;
@@ -28,6 +29,7 @@
     --sh-identifier: white;
     --sh-keyword: #f47067;
     --sh-string: #0fa295;
+    --color-neutral-1: var(--color-neutral-1-dark);
   }
   html {
     color-scheme: dark;
@@ -98,10 +100,10 @@ a:focus {
 
 .prose code {
   font-size: 0.8125rem;
-  background-color: #e4e7ea;
   background-color: var(--color-neutral-1);
   padding: 0.25rem;
   border-radius: 8px;
+  @apply text-neutral-800 dark:text-neutral-200;
 }
 
 .prose img {
