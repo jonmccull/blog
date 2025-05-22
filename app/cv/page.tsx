@@ -1,4 +1,4 @@
-import { motion } from '../components/motion'
+import MotionArticle from '../components/cv/MotionArticle'
 import { FadeIn } from '../components/cv/FadeIn'
 import { Section } from '../components/cv/Section'
 import { ExperienceItem } from '../components/cv/ExperienceItem'
@@ -19,7 +19,7 @@ const stagger = {
 
 export default function CVPage() {
   return (
-    <motion.article
+    <MotionArticle
       initial="initial"
       animate="animate"
       variants={stagger}
@@ -117,6 +117,6 @@ export default function CVPage() {
           />
         </Section>
       </FadeIn>
-    </motion.article>
+    </MotionArticle>
   )
 }
