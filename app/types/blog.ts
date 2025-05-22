@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 export type Post = {
   title: string
   date: string
