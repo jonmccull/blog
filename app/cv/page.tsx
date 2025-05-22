@@ -38,7 +38,7 @@ export default function CVPage() {
               href="mailto:hey@jonm.cc"
               className="hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
             >
-              hey@jonm.cc
+              Mail
             </a>
           </div>
         </header>
