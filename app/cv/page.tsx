@@ -1,80 +1,122 @@
-import { JobExperience } from 'app/components/jobs'
+import { Section } from '../components/cv/Section'
+import { ExperienceItem } from '../components/cv/ExperienceItem'
+import { JobExperience } from '../components/jobs'
+import { FadeIn } from '../components/cv/FadeIn'
+import { motion } from 'framer-motion'
 
 export const metadata = {
-  title: 'Jon McCullough - CV'
+  title: 'Jon McCullough - CV',
+  description: 'Product marketing leader with 10+ years of experience in B2C and B2B.',
 }
 
-export default function Page() {
-  return (
-    <section>
-      <h1 className="mb-2 text-2xl font-semibold tracking-tighter">
-        Jon McCullough
-      </h1>
-      <p className="job-dates mb-8 text-neutral-900 dark:text-neutral-100 tracking-tight">
-        <a className="jobListingLink" href="https://www.linkedin.com/in/jonmccullough/">LinkedIn</a> ⋅ <a className="jobListingLink" href="mailto:hey@jonm.cc">hey@jonm.cc</a>
-      </p>
-      <h2 className="font-semibold text-2xl mb-8 tracking-tighter">
-        Profile
-      </h2>
-        <ul className="mb-8">
-          <li>- A natural product marketing leader that brings calm and clarity.</li>
-          <li>- 10+ years of marketing experience across B2C and B2B.</li>
-          <li>- Structured and pragmatic, but highly creative. A data-driven decision maker.</li>
-          <li>- Excellent, empathic communicator that thrives in remote.</li>
-        </ul>
+const stagger = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
 
-      <h2 className="font-semibold text-2xl mb-8 tracking-tighter">
-        Experience
-      </h2>
-        <JobExperience />
-      
-      <h2 className="cv-section-title text-2xl mb-8 font-semibold tracking-tighter">
-        Volunteer & Freelance
-      </h2>
-      
-      <p className="font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums">
-        FOUNDER // MC Consulting</p>
-      <p className="job-dates mb-4 text-neutral-900 dark:text-neutral-100 tracking-tight">
-        Sep 2023 → Present
-      </p>
-        
-      <p className="font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums">
-        AI TRAINER // <a className="jobListingLink" href="https://iris.ai/">Iris AI</a></p>
-      <p className="job-dates mb-4 text-neutral-900 dark:text-neutral-100 tracking-tight">
-        Jun 2016 → Dec 2016
-      </p>
-        
-      <p className="font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums">
-        PROJECT MANAGER // <a className="jobListingLink" href="https://superside.com/">Superside</a></p>
-      <p className="job-dates mb-4 text-neutral-900 dark:text-neutral-100 tracking-tight">
-        Apr 2016 → Oct 2016
-      </p>
-        
-      <p className="font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums">
-        SENIOR DIGITAL ADVISOR // Kry</p>
-      <p className="job-dates mb-8 text-neutral-900 dark:text-neutral-100 tracking-tight">
-        Apr 2016 → Dec 2016
-      </p>
-      
-      <h2 className="cv-section-title text-2xl mb-8 font-semibold tracking-tighter">
-        Education
-      </h2>
-      
-      <p className="font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums">
-        Bachelor's of Science (Biology)</p>
-      University of Victoria, Canada
-      <p className="job-dates mb-4 text-neutral-900 dark:text-neutral-100 tracking-tight">
-        2001 → 2005
-      </p>
-        
-      <p className="font-semibold text-neutral-600 dark:text-neutral-400 tabular-nums">
-        High School Diploma (Honors with Distinction)</p>
-      F.H. Collins Secondary, Canada
-      <p className="job-dates mb-4 text-neutral-900 dark:text-neutral-100 tracking-tight">
-        1997 → 2001
-      </p>
-      
-      
-    </section>
+export default function CVPage() {
+  return (
+    <motion.article
+      initial="initial"
+      animate="animate"
+      variants={stagger}
+      className="max-w-2xl"
+    >
+      {/* Header */}
+      <FadeIn>
+        <header className="mb-12">
+          <h1 className="text-3xl font-bold tracking-tighter mb-2">Jon McCullough</h1>
+          <div className="flex gap-3 text-neutral-700 dark:text-neutral-300">
+            <a
+              href="https://www.linkedin.com/in/jonmccullough/"
+              className="hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            <span>•</span>
+            <a
+              href="mailto:hey@jonm.cc"
+              className="hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+            >
+              hey@jonm.cc
+            </a>
+          </div>
+        </header>
+      </FadeIn>
+
+      {/* Profile */}
+      <FadeIn delay={0.1}>
+        <Section title="Profile">
+          <ul className="space-y-2 text-neutral-700 dark:text-neutral-300">
+            <li>• A natural product marketing leader that brings calm and clarity.</li>
+            <li>• 10+ years of marketing experience across B2C and B2B.</li>
+            <li>• Structured and pragmatic, but highly creative. A data-driven decision maker.</li>
+            <li>• Excellent, empathic communicator that thrives in remote.</li>
+          </ul>
+        </Section>
+      </FadeIn>
+
+      {/* Experience */}
+      <FadeIn delay={0.2}>
+        <Section title="Experience">
+          <JobExperience />
+        </Section>
+      </FadeIn>
+
+      {/* Volunteer & Freelance */}
+      <FadeIn delay={0.3}>
+        <Section title="Volunteer & Freelance">
+          <ExperienceItem
+            position="Founder"
+            company="MC Consulting"
+            startDate="Sep 2023"
+            endDate="Present"
+          />
+          <ExperienceItem
+            position="AI Trainer"
+            company="Iris AI"
+            companyLink="https://iris.ai/"
+            startDate="Jun 2016"
+            endDate="Dec 2016"
+          />
+          <ExperienceItem
+            position="Project Manager"
+            company="Superside"
+            companyLink="https://superside.com/"
+            startDate="Apr 2016"
+            endDate="Oct 2016"
+          />
+          <ExperienceItem
+            position="Senior Digital Advisor"
+            company="Kry"
+            startDate="Apr 2016"
+            endDate="Dec 2016"
+          />
+        </Section>
+      </FadeIn>
+
+      {/* Education */}
+      <FadeIn delay={0.4}>
+        <Section title="Education">
+          <ExperienceItem
+            position="Bachelor's of Science (Biology)"
+            company="University of Victoria, Canada"
+            startDate="2001"
+            endDate="2005"
+          />
+          <ExperienceItem
+            position="High School Diploma (Honors with Distinction)"
+            company="F.H. Collins Secondary, Canada"
+            startDate="1997"
+            endDate="2001"
+          />
+        </Section>
+      </FadeIn>
+    </motion.article>
   )
 }
