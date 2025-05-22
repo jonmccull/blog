@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 export type Post = {
   title: string
   date: string
@@ -7,9 +9,18 @@ export type Post = {
   slug: string
 }
 
+type SearchParams = { [key: string]: string | string[] | undefined }
+
 export type BlogParams = {
   params: { slug: string }
-  searchParams?: { [key: string]: string | string[] | undefined }
+  searchParams?: SearchParams
 }
 
-export type BlogPageProps = BlogParams 
+export type GenerateMetadata = (props: BlogParams) => Promise<Metadata>
+
+export type PageProps<P = {}, SP = {}> = {
+  params: P
+  searchParams: SP
+}
+
+export type BlogPageProps = PageProps<{ slug: string }, SearchParams> 
