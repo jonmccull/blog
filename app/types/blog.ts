@@ -9,18 +9,14 @@ export type Post = {
   slug: string
 }
 
-type SearchParams = { [key: string]: string | string[] | undefined }
-
 export type BlogParams = {
   params: { slug: string }
-  searchParams?: SearchParams
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
 export type GenerateMetadata = (props: BlogParams) => Promise<Metadata>
 
-export type PageProps<P = {}, SP = {}> = {
-  params: P
-  searchParams: SP
-}
-
-export type BlogPageProps = PageProps<{ slug: string }, SearchParams> 
+export type BlogPageProps = {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+} 

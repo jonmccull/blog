@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getPostBySlug, getAllPosts } from '../../lib/blog'
 import { mdxComponents } from '../../components/mdx-components'
-import type { Post, BlogPageProps, GenerateMetadata } from '../../types/blog'
+import type { Post, GenerateMetadata } from '../../types/blog'
 
 export async function generateStaticParams() {
   const posts = await getAllPosts()
@@ -38,7 +38,11 @@ function formatDate(date: string) {
   })
 }
 
-export default async function BlogPost({ params }: BlogPageProps) {
+export default async function BlogPost({
+  params,
+}: {
+  params: { slug: string }
+}) {
   const post = await getPostBySlug(params.slug)
 
   if (!post) {
@@ -55,7 +59,6 @@ export default async function BlogPost({ params }: BlogPageProps) {
         <span>•</span>
         <span>{readingTime}</span>
       </div>
-      {/* @ts-expect-error - MDXRemote types are not properly set up for RSC */}
       <MDXRemote source={content} components={mdxComponents} />
     </article>
   )
