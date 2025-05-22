@@ -3,10 +3,18 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getPostBySlug, getAllPosts } from '../../lib/blog'
 import Image from '../../components/Image'
 
-interface Props {
-  params: {
-    slug: string
-  }
+type Post = {
+  title: string
+  date: string
+  readingTime: string
+  content: string
+  excerpt: string
+  slug: string
+}
+
+type Props = {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 const components = {
@@ -47,21 +55,24 @@ export default async function BlogPost({ params }: Props) {
     notFound()
   }
 
+  const { title, date, readingTime, content } = post as Post
+
   return (
     <article className="prose prose-neutral dark:prose-invert">
-      <h1 className="font-bold tracking-tighter">{post.title}</h1>
+      <h1 className="font-bold tracking-tighter">{title}</h1>
       <div className="flex gap-3 items-center text-sm text-neutral-600 dark:text-neutral-400 mb-8">
-        <time dateTime={post.date}>
-          {new Date(post.date).toLocaleDateString('en-US', {
+        <time dateTime={date}>
+          {new Date(date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
           })}
         </time>
         <span>•</span>
-        <span>{post.readingTime}</span>
+        <span>{readingTime}</span>
       </div>
-      <MDXRemote source={post.content} components={components} />
+      {/* @ts-expect-error - MDXRemote types are not properly set up for RSC */}
+      <MDXRemote source={content} components={components} />
     </article>
   )
 }
