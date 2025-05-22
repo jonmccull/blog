@@ -8,8 +8,8 @@ export default function HomePage() {
     <div className="max-w-2xl">
       <h1 className="text-3xl font-bold tracking-tighter mb-8">Jon McCullough</h1>
       <p className="prose dark:prose-invert mb-8">
-        I&apos;m a Canadian product marketer based in Norway, and now I&apos;m a Product Marketer at Doist,
-        working on taking a market-leading todo list app,{' '}
+        I&apos;m a Canadian product marketer based in Norway, currently working at Doist,
+        makers of {' '}
         <a
           href="https://www.todoist.com/"
           className="hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
@@ -17,8 +17,7 @@ export default function HomePage() {
           rel="noopener noreferrer"
         >
           Todoist
-        </a>
-        , to new heights.{' '}
+        </a>{' '}
       </p>
     </div>
   )
