@@ -19,7 +19,6 @@ export default function HomePage() {
           Todoist
         </a>
         , to new heights.{' '}
-        <a href="mailto:hey@jonm.cc">Mail</a>
       </p>
     </div>
   )
