@@ -2,14 +2,14 @@ import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getPostBySlug, getAllPosts } from '../../lib/blog'
 import { mdxComponents } from '../../components/mdx-components'
-import type { Post, BlogPageProps } from '../../types/blog'
+import type { Post, BlogParams } from '../../types/blog'
 
 export async function generateStaticParams() {
   const posts = await getAllPosts()
   return posts.map(({ slug }) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: BlogPageProps) {
+export async function generateMetadata({ params }: BlogParams) {
   const post = await getPostBySlug(params.slug)
 
   if (!post) {
@@ -38,7 +38,7 @@ function formatDate(date: string) {
   })
 }
 
-export default async function BlogPost({ params }: BlogPageProps) {
+export default async function BlogPost({ params }: BlogParams) {
   const post = await getPostBySlug(params.slug)
 
   if (!post) {

@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 export type Post = {
   title: string
   date: string
@@ -7,7 +9,9 @@ export type Post = {
   slug: string
 }
 
-export type BlogPageProps = {
+export type BlogParams = {
   params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-} 
+  searchParams?: { [key: string]: string | string[] | undefined }
+}
+
+export type BlogPageProps = BlogParams 
