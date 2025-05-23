@@ -21,7 +21,7 @@ export default function Footer() {
     <footer className="mt-12 mb-16 flex flex-col items-start">
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-sm text-neutral-600 dark:text-neutral-400">
         <a
-          className="group flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+          className="footer-link group flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
           rel="noopener noreferrer"
           target="_blank"
           href="/rss"
@@ -30,7 +30,7 @@ export default function Footer() {
           <ArrowIcon />
         </a>
         <a
-          className="group flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+          className="footer-link group flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
           rel="noopener noreferrer"
           target="_blank"
           href="https://github.com/jonmccull/blog/"
