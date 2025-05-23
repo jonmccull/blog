@@ -22,7 +22,7 @@ export default async function BlogPage() {
 
   return (
     <section>
-      <h1 className="font-bold text-2xl mb-8 tracking-tighter">Blog</h1>
+      <h1 className="font-bold text-2xl mb-8 tracking-tighter text-neutral-900 dark:text-neutral-100">Blog</h1>
       <Suspense
         fallback={Array(3)
           .fill(0)
@@ -35,10 +35,12 @@ export default async function BlogPage() {
             <article key={post.slug} className="mb-8">
               <Link
                 href={`/blog/${post.slug}`}
-                className="no-underline hover:text-neutral-800 dark:hover:text-neutral-200"
+                className="no-underline group"
                 prefetch={true}
               >
-                <h2 className="font-bold text-xl mb-2 tracking-tight">{post.title}</h2>
+                <h2 className="font-bold text-xl mb-2 tracking-tight text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-800 dark:group-hover:text-neutral-200">
+                  {post.title}
+                </h2>
                 <p className="text-neutral-600 dark:text-neutral-400 mb-1">{post.excerpt}</p>
                 <div className="flex gap-3 items-center text-sm text-neutral-600 dark:text-neutral-400">
                   <time dateTime={post.date}>

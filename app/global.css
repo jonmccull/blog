@@ -1,7 +1,31 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply min-h-full;
+  }
+
+  #__next {
+    @apply min-h-full;
+  }
+
+  body {
+    @apply transition-colors duration-200;
+  }
+  
+  a {
+    @apply transition-colors duration-200;
+  }
+}
 
 ::selection {
-  background-color: #fffeb1;
+  @apply bg-yellow-100 dark:bg-yellow-800;
 }
 
 :root {
@@ -90,20 +114,15 @@ a:focus {
 }
 
 .prose pre {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
+  @apply bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-700;
 }
 
 .prose pre code {
-  @apply px-1 py-0.5 rounded-lg;
-  padding: 0;
+  @apply bg-transparent border-0 p-0;
 }
 
 .prose code {
-  font-size: 0.8125rem;
-  background-color: var(--color-neutral-1);
-  padding: 0.25rem;
-  border-radius: 8px;
-  @apply text-neutral-800 dark:text-neutral-200;
+  @apply text-neutral-900 dark:text-neutral-100 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded-md text-[0.875em] font-normal border border-neutral-200 dark:border-neutral-700;
 }
 
 .prose img {
