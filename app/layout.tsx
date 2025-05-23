@@ -1,14 +1,13 @@
-import './global.css'
+import './styles/base.css'
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 import JsonLd from './components/JsonLd'
 import Script from 'next/script'
+import Providers from './components/Providers'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -90,15 +89,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={websiteSchema} />
       </head>
       <body className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 antialiased h-full">
-        <div className="max-w-xl mx-4 mt-8 lg:mx-auto">
-          <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-            <Navbar />
-            {children}
-            <Footer />
-            <Analytics />
-            <SpeedInsights />
-          </main>
-        </div>
+        <Providers>
+          <div className="max-w-xl mx-4 mt-8 lg:mx-auto">
+            <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+              <Navbar />
+              {children}
+              <Footer />
+            </main>
+          </div>
+        </Providers>
         <Script
           id="register-sw"
           strategy="afterInteractive"
