@@ -53,7 +53,8 @@ export const metadata: Metadata = {
   },
 }
 
-const cx = (...classes) => classes.filter(Boolean).join(' ')
+const cx = (...classes: (string | boolean | undefined | null)[]): string =>
+  classes.filter(Boolean).join(' ')
 
 const websiteSchema = {
   '@context': 'https://schema.org',
@@ -75,14 +76,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={cx(
-        'h-full',
-        GeistSans.variable,
-        GeistMono.variable
-      )}
-    >
+    <html lang="en" className={cx('h-full', GeistSans.variable, GeistMono.variable)}>
       <head>
         <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
         <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />

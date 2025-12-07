@@ -1,4 +1,4 @@
-import { getBlogPosts } from 'app/blog/utils'
+import { getBlogPosts } from 'app/lib/mdx'
 
 export const baseUrl = 'https://www.jonm.cc'
 

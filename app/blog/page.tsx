@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getAllPosts } from '../lib/blog'
+import { getAllPosts } from '../lib/mdx'
 import { Suspense } from 'react'
 
 export const metadata = {
@@ -22,7 +22,9 @@ export default async function BlogPage() {
 
   return (
     <section>
-      <h1 className="font-bold text-2xl mb-8 tracking-tighter text-neutral-900 dark:text-neutral-100">Blog</h1>
+      <h1 className="font-bold text-2xl mb-8 tracking-tighter text-neutral-900 dark:text-neutral-100">
+        Blog
+      </h1>
       <Suspense
         fallback={Array(3)
           .fill(0)
@@ -33,11 +35,7 @@ export default async function BlogPage() {
         <div className="prose prose-neutral dark:prose-invert">
           {posts.map((post) => (
             <article key={post.slug} className="mb-8">
-              <Link
-                href={`/blog/${post.slug}`}
-                className="no-underline group"
-                prefetch={true}
-              >
+              <Link href={`/blog/${post.slug}`} className="no-underline group" prefetch={true}>
                 <h2 className="font-bold text-xl mb-2 tracking-tight text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-800 dark:group-hover:text-neutral-200">
                   {post.title}
                 </h2>

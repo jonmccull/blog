@@ -8,15 +8,11 @@ export default function HomePage() {
     <div className="max-w-2xl home-content">
       <h1 className="text-3xl font-bold tracking-tighter mb-8">Jon McCullough</h1>
       <p className="prose dark:prose-invert mb-8">
-        I&apos;m a Canadian product marketer based in Norway, currently working at Doist,
-        makers of {' '}
-        <a
-          href="https://www.todoist.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        I&apos;m a Canadian product marketer based in Norway, currently working at Doist, makers of{' '}
+        <a href="https://www.todoist.com/" target="_blank" rel="noopener noreferrer">
           Todoist
-        </a>{' '}.
+        </a>{' '}
+        .
       </p>
       <div className="flex gap-3 text-neutral-700 dark:text-neutral-300">
         <a

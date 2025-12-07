@@ -1,8 +1,8 @@
 import { ExperienceItem } from './cv/ExperienceItem'
-import { formatDate, getJobs } from 'app/cv/utils'
+import { formatCVDate, getCVJobs } from 'app/lib/mdx'
 
 export function JobExperience() {
-  const allJobs = getJobs()
+  const allJobs = getCVJobs()
 
   return (
     <div className="space-y-6">
@@ -19,8 +19,8 @@ export function JobExperience() {
             position={job.metadata.position}
             company={job.metadata.title}
             companyLink={job.metadata.companyLink}
-            startDate={formatDate(job.metadata.startDate, false)}
-            endDate={formatDate(job.metadata.endDate, false)}
+            startDate={formatCVDate(job.metadata.startDate, false)}
+            endDate={formatCVDate(job.metadata.endDate, false)}
             description={job.metadata.description}
           />
         ))}

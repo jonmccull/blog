@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./app/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: 'class',
   theme: {
     extend: {
@@ -11,10 +8,10 @@ module.exports = {
         DEFAULT: {
           css: {
             'code::before': {
-              content: '""'
+              content: '""',
             },
             'code::after': {
-              content: '""'
+              content: '""',
             },
             code: {
               color: 'var(--tw-prose-code)',
@@ -25,7 +22,7 @@ module.exports = {
               paddingBottom: '0.25rem',
               paddingLeft: '0.375rem',
             },
-          }
+          },
         },
         invert: {
           css: {
@@ -48,12 +45,10 @@ module.exports = {
             '--tw-prose-pre-border': 'var(--tw-prose-invert-pre-border)',
             '--tw-prose-th-borders': 'var(--tw-prose-invert-th-borders)',
             '--tw-prose-td-borders': 'var(--tw-prose-invert-td-borders)',
-          }
-        }
-      }
+          },
+        },
+      },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
-} 
+  plugins: [require('@tailwindcss/typography')],
+}

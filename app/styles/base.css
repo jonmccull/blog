@@ -46,7 +46,7 @@
     --transition-fast: 200ms;
     --transition-normal: 300ms;
     --transition-slow: 500ms;
-    
+
     /* Link styling */
     --link-underline-width: 0.1em;
     --link-underline-color: var(--color-primary);
@@ -74,7 +74,9 @@
 
   body {
     min-height: 100%;
-    transition: background-color var(--transition-normal), color var(--transition-normal);
+    transition:
+      background-color var(--transition-normal),
+      color var(--transition-normal);
   }
 
   a {
@@ -219,7 +221,9 @@
   transform: scaleX(0);
   transform-origin: center;
   opacity: var(--link-underline-opacity);
-  transition: transform var(--transition-normal) ease, opacity var(--transition-normal) ease;
+  transition:
+    transform var(--transition-normal) ease,
+    opacity var(--transition-normal) ease;
 }
 
 .nav-link:hover::after,
@@ -248,4 +252,4 @@
 .home-content a:focus {
   opacity: 1;
   color: var(--color-primary);
-} 
+}

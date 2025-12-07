@@ -1,5 +1,5 @@
 import { baseUrl } from '../sitemap'
-import { getAllPosts } from '../lib/blog'
+import { getAllPosts } from '../lib/mdx'
 
 export async function GET() {
   const posts = await getAllPosts()
