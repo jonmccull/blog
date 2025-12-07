@@ -1,9 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import { Navbar } from '../nav'
+import { ThemeProvider } from '../../context/ThemeContext'
 
 describe('Navbar', () => {
   it('renders navigation links', () => {
-    render(<Navbar />)
+    render(
+      <ThemeProvider>
+        <Navbar />
+      </ThemeProvider>
+    )
 
     // Check if home link is present
     const homeLink = screen.getByRole('link', { name: /home page/i })
@@ -17,7 +22,11 @@ describe('Navbar', () => {
   })
 
   it('has proper accessibility attributes', () => {
-    render(<Navbar />)
+    render(
+      <ThemeProvider>
+        <Navbar />
+      </ThemeProvider>
+    )
 
     const nav = screen.getByRole('navigation', { name: /main navigation/i })
     expect(nav).toBeInTheDocument()
