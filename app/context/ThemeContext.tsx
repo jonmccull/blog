@@ -1,6 +1,13 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+  useCallback,
+} from 'react'
 
 type Theme = 'light' | 'dark'
 
@@ -12,17 +19,47 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
+function getThemeSnapshot(): Theme {
+  const stored = localStorage.getItem('theme')
+  const isDark =
+    stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  return isDark ? 'dark' : 'light'
+}
+
+function getServerSnapshot(): Theme {
+  return 'light'
+}
+
+function subscribeToTheme(callback: () => void): () => void {
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  mediaQuery.addEventListener('change', callback)
+  window.addEventListener('storage', callback)
+  return () => {
+    mediaQuery.removeEventListener('change', callback)
+    window.removeEventListener('storage', callback)
+  }
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light')
+  const externalTheme = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, getServerSnapshot)
+  const [theme, setThemeState] = useState<Theme>(externalTheme)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    const stored = localStorage.getItem('theme')
-    const isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    setTheme(isDark ? 'dark' : 'light')
-    if (isDark) {
+  }, [])
+
+  useEffect(() => {
+    setThemeState(externalTheme)
+  }, [externalTheme])
+
+  const setTheme = useCallback((newTheme: Theme) => {
+    setThemeState(newTheme)
+    localStorage.setItem('theme', newTheme)
+    if (newTheme === 'dark') {
       document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
     }
   }, [])
 
@@ -30,17 +67,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (!mounted) return
     if (theme === 'dark') {
       document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
     } else {
       document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
     }
   }, [theme, mounted])
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, mounted }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={{ theme, setTheme, mounted }}>{children}</ThemeContext.Provider>
   )
 }
 
@@ -50,4 +83,4 @@ export function useTheme() {
     throw new Error('useTheme must be used within a ThemeProvider')
   }
   return context
-} 
+}

@@ -1,15 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import type { Post } from '../types/blog'
 
-export type Post = {
-  title: string
-  date: string
-  excerpt: string
-  slug: string
-  content: string
-  readingTime: string
-}
+export type { Post }
 
 const postsDirectory = path.join(process.cwd(), 'content/blog')
 

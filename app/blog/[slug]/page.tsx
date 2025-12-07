@@ -2,15 +2,21 @@ import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getPostBySlug, getAllPosts } from '../../lib/blog'
 import { mdxComponents } from '../../components/mdx-components'
-import type { Post, GenerateMetadata } from '../../types/blog'
+import type { Post } from '../../types/blog'
+import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
   const posts = await getAllPosts()
   return posts.map(({ slug }) => ({ slug }))
 }
 
-export const generateMetadata: GenerateMetadata = async ({ params }) => {
-  const post = await getPostBySlug(params.slug)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const post = await getPostBySlug(slug)
 
   if (!post) {
     return {}
@@ -38,12 +44,9 @@ function formatDate(date: string) {
   })
 }
 
-export default async function BlogPost({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const post = await getPostBySlug(params.slug)
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getPostBySlug(slug)
 
   if (!post) {
     notFound()

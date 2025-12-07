@@ -1,20 +1,40 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useSyncExternalStore } from 'react'
+
+function getThemeSnapshot(): 'light' | 'dark' {
+  const stored = localStorage.getItem('theme')
+  const isDark =
+    stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  return isDark ? 'dark' : 'light'
+}
+
+function getServerSnapshot(): 'light' | 'dark' {
+  return 'light'
+}
+
+function subscribeToTheme(callback: () => void): () => void {
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  mediaQuery.addEventListener('change', callback)
+  window.addEventListener('storage', callback)
+  return () => {
+    mediaQuery.removeEventListener('change', callback)
+    window.removeEventListener('storage', callback)
+  }
+}
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const externalTheme = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, getServerSnapshot)
+  const [theme, setThemeState] = useState<'light' | 'dark'>(externalTheme)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    const stored = localStorage.getItem('theme')
-    const isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    setTheme(isDark ? 'dark' : 'light')
-    if (isDark) {
-      document.documentElement.classList.add('dark')
-    }
   }, [])
+
+  useEffect(() => {
+    setThemeState(externalTheme)
+  }, [externalTheme])
 
   useEffect(() => {
     if (!mounted) return
@@ -27,6 +47,12 @@ export default function ThemeToggle() {
     }
   }, [theme, mounted])
 
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    setThemeState(newTheme)
+    localStorage.setItem('theme', newTheme)
+  }
+
   if (!mounted) {
     return null
   }
@@ -36,7 +62,7 @@ export default function ThemeToggle() {
       aria-label="Toggle Dark Mode"
       type="button"
       className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800 ring-neutral-400/50 transition-all duration-200 hover:ring-2 hover:bg-neutral-200 dark:hover:bg-neutral-700"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={toggleTheme}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
