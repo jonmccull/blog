@@ -1,60 +1,16 @@
 'use client'
 
-import { useEffect, useState, useSyncExternalStore } from 'react'
-
-function getThemeSnapshot(): 'light' | 'dark' {
-  const stored = localStorage.getItem('theme')
-  const isDark =
-    stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  return isDark ? 'dark' : 'light'
-}
-
-function getServerSnapshot(): 'light' | 'dark' {
-  return 'light'
-}
-
-function subscribeToTheme(callback: () => void): () => void {
-  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-  mediaQuery.addEventListener('change', callback)
-  window.addEventListener('storage', callback)
-  return () => {
-    mediaQuery.removeEventListener('change', callback)
-    window.removeEventListener('storage', callback)
-  }
-}
+import { useTheme } from '../context/ThemeContext'
 
 export default function ThemeToggle() {
-  const externalTheme = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, getServerSnapshot)
-  const [theme, setThemeState] = useState<'light' | 'dark'>(externalTheme)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  useEffect(() => {
-    setThemeState(externalTheme)
-  }, [externalTheme])
-
-  useEffect(() => {
-    if (!mounted) return
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
-  }, [theme, mounted])
+  const { theme, setTheme, mounted } = useTheme()
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
-    setThemeState(newTheme)
-    localStorage.setItem('theme', newTheme)
+    setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
   if (!mounted) {
-    return null
+    return <div className="h-9 w-9" />
   }
 
   return (
