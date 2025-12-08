@@ -12,17 +12,25 @@ self.addEventListener('install', (event) => {
 })
 
 self.addEventListener('fetch', (event) => {
+  const { request } = event
+  const url = new URL(request.url)
+
+  // Only handle GET requests with http/https schemes
+  if (request.method !== 'GET' || !url.protocol.startsWith('http')) {
+    return
+  }
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
+    caches.match(request).then((response) => {
       // Return cached version or fetch new version
       return (
         response ||
-        fetch(event.request).then((response) => {
+        fetch(request).then((response) => {
           // Cache new successful responses
           if (response.ok) {
             const responseClone = response.clone()
             caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseClone)
+              cache.put(request, responseClone)
             })
           }
           return response
