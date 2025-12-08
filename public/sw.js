@@ -1,7 +1,7 @@
 const CACHE_NAME = 'blog-cache-v1'
 
 // Assets to cache
-const STATIC_ASSETS = ['/', '/blog', '/manifest.json', '/favicon.ico']
+const STATIC_ASSETS = ['/', '/blog']
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
