@@ -258,7 +258,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     postCache[slug] = post
 
     return post
-  } catch {
+  } catch (error) {
+    console.error(`[mdx] Failed to load post "${slug}":`, error)
     return null
   }
 }
