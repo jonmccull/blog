@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export const metadata = {
   title: 'Jon McCullough',
   description: 'Product marketing leader with 10+ years of experience in B2C and B2B.',
@@ -15,9 +17,12 @@ export default function HomePage() {
         .
       </p>
       <div className="flex gap-3 text-neutral-700 dark:text-neutral-300">
-        <a href="/cv" className="link-underline hover:text-neutral-900 dark:hover:text-neutral-100">
+        <Link
+          href="/cv"
+          className="link-underline hover:text-neutral-900 dark:hover:text-neutral-100"
+        >
           CV
-        </a>
+        </Link>
         <span>•</span>
         <a
           href="https://www.linkedin.com/in/jonmccullough/"
