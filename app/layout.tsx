@@ -85,10 +85,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                document.documentElement.classList.add('no-transitions');
                 var theme = localStorage.getItem('theme');
                 if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                   document.documentElement.classList.add('dark');
                 }
+                requestAnimationFrame(function() {
+                  requestAnimationFrame(function() {
+                    document.documentElement.classList.remove('no-transitions');
+                  });
+                });
               })();
             `,
           }}

@@ -79,6 +79,12 @@
       color var(--transition-normal);
   }
 
+  /* Disable transitions on initial load to prevent flash */
+  .no-transitions,
+  .no-transitions * {
+    transition: none !important;
+  }
+
   a {
     transition: color var(--transition-normal);
   }
