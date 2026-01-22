@@ -30,7 +30,7 @@ export function ExperienceItem({
               {companyLink ? (
                 <motion.a
                   href={companyLink}
-                  className="hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.01 }}
