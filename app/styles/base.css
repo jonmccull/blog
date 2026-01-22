@@ -240,6 +240,35 @@
   opacity: 0.4;
 }
 
+/* Reusable animated underline link style */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+  transition: all var(--transition-normal) ease;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: var(--link-underline-width);
+  background: currentColor;
+  left: 0;
+  bottom: -0.1em;
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: var(--link-underline-opacity);
+  transition:
+    transform var(--transition-normal) ease,
+    opacity var(--transition-normal) ease;
+}
+
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  transform: scaleX(1);
+  opacity: 0.4;
+}
+
 /* Home page link styles */
 .home-content a {
   color: inherit;
