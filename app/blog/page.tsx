@@ -1,10 +1,20 @@
 import Link from 'next/link'
-import { getAllPosts } from '../lib/mdx'
+import { getAllPosts, getPortfolioProjects } from '../lib/mdx'
 import { Suspense } from 'react'
 
 export const metadata = {
   title: 'Blog',
   description: 'Read my thoughts on product marketing, technology, and life in Norway.',
+}
+
+type FeedItem = {
+  type: 'post' | 'portfolio'
+  slug: string
+  title: string
+  subtitle?: string
+  excerpt: string
+  date: string
+  readingTime?: string
 }
 
 function PostSkeleton() {
@@ -19,6 +29,32 @@ function PostSkeleton() {
 
 export default async function BlogPage() {
   const posts = await getAllPosts()
+  const portfolioProjects = getPortfolioProjects()
+
+  // Create unified feed
+  const feedItems: FeedItem[] = [
+    ...posts.map((post) => ({
+      type: 'post' as const,
+      slug: post.slug,
+      title: post.title,
+      excerpt: post.excerpt,
+      date: post.date,
+      readingTime: post.readingTime,
+    })),
+    ...portfolioProjects.map((project) => ({
+      type: 'portfolio' as const,
+      slug: project.slug,
+      title: project.metadata.title,
+      subtitle: project.metadata.subtitle,
+      excerpt: project.metadata.summary,
+      date: project.metadata.date,
+    })),
+  ]
+
+  // Sort by date, newest first
+  const sortedFeed = feedItems.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
 
   return (
     <section>
@@ -33,23 +69,30 @@ export default async function BlogPage() {
           ))}
       >
         <div className="prose prose-neutral dark:prose-invert">
-          {posts.map((post) => (
-            <article key={post.slug} className="mb-8">
-              <Link href={`/blog/${post.slug}`} className="no-underline group" prefetch={true}>
-                <h2 className="font-bold text-xl mb-2 tracking-tight text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-800 dark:group-hover:text-neutral-200">
-                  {post.title}
+          {sortedFeed.map((item) => (
+            <article key={`${item.type}-${item.slug}`} className="mb-8">
+              <Link
+                href={item.type === 'post' ? `/blog/${item.slug}` : `/portfolio/${item.slug}`}
+                className="no-underline group"
+                prefetch={true}
+              >
+                <h2 className="font-bold text-xl mb-1 tracking-tight text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-800 dark:group-hover:text-neutral-200">
+                  {item.title}
                 </h2>
-                <p className="text-neutral-600 dark:text-neutral-400 mb-1">{post.excerpt}</p>
                 <div className="flex gap-3 items-center text-sm text-neutral-600 dark:text-neutral-400">
-                  <time dateTime={post.date}>
-                    {new Date(post.date).toLocaleDateString('en-US', {
+                  <time dateTime={item.date}>
+                    {new Date(item.date).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric',
                     })}
                   </time>
-                  <span>•</span>
-                  <span>{post.readingTime}</span>
+                  {(item.readingTime || item.subtitle) && (
+                    <>
+                      <span>•</span>
+                      <span>{item.readingTime || item.subtitle}</span>
+                    </>
+                  )}
                 </div>
               </Link>
             </article>

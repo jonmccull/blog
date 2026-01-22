@@ -18,6 +18,14 @@ export type CVMetadata = {
   description: string
 }
 
+export type PortfolioMetadata = {
+  title: string
+  subtitle: string
+  date: string
+  summary: string
+  image?: string
+}
+
 export type MDXData<T> = {
   metadata: T
   slug: string
@@ -26,6 +34,7 @@ export type MDXData<T> = {
 
 export type BlogPost = MDXData<BlogMetadata>
 export type CVJob = MDXData<CVMetadata>
+export type PortfolioProject = MDXData<PortfolioMetadata>
 
 // Shared frontmatter parser
 export function parseFrontmatter<T = Record<string, string>>(
@@ -94,6 +103,27 @@ export function getBlogPosts(): BlogPost[] {
 // CV-specific functions
 export function getCVJobs(): CVJob[] {
   return getMDXData<CVMetadata>(path.join(process.cwd(), 'app', 'cv', 'jobs'))
+}
+
+// Portfolio-specific functions
+export function getPortfolioProjects(): PortfolioProject[] {
+  return getMDXData<PortfolioMetadata>(path.join(process.cwd(), 'content', 'portfolio'))
+}
+
+export function getPortfolioProject(slug: string): PortfolioProject | null {
+  try {
+    const fullPath = path.join(process.cwd(), 'content', 'portfolio', `${slug}.mdx`)
+    const { metadata, content } = readMDXFile<PortfolioMetadata>(fullPath)
+
+    return {
+      metadata,
+      slug,
+      content,
+    }
+  } catch (error) {
+    console.error(`[mdx] Failed to load portfolio project "${slug}":`, error)
+    return null
+  }
 }
 
 // Date formatting utilities

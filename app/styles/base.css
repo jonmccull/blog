@@ -289,6 +289,196 @@
   color: var(--color-primary);
 }
 
+/* Portfolio wrapper - breaks out of narrow parent container */
+.portfolio-wrapper {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Portfolio container - wider layout for portfolio pages */
+.portfolio-container {
+  max-width: 896px; /* max-w-4xl equivalent */
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .portfolio-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Portfolio page styles */
+.portfolio-page {
+  max-width: 100%;
+}
+
+.portfolio-content h2 {
+  @apply text-xl font-semibold tracking-tight mt-0 mb-4;
+}
+
+.portfolio-content p {
+  @apply text-base leading-relaxed;
+}
+
+/* Two-column layout for Overview/Approach */
+.portfolio-two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 640px) {
+  .portfolio-two-col {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.portfolio-two-col h2 {
+  @apply text-lg font-semibold mb-4 mt-0;
+}
+
+.portfolio-two-col p {
+  @apply text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed mb-4;
+}
+
+.portfolio-two-col p:last-child {
+  @apply mb-0;
+}
+
+/* Video container */
+.portfolio-video {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  margin: 2.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-neutral-100);
+}
+
+.dark .portfolio-video {
+  background: var(--color-neutral-800);
+}
+
+.portfolio-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Two-column bullet list */
+.portfolio-list-two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem 2rem;
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .portfolio-list-two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.portfolio-list-two-col li {
+  @apply text-neutral-600 dark:text-neutral-300 text-sm;
+}
+
+/* Portfolio images */
+.portfolio-images {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.portfolio-images img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.dark .portfolio-images img {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Image slideshow */
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  margin: 2rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.slideshow-track {
+  display: flex;
+}
+
+.slideshow-image {
+  width: 100%;
+  flex-shrink: 0;
+  display: block;
+}
+
+.slideshow-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.slideshow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.slideshow-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.slideshow-dot.active {
+  background: white;
+}
+
+/* Animated layout container - expands on portfolio pages */
+.layout-container {
+  width: 100%;
+  transition: max-width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.layout-narrow {
+  max-width: 36rem; /* max-w-xl equivalent */
+}
+
+.layout-wide {
+  max-width: 56rem; /* max-w-4xl equivalent */
+}
+
 /* Reduced motion support for accessibility (WCAG 2.3.3) */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -304,5 +494,10 @@
   .animate-pulse {
     animation: none;
     opacity: 0.6;
+  }
+
+  /* Disable layout animation for reduced motion */
+  .layout-container {
+    transition: none;
   }
 }

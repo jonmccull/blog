@@ -8,6 +8,7 @@ import { baseUrl } from './sitemap'
 import JsonLd from './components/JsonLd'
 import Script from 'next/script'
 import Providers from './components/Providers'
+import AnimatedContainer from './components/AnimatedContainer'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -109,13 +110,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <Providers>
-          <div className="max-w-xl mx-4 mt-8 lg:mx-auto">
+          <AnimatedContainer className="mx-4 mt-8 lg:mx-auto">
             <main id="main-content" className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
               <Navbar />
               {children}
               <Footer />
             </main>
-          </div>
+          </AnimatedContainer>
         </Providers>
         <Script
           id="register-sw"
