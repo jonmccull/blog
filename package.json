@@ -20,7 +20,6 @@
     "@vercel/speed-insights": "^1.0.10",
     "framer-motion": "^12.12.1",
     "geist": "1.4.2",
-    "gray-matter": "^4.0.3",
     "next": "^16.0.9",
     "next-mdx-remote": "^5.0.0",
     "postcss": "^8.4.38",

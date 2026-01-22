@@ -6,9 +6,11 @@ import { useState } from 'react'
 type ImageProps = {
   alt: string
   caption?: string
-} & Omit<NextImageProps, 'alt'>
+  /** Set to true for above-fold images to prioritize loading */
+  priority?: boolean
+} & Omit<NextImageProps, 'alt' | 'priority'>
 
-export default function Image({ alt, caption, ...props }: ImageProps) {
+export default function Image({ alt, caption, priority = false, ...props }: ImageProps) {
   const [isLoading, setLoading] = useState(true)
 
   return (
@@ -25,6 +27,9 @@ export default function Image({ alt, caption, ...props }: ImageProps) {
           `}
           onLoadingComplete={() => setLoading(false)}
           alt={alt}
+          priority={priority}
+          quality={85}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 672px"
           {...props}
         />
       </div>
