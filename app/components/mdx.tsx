@@ -3,6 +3,7 @@ import Image, { ImageProps } from 'next/image'
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React, { ReactNode } from 'react'
+import ImageSlideshow from './ImageSlideshow'
 
 interface TableData {
   headers: string[]
@@ -100,6 +101,7 @@ const components = {
   a: CustomLink,
   code: Code,
   Table,
+  ImageSlideshow,
 }
 
 export function CustomMDX(props: MDXRemoteProps) {

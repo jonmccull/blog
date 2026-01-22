@@ -1,4 +1,4 @@
-import { getBlogPosts } from 'app/lib/mdx'
+import { getBlogPosts, getPortfolioProjects } from 'app/lib/mdx'
 
 export const baseUrl = 'https://www.jonm.cc'
 
@@ -8,10 +8,15 @@ export default async function sitemap() {
     lastModified: post.metadata.date,
   }))
 
+  const portfolio = getPortfolioProjects().map((project) => ({
+    url: `${baseUrl}/portfolio/${project.slug}`,
+    lastModified: project.metadata.date,
+  }))
+
   const routes = ['', '/blog', '/cv'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }))
 
-  return [...routes, ...blogs]
+  return [...routes, ...blogs, ...portfolio]
 }
