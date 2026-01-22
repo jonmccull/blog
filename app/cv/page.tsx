@@ -2,7 +2,8 @@ import MotionArticle from '../components/cv/MotionArticle'
 import { FadeIn } from '../components/cv/FadeIn'
 import { Section } from '../components/cv/Section'
 import { ExperienceItem } from '../components/cv/ExperienceItem'
-import { JobExperience } from '../components/jobs'
+import { JobExperience, type FormattedJob } from '../components/jobs'
+import { getCVJobs, formatCVDate } from '../lib/mdx'
 
 export const metadata = {
   title: 'Jon McCullough - CV',
@@ -18,6 +19,25 @@ const stagger = {
 }
 
 export default function CVPage() {
+  // Fetch and format jobs server-side
+  const rawJobs = getCVJobs()
+  const jobs: FormattedJob[] = rawJobs
+    .sort((a, b) => {
+      if (new Date(a.metadata.startDate) > new Date(b.metadata.startDate)) {
+        return -1
+      }
+      return 1
+    })
+    .map((job) => ({
+      key: `${job.metadata.title}-${job.metadata.startDate}`,
+      position: job.metadata.position,
+      company: job.metadata.title,
+      companyLink: job.metadata.companyLink,
+      startDate: formatCVDate(job.metadata.startDate, false),
+      endDate: formatCVDate(job.metadata.endDate, false),
+      description: job.metadata.description,
+      content: job.content,
+    }))
   return (
     <MotionArticle initial="initial" animate="animate" variants={stagger} className="max-w-2xl">
       {/* Header */}
@@ -59,7 +79,7 @@ export default function CVPage() {
       {/* Experience */}
       <FadeIn delay={0.2}>
         <Section title="Experience">
-          <JobExperience />
+          <JobExperience jobs={jobs} />
         </Section>
       </FadeIn>
 

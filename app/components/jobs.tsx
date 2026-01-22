@@ -1,29 +1,47 @@
-import { ExperienceItem } from './cv/ExperienceItem'
-import { formatCVDate, getCVJobs } from 'app/lib/mdx'
+'use client'
 
-export function JobExperience() {
-  const allJobs = getCVJobs()
+import { useState } from 'react'
+import { ExperienceItem } from './cv/ExperienceItem'
+
+// Pre-formatted job data passed from server component
+export interface FormattedJob {
+  key: string
+  position: string
+  company: string
+  companyLink?: string
+  startDate: string
+  endDate: string
+  description?: string
+  content: string
+}
+
+interface JobExperienceProps {
+  jobs: FormattedJob[]
+}
+
+export function JobExperience({ jobs }: JobExperienceProps) {
+  const [expandedJob, setExpandedJob] = useState<string | null>(null)
+
+  const handleToggle = (jobKey: string) => {
+    setExpandedJob((current) => (current === jobKey ? null : jobKey))
+  }
 
   return (
     <div className="space-y-6">
-      {allJobs
-        .sort((a, b) => {
-          if (new Date(a.metadata.startDate) > new Date(b.metadata.startDate)) {
-            return -1
-          }
-          return 1
-        })
-        .map((job) => (
-          <ExperienceItem
-            key={`${job.metadata.title}-${job.metadata.startDate}`}
-            position={job.metadata.position}
-            company={job.metadata.title}
-            companyLink={job.metadata.companyLink}
-            startDate={formatCVDate(job.metadata.startDate, false)}
-            endDate={formatCVDate(job.metadata.endDate, false)}
-            description={job.metadata.description}
-          />
-        ))}
+      {jobs.map((job) => (
+        <ExperienceItem
+          key={job.key}
+          position={job.position}
+          company={job.company}
+          companyLink={job.companyLink}
+          startDate={job.startDate}
+          endDate={job.endDate}
+          description={job.description}
+          jobContent={job.content}
+          isExpanded={expandedJob === job.key}
+          onToggle={() => handleToggle(job.key)}
+        />
+      ))}
     </div>
   )
 }
