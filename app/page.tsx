@@ -15,7 +15,7 @@ export default function HomePage() {
         </span>
       </h1>
       <p className="prose dark:prose-invert mb-8">
-        I&apos;ve spent fifteen years getting really good at the fundamentals&mdash;positioning,
+        I&apos;ve spent twelve years getting really good at the fundamentals&mdash;positioning,
         messaging, launching products that resonate&mdash;working with{' '}
         <a href="https://www.slite.com/" target="_blank" rel="noopener noreferrer">
           B2B startups
