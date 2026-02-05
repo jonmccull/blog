@@ -68,12 +68,12 @@ export default async function BlogPage() {
             <PostSkeleton key={i} />
           ))}
       >
-        <div className="prose prose-neutral dark:prose-invert">
+        <div className="prose prose-neutral dark:prose-invert max-w-none">
           {sortedFeed.map((item) => (
-            <article key={`${item.type}-${item.slug}`} className="mb-8">
+            <article key={`${item.type}-${item.slug}`} className="mb-6">
               <Link
                 href={item.type === 'post' ? `/blog/${item.slug}` : `/portfolio/${item.slug}`}
-                className="no-underline group"
+                className={`block no-underline group ${item.type === 'portfolio' ? 'blog-card-rainbow' : 'blog-card'}`}
                 prefetch={true}
               >
                 <h2 className="font-bold text-xl mb-1 tracking-tight text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-800 dark:group-hover:text-neutral-200">

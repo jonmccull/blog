@@ -310,6 +310,69 @@
   opacity: 1;
 }
 
+/* Blog feed card */
+.blog-card {
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  transition: border-color var(--transition-normal) ease;
+}
+
+.dark .blog-card {
+  border-color: var(--color-neutral-800);
+}
+
+/* Blog feed card — rainbow border for portfolio items */
+.blog-card-rainbow {
+  position: relative;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: white;
+}
+
+.dark .blog-card-rainbow {
+  background: #0a0a0a;
+}
+
+.blog-card-rainbow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 0.75rem;
+  background: conic-gradient(
+    from var(--rainbow-angle, 0deg),
+    #f06292,
+    #ba68c8,
+    #7e57c2,
+    #42a5f5,
+    #26c6da,
+    #66bb6a,
+    #ffee58,
+    #ffa726,
+    #f06292
+  );
+  opacity: 0.45;
+  animation: rainbow-rotate 4s linear infinite;
+  transition: opacity var(--transition-normal) ease;
+  z-index: -1;
+}
+
+.blog-card-rainbow:hover::before {
+  opacity: 0.8;
+}
+
+@property --rainbow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rainbow-rotate {
+  to {
+    --rainbow-angle: 360deg;
+  }
+}
+
 /* Portfolio wrapper - breaks out of narrow parent container */
 .portfolio-wrapper {
   width: 100vw;
