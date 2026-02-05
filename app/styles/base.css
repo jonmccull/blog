@@ -285,7 +285,13 @@
 .home-card {
   border: 1px solid var(--color-neutral-200);
   border-radius: 1rem;
-  padding: 2rem;
+  padding: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .home-card {
+    padding: 2rem;
+  }
 }
 
 .dark .home-card {
