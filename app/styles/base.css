@@ -573,6 +573,12 @@
   padding: 0.25rem 0;
 }
 
+.cv-job-description li::before {
+  content: '·';
+  margin-right: 0.5rem;
+  color: var(--color-neutral-400);
+}
+
 .dark .cv-job-description li {
   color: var(--color-neutral-400);
 }
