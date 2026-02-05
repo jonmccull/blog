@@ -510,6 +510,9 @@
 
 .portfolio-list-two-col li {
   @apply text-neutral-600 dark:text-neutral-300 text-sm;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
 }
 
 /* Portfolio images */
