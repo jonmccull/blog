@@ -13,7 +13,7 @@ export default function HomePage() {
         I&apos;m a Canadian product marketer based in Norway, currently working at Doist, makers of{' '}
         <a href="https://www.todoist.com/" target="_blank" rel="noopener noreferrer">
           Todoist
-        </a>{' '}
+        </a>
         .
       </p>
       <div className="flex gap-3 text-neutral-700 dark:text-neutral-300">
