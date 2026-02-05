@@ -7,15 +7,33 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <div className="max-w-2xl home-content">
-      <h1 className="text-3xl font-bold tracking-tighter mb-8">Jon McCullough</h1>
+    <div className="max-w-2xl home-content home-card">
+      <h1 className="text-3xl tracking-tighter mb-8">
+        <span className="font-bold">Jon McCullough</span>{' '}
+        <span className="font-normal text-neutral-500 dark:text-neutral-400">
+          — Product marketer, positioning specialist, and builder.
+        </span>
+      </h1>
       <p className="prose dark:prose-invert mb-8">
-        I&apos;m a Canadian product marketer based in Norway, currently working at Doist, makers of{' '}
+        I&apos;ve spent fifteen years getting really good at the fundamentals&mdash;positioning,
+        messaging, launching products that resonate&mdash;working with{' '}
+        <a href="https://www.slite.com/" target="_blank" rel="noopener noreferrer">
+          B2B startups
+        </a>
+        , leading{' '}
         <a href="https://www.todoist.com/" target="_blank" rel="noopener noreferrer">
-          Todoist
+          consumer apps
+        </a>
+        , and niche{' '}
+        <a href="https://www.vivaldi.com/" target="_blank" rel="noopener noreferrer">
+          web browsers
         </a>
         .
       </p>
+      <p className="prose dark:prose-invert mb-8">
+        In my work I strive for simplicity, making sure what we build connects with real people.
+      </p>
+      <p className="prose dark:prose-invert mb-8">I’m open to new roles. Let’s connect. ✌️</p>
       <div className="flex gap-3 text-neutral-700 dark:text-neutral-300">
         <Link
           href="/cv"

@@ -281,18 +281,27 @@
   opacity: 0.4;
 }
 
-/* Home page link styles */
-.home-content a {
-  color: inherit;
+/* Home page card */
+.home-card {
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.dark .home-card {
+  border-color: var(--color-neutral-800);
+}
+
+/* Home page link styles - footer links only */
+.home-content .link-underline {
   opacity: var(--link-text-opacity);
   text-decoration: none;
   transition: all var(--transition-normal) ease;
 }
 
-.home-content a:hover,
-.home-content a:focus {
+.home-content .link-underline:hover,
+.home-content .link-underline:focus {
   opacity: 1;
-  color: var(--color-primary);
 }
 
 /* Portfolio wrapper - breaks out of narrow parent container */

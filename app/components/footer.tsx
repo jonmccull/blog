@@ -42,7 +42,7 @@ export default function Footer() {
         </a>
       </div>
       <p className="mt-8 text-sm text-neutral-600 dark:text-neutral-400">
-        © {new Date().getFullYear()} Jon McCullough ✌️
+        © {new Date().getFullYear()} Jon McCullough
       </p>
     </footer>
   )
