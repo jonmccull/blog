@@ -415,6 +415,7 @@
 .portfolio-container {
   max-width: 896px; /* max-w-4xl equivalent */
   width: 100%;
+  margin-top: -0.5rem;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
@@ -461,7 +462,7 @@
 }
 
 .portfolio-two-col p {
-  @apply text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed mb-4;
+  @apply text-neutral-600 dark:text-neutral-300 text-base leading-relaxed mb-4;
 }
 
 .portfolio-two-col p:last-child {
@@ -509,7 +510,7 @@
 }
 
 .portfolio-list-two-col li {
-  @apply text-neutral-600 dark:text-neutral-300 text-sm;
+  @apply text-neutral-600 dark:text-neutral-300 text-base;
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
@@ -594,7 +595,7 @@
   max-width: 56rem; /* max-w-4xl equivalent */
 }
 
-/* CV expandable job details */
+/* CV job details */
 .cv-experience-item {
   margin-bottom: 1.5rem;
 }
@@ -603,69 +604,8 @@
   margin-bottom: 0;
 }
 
-.cv-expand-wrapper {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .cv-expand-wrapper {
-    display: block;
-  }
-}
-
-.cv-expand-chevron {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 0.5rem 0 0.25rem;
-  margin-top: 0.25rem;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  opacity: 0;
-  transition: opacity var(--transition-normal) ease;
-}
-
-/* Show chevron on hover of the parent job item */
-.cv-experience-item:hover .cv-expand-chevron {
-  opacity: 1;
-}
-
-/* Keep chevron visible when expanded */
-.cv-expand-chevron.is-expanded {
-  opacity: 1;
-}
-
-.cv-expand-chevron-icon {
-  color: var(--color-neutral-400);
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.cv-expand-chevron:hover .cv-expand-chevron-icon {
-  color: var(--color-neutral-600);
-}
-
-.dark .cv-expand-chevron:hover .cv-expand-chevron-icon {
-  color: var(--color-neutral-300);
-}
-
-.cv-expand-chevron-icon.expanded {
-  transform: rotate(180deg);
-}
-
-.cv-expand-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.cv-expand-content.is-expanded {
-  max-height: 500px;
-}
-
 .cv-job-description {
-  padding-top: 0.75rem;
+  padding-top: 0.25rem;
 }
 
 .cv-job-description ul,
@@ -677,13 +617,14 @@
 
 .cv-job-description li {
   color: var(--color-neutral-600);
-  font-size: 0.875rem;
   line-height: 1.5;
   padding: 0.25rem 0;
+  padding-left: 1.25rem;
+  text-indent: -1.25rem;
 }
 
 .cv-job-description li::before {
-  content: '·';
+  content: '•';
   margin-right: 0.5rem;
   color: var(--color-neutral-400);
 }
@@ -721,12 +662,6 @@
 
   /* Disable layout animation for reduced motion */
   .layout-container {
-    transition: none;
-  }
-
-  /* Disable CV expand animation for reduced motion */
-  .cv-expand-content,
-  .cv-expand-chevron-icon {
     transition: none;
   }
 }

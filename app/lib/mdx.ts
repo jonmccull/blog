@@ -13,6 +13,7 @@ export type CVMetadata = {
   title: string
   position: string
   companyLink: string
+  location?: string
   startDate: string
   endDate: string
   description: string

@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { ExperienceItem } from './cv/ExperienceItem'
 
 // Pre-formatted job data passed from server component
@@ -9,6 +8,7 @@ export interface FormattedJob {
   position: string
   company: string
   companyLink?: string
+  location?: string
   startDate: string
   endDate: string
   description?: string
@@ -20,12 +20,6 @@ interface JobExperienceProps {
 }
 
 export function JobExperience({ jobs }: JobExperienceProps) {
-  const [expandedJob, setExpandedJob] = useState<string | null>(null)
-
-  const handleToggle = (jobKey: string) => {
-    setExpandedJob((current) => (current === jobKey ? null : jobKey))
-  }
-
   return (
     <div className="space-y-6">
       {jobs.map((job) => (
@@ -34,12 +28,11 @@ export function JobExperience({ jobs }: JobExperienceProps) {
           position={job.position}
           company={job.company}
           companyLink={job.companyLink}
+          location={job.location}
           startDate={job.startDate}
           endDate={job.endDate}
           description={job.description}
           jobContent={job.content}
-          isExpanded={expandedJob === job.key}
-          onToggle={() => handleToggle(job.key)}
         />
       ))}
     </div>

@@ -33,6 +33,7 @@ export default function CVPage() {
       position: job.metadata.position,
       company: job.metadata.title,
       companyLink: job.metadata.companyLink,
+      location: job.metadata.location,
       startDate: formatCVDate(job.metadata.startDate, false),
       endDate: formatCVDate(job.metadata.endDate, false),
       description: job.metadata.description,
@@ -43,7 +44,7 @@ export default function CVPage() {
       initial="initial"
       animate="animate"
       variants={stagger}
-      className="max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto pr-2 md:pr-0"
+      className="max-w-4xl mx-auto pr-2 md:pr-0"
     >
       {/* Header */}
       <FadeIn>
