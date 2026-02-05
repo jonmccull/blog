@@ -71,7 +71,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   return (
     <>
       <JsonLd data={blogPostingSchema} />
-      <article className="prose prose-neutral dark:prose-invert max-w-none">
+      <article className="prose prose-neutral dark:prose-invert max-w-2xl mx-auto pr-2 md:pr-0">
         <h1 className="font-bold tracking-tighter text-neutral-900 dark:text-neutral-100">
           {title}
         </h1>

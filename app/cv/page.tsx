@@ -39,7 +39,12 @@ export default function CVPage() {
       content: job.content,
     }))
   return (
-    <MotionArticle initial="initial" animate="animate" variants={stagger} className="max-w-2xl">
+    <MotionArticle
+      initial="initial"
+      animate="animate"
+      variants={stagger}
+      className="max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto pr-2 md:pr-0"
+    >
       {/* Header */}
       <FadeIn>
         <header className="mb-12">

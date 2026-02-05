@@ -52,43 +52,45 @@ export default async function PortfolioProjectPage({
   const { metadata, content } = project as PortfolioProject
 
   return (
-    <article className="portfolio-page">
-      {/* Back link */}
-      <Link
-        href="/blog"
-        className="inline-flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 mb-12 transition-colors"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="rotate-180"
+    <div className="portfolio-container">
+      <article className="portfolio-page">
+        {/* Back link */}
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 mb-12 transition-colors"
         >
-          <path
-            d="M6 12L10 8L6 4"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        Blog
-      </Link>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="rotate-180"
+          >
+            <path
+              d="M6 12L10 8L6 4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          Blog
+        </Link>
 
-      {/* Header */}
-      <header className="mb-16">
-        <p className="text-neutral-500 dark:text-neutral-400 text-lg mb-3">{metadata.subtitle}</p>
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-          {metadata.title}
-        </h1>
-      </header>
+        {/* Header */}
+        <header className="mb-16">
+          <p className="text-neutral-500 dark:text-neutral-400 text-lg mb-3">{metadata.subtitle}</p>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+            {metadata.title}
+          </h1>
+        </header>
 
-      {/* Content */}
-      <div className="portfolio-content prose prose-neutral dark:prose-invert max-w-none">
-        <CustomMDX source={content} />
-      </div>
-    </article>
+        {/* Content */}
+        <div className="portfolio-content prose prose-neutral dark:prose-invert max-w-none">
+          <CustomMDX source={content} />
+        </div>
+      </article>
+    </div>
   )
 }

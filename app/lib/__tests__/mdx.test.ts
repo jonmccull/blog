@@ -17,6 +17,15 @@ jest.mock('fs')
 const mockedFs = jest.mocked(fs)
 
 describe('MDX Utilities', () => {
+  beforeAll(() => {
+    // Use a fixed current date so relative time tests are stable over time
+    jest.useFakeTimers().setSystemTime(new Date('2025-06-15T00:00:00Z'))
+  })
+
+  afterAll(() => {
+    jest.useRealTimers()
+  })
+
   beforeEach(() => {
     jest.clearAllMocks()
   })

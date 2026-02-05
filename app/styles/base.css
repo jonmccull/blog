@@ -179,6 +179,12 @@
 }
 
 /* Utility classes */
+
+/* Shared horizontal page shell used for nav, content, and footer gutters */
+.page-shell {
+  @apply px-4 md:px-0;
+}
+
 .title {
   text-wrap: balance;
   @apply text-6xl font-medium tracking-tight mt-6 mb-2;

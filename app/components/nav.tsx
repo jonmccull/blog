@@ -19,10 +19,10 @@ export function Navbar() {
   const pathname = usePathname()
 
   return (
-    <aside className="-ml-[8px] mb-16 tracking-tight">
+    <aside className="mb-16 tracking-tight">
       <div className="lg:sticky lg:top-20">
         <nav
-          className="flex flex-row items-center relative px-0 pb-0 fade md:overflow-visible scroll-pr-6 md:relative"
+          className="flex flex-row items-center relative pb-0 fade md:overflow-visible scroll-pr-6 md:relative"
           id="nav"
           aria-label="Main navigation"
         >
@@ -40,7 +40,7 @@ export function Navbar() {
                     transition-all duration-200
                     text-neutral-600 dark:text-neutral-400
                     hover:text-neutral-900 dark:hover:text-neutral-100
-                    flex align-middle relative py-1 px-2 m-1
+                    flex align-middle relative py-1 px-0 mr-3
                     focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 focus-visible:rounded-sm
                     ${isActive ? 'nav-link-active text-neutral-900 dark:text-neutral-100' : ''}
                   `}
@@ -50,7 +50,7 @@ export function Navbar() {
               )
             })}
           </div>
-          <div className="flex items-center ml-auto">
+          <div className="flex items-center ml-auto pr-2 md:pr-0">
             <ThemeToggle />
           </div>
         </nav>

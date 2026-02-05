@@ -29,7 +29,7 @@ export function ExperienceItem({
 
   return (
     <motion.div className="cv-experience-item" whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
-      <div className="flex justify-between items-start mb-1">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-1 gap-1">
         <motion.h3 className="font-semibold text-neutral-900 dark:text-neutral-100" layout>
           {position}
           {company && (
@@ -53,7 +53,7 @@ export function ExperienceItem({
           )}
         </motion.h3>
         <motion.span
-          className="text-sm text-neutral-600 dark:text-neutral-400 tabular-nums whitespace-nowrap ml-4"
+          className="text-sm text-neutral-600 dark:text-neutral-400 tabular-nums whitespace-nowrap md:ml-4 md:self-start"
           layout
         >
           {startDate} → {endDate}
