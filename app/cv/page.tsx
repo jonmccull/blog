@@ -44,7 +44,7 @@ export default function CVPage() {
       initial="initial"
       animate="animate"
       variants={stagger}
-      className="max-w-4xl mx-auto pr-2 md:pr-0"
+      className="max-w-[1080px] mx-auto pr-2 md:pr-0"
     >
       {/* Header */}
       <FadeIn>
@@ -73,12 +73,14 @@ export default function CVPage() {
       {/* Profile */}
       <FadeIn delay={0.1}>
         <Section title="Profile">
-          <ul className="space-y-2 text-neutral-700 dark:text-neutral-300">
-            <li>• A natural product marketing leader that brings calm and clarity.</li>
-            <li>• 10+ years of marketing experience across B2C and B2B.</li>
-            <li>• Structured and pragmatic, but highly creative. A data-driven decision maker.</li>
-            <li>• Excellent, empathic communicator that thrives in remote.</li>
-          </ul>
+          <p className="text-neutral-700 dark:text-neutral-300">
+            <strong>Senior Product Marketer</strong> with 12+ years across{' '}
+            <strong>B2C and B2B SaaS</strong>, from niche browsers to productivity tools used by
+            40M+ people. Specializes in <strong>positioning and messaging frameworks</strong>,
+            multi-phase <strong>product launches</strong>, and{' '}
+            <strong>customer research synthesis</strong>. Builds{' '}
+            <strong>AI-native workflows</strong> to scale marketing impact beyond headcount.
+          </p>
         </Section>
       </FadeIn>
 
