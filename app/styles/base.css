@@ -323,15 +323,20 @@
 }
 
 /* Reset prose margins inside feed cards */
-.blog-card h2,
-.blog-card-rainbow h2 {
+.prose .blog-card h2,
+.prose .blog-card-rainbow h2 {
   margin-top: 0;
   margin-bottom: 0.25rem;
 }
 
-.blog-card div:last-child,
-.blog-card-rainbow div:last-child {
+.prose .blog-card > *:last-child,
+.prose .blog-card-rainbow > *:last-child {
   margin-bottom: 0;
+}
+
+.prose .blog-card > *:first-child,
+.prose .blog-card-rainbow > *:first-child {
+  margin-top: 0;
 }
 
 /* Blog feed card — rainbow border for portfolio items */
