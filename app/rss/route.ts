@@ -1,40 +1,36 @@
 import { baseUrl } from 'app/sitemap'
-import { getBlogPosts } from 'app/lib/mdx'
+import { getAllPosts } from 'app/lib/mdx'
 
 export async function GET() {
-  const allBlogs = await getBlogPosts()
+  const posts = await getAllPosts()
+  const feed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jon McCullough's Blog</title>
+    <link>${baseUrl}</link>
+    <description>Jon McCullough is a Canadian product marketer based in Norway working at Doist.</description>
+    <language>en</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <atom:link href="${baseUrl}/rss" rel="self" type="application/rss+xml"/>
+    ${posts
+      .map(
+        (post) => `
+    <item>
+      <title>${post.title}</title>
+      <link>${baseUrl}/blog/${post.slug}</link>
+      <guid>${baseUrl}/blog/${post.slug}</guid>
+      <description>${post.excerpt}</description>
+      <pubDate>${new Date(post.date).toUTCString()}</pubDate>
+    </item>`
+      )
+      .join('')}
+  </channel>
+</rss>`
 
-  const itemsXml = allBlogs
-    .sort((a, b) => {
-      if (new Date(a.metadata.date) > new Date(b.metadata.date)) {
-        return -1
-      }
-      return 1
-    })
-    .map(
-      (post) =>
-        `<item>
-          <title>${post.metadata.title}</title>
-          <link>${baseUrl}/blog/${post.slug}</link>
-          <description>${post.metadata.excerpt || ''}</description>
-          <pubDate>${new Date(post.metadata.date).toUTCString()}</pubDate>
-        </item>`
-    )
-    .join('\n')
-
-  const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
-  <rss version="2.0">
-    <channel>
-        <title>Jon McCullough's Blog</title>
-        <link>${baseUrl}</link>
-        <description>This an RSS feed of blog posts from jonm.cc</description>
-        ${itemsXml}
-    </channel>
-  </rss>`
-
-  return new Response(rssFeed, {
+  return new Response(feed, {
     headers: {
-      'Content-Type': 'text/xml',
+      'Content-Type': 'application/xml',
+      'Cache-Control': 's-maxage=3600, stale-while-revalidate',
     },
   })
 }
