@@ -6,8 +6,8 @@ import { JobExperience, type FormattedJob } from '../components/jobs'
 import { getCVJobs, formatCVDate } from '../lib/mdx'
 
 export const metadata = {
-  title: 'Jon McCullough - CV',
-  description: 'Product marketing leader with 10+ years of experience in B2C and B2B.',
+  title: 'Jon McCullough - Product Marketer',
+  description: 'Product marketing leader with 12+ years of experience in B2C and B2B.',
 }
 
 const stagger = {
@@ -49,7 +49,9 @@ export default function CVPage() {
       {/* Header */}
       <FadeIn>
         <header className="mb-12">
-          <h1 className="text-3xl font-bold tracking-tighter mb-2">Jon McCullough</h1>
+          <h1 className="text-3xl tracking-tighter mb-2">
+            <strong>Jon McCullough</strong> — Product Marketer
+          </h1>
           <div className="flex gap-3 text-neutral-700 dark:text-neutral-300">
             <a
               href="https://www.linkedin.com/in/jonmccullough/"
