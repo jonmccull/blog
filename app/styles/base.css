@@ -636,11 +636,30 @@
 .cv-job-description a {
   color: var(--color-primary);
   text-decoration: none;
-  transition: opacity var(--transition-normal) ease;
+  position: relative;
+  transition: all var(--transition-normal) ease;
 }
 
-.cv-job-description a:hover {
-  opacity: 0.8;
+.cv-job-description a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: var(--link-underline-width);
+  background: currentColor;
+  left: 0;
+  bottom: -0.1em;
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: var(--link-underline-opacity);
+  transition:
+    transform var(--transition-normal) ease,
+    opacity var(--transition-normal) ease;
+}
+
+.cv-job-description a:hover::after,
+.cv-job-description a:focus-visible::after {
+  transform: scaleX(1);
+  opacity: 0.4;
 }
 
 /* Reduced motion support for accessibility (WCAG 2.3.3) */
