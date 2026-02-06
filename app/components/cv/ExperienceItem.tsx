@@ -30,7 +30,8 @@ export function ExperienceItem({
         {companyLink ? (
           <a
             href={companyLink}
-            className="link-underline text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+            className="link-underline hover:opacity-80 transition-opacity"
+            style={{ color: 'var(--color-primary)' }}
             target="_blank"
             rel="noopener noreferrer"
           >
