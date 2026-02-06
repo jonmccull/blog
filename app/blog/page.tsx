@@ -73,7 +73,7 @@ export default async function BlogPage() {
             <article key={`${item.type}-${item.slug}`} className="mb-6">
               <Link
                 href={item.type === 'post' ? `/blog/${item.slug}` : `/portfolio/${item.slug}`}
-                className={`block no-underline group ${item.type === 'portfolio' ? 'blog-card-rainbow' : 'blog-card'}`}
+                className={`block no-underline group ${item.type === 'portfolio' ? 'blog-card-featured' : ''}`}
                 prefetch={true}
               >
                 <h2 className="font-bold text-xl mb-1 tracking-tight text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-800 dark:group-hover:text-neutral-200">

@@ -310,95 +310,51 @@
   opacity: 1;
 }
 
-/* Blog feed card */
-.blog-card {
-  border: 1px solid var(--color-neutral-200);
+/* Remove prose link underline from all blog feed items */
+.prose article a.block,
+.prose article a.block:hover,
+.prose article a.block:focus {
+  background-image: none;
+  color: inherit;
+  opacity: 1;
+}
+
+/* Reset all prose margins inside featured card */
+.blog-card-featured * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.blog-card-featured h2 {
+  margin-bottom: 0.25rem !important;
+  line-height: 1.2 !important;
+}
+
+/* Blog feed card — warm background for portfolio items */
+.blog-card-featured {
   border-radius: 0.75rem;
-  padding: 1.25rem;
-  transition: border-color var(--transition-normal) ease;
+  padding: 1rem 1.5rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  background-color: #f3f0e7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background-color var(--transition-normal) ease;
 }
 
-.dark .blog-card {
-  border-color: var(--color-neutral-800);
+.blog-card-featured:hover {
+  background-color: #eae6db;
 }
 
-/* Reset prose margins inside feed cards */
-.prose .blog-card h2,
-.prose .blog-card-rainbow h2 {
-  margin-top: 0;
-  margin-bottom: 0.25rem;
+.dark .blog-card-featured {
+  background-color: #1c1917;
 }
 
-.prose .blog-card > *:last-child,
-.prose .blog-card-rainbow > *:last-child {
-  margin-bottom: 0;
-}
-
-.prose .blog-card > *:first-child,
-.prose .blog-card-rainbow > *:first-child {
-  margin-top: 0;
-}
-
-/* Blog feed card — rainbow border for portfolio items */
-.blog-card-rainbow {
-  position: relative;
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  isolation: isolate;
-}
-
-/* Gradient layer */
-.blog-card-rainbow::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: conic-gradient(
-    from var(--rainbow-angle, 0deg),
-    #f06292,
-    #ba68c8,
-    #7e57c2,
-    #42a5f5,
-    #26c6da,
-    #66bb6a,
-    #ffee58,
-    #ffa726,
-    #f06292
-  );
-  opacity: 0.45;
-  animation: rainbow-rotate 4s linear infinite;
-  transition: opacity var(--transition-normal) ease;
-  z-index: -2;
-}
-
-/* Interior mask — covers gradient except for 1px border */
-.blog-card-rainbow::after {
-  content: '';
-  position: absolute;
-  inset: 1px;
-  border-radius: calc(0.75rem - 1px);
-  background: white;
-  z-index: -1;
-}
-
-.dark .blog-card-rainbow::after {
-  background: #0a0a0a;
-}
-
-.blog-card-rainbow:hover::before {
-  opacity: 0.8;
-}
-
-@property --rainbow-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes rainbow-rotate {
-  to {
-    --rainbow-angle: 360deg;
-  }
+.dark .blog-card-featured:hover {
+  background-color: #292524;
 }
 
 /* Portfolio wrapper - breaks out of narrow parent container */
