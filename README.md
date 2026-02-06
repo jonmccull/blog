@@ -1,84 +1,47 @@
-# Jon McCullough's Personal Website
+# jonm.cc
 
-A modern, accessible personal website built with Next.js, TypeScript, and TailwindCSS.
+My personal website and blog. Built with Next.js, TypeScript, and Tailwind CSS. Deployed on Vercel.
 
-## Features
+## Stack
 
-- 🚀 Built with Next.js App Router
-- 📝 Blog support with MDX
-- 🎨 Responsive design with TailwindCSS
-- 🌓 Dark mode support
-- 📊 Analytics with Vercel
-- 🔍 SEO optimized
-- ♿ Accessibility focused
-- 📱 Mobile-first approach
+- **Framework**: Next.js 16 (App Router)
+- **Content**: MDX via next-mdx-remote
+- **Styling**: Tailwind CSS + Geist font
+- **Animations**: Framer Motion (CV page)
+- **Testing**: Jest + Playwright
+- **Deployment**: Vercel
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or pnpm
-
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/yourusername/blog.git
-   cd blog
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   # or
-   pnpm install
-   ```
-
-3. Start the development server:
-
-   ```bash
-   npm run dev
-   # or
-   pnpm dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Building for Production
+## Local development
 
 ```bash
-npm run build
-# or
-pnpm build
+npm install
+npm run dev
 ```
 
-## Project Structure
+## Scripts
+
+| Command              | Description              |
+| -------------------- | ------------------------ |
+| `npm run dev`        | Start dev server         |
+| `npm run build`      | Production build         |
+| `npm run test`       | Run unit tests           |
+| `npm run test:e2e`   | Run Playwright E2E tests |
+| `npm run format`     | Format with Prettier     |
+| `npm run lint`       | Lint with ESLint         |
+| `npm run type-check` | TypeScript check         |
+
+## Project structure
 
 ```
-├── app/                # Next.js app directory
-│   ├── components/     # React components
-│   ├── blog/          # Blog pages and posts
-│   ├── cv/            # CV/Resume section
-│   └── ...
-├── public/            # Static assets
-└── ...
+app/
+  blog/           Blog pages
+  cv/             CV page + job MDX files
+  portfolio/      Portfolio pages
+  components/     Shared components
+  lib/            Utilities (MDX parsing, etc.)
+content/
+  blog/           Blog post MDX files
+  portfolio/      Portfolio MDX files
+e2e/              Playwright tests
+public/           Static assets
 ```
-
-## Development
-
-- `npm run dev`: Start development server
-- `npm run build`: Build for production
-- `npm run start`: Start production server
-- `npm run lint`: Run ESLint
-- `npm run format`: Format code with Prettier
-
-## Contributing
-
-Feel free to submit issues and enhancement requests!
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
