@@ -2,6 +2,7 @@ import './styles/base.css'
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
+import { Fraunces, Nunito_Sans } from 'next/font/google'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
@@ -75,13 +76,34 @@ const websiteSchema = {
   },
 }
 
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+})
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cx('h-full', GeistSans.variable, GeistMono.variable)}>
+    <html
+      lang="en"
+      className={cx(
+        'h-full',
+        GeistSans.variable,
+        GeistMono.variable,
+        fraunces.variable,
+        nunitoSans.variable
+      )}
+    >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
-        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#1C1917" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#F9F6F1" media="(prefers-color-scheme: light)" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -102,7 +124,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <JsonLd data={websiteSchema} />
       </head>
-      <body className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 antialiased h-full">
+      <body
+        className="antialiased h-full"
+        style={{ backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-800)' }}
+      >
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-neutral-900 focus:text-white dark:focus:bg-white dark:focus:text-neutral-900 focus:rounded-md focus:outline-none"
