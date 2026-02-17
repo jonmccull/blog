@@ -49,26 +49,21 @@ export default function CVPage() {
       {/* Header */}
       <FadeIn>
         <header className="mb-12">
-          <h1 className="text-3xl tracking-tighter mb-2">
-            <strong>Jon McCullough</strong> — Product Marketer
-          </h1>
-          <div className="flex gap-3 text-neutral-700 dark:text-neutral-300">
+          <h1 className="home-name mb-3">Jon McCullough</h1>
+          <p className="text-xl text-neutral-500 mb-4">Product Marketer</p>
+          <nav className="flex gap-4" aria-label="Contact links">
             <a
               href="https://www.linkedin.com/in/jonmccullough/"
-              className="link-underline hover:text-neutral-900 dark:hover:text-neutral-100"
+              className="home-link"
               target="_blank"
               rel="noopener noreferrer"
             >
               LinkedIn
             </a>
-            <span>•</span>
-            <a
-              href="mailto:hey@jonm.cc"
-              className="link-underline hover:text-neutral-900 dark:hover:text-neutral-100"
-            >
+            <a href="mailto:hey@jonm.cc" className="home-link">
               Mail
             </a>
-          </div>
+          </nav>
         </header>
       </FadeIn>
 

@@ -16,7 +16,11 @@ export function Section({ title, children }: SectionProps) {
       viewport={{ once: true }}
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
     >
-      <motion.h2 className="font-semibold text-2xl mb-6 tracking-tighter" layout>
+      <motion.h2
+        className="text-2xl mb-6 tracking-tight"
+        style={{ fontFamily: 'var(--font-display), Georgia, serif', fontWeight: 400 }}
+        layout
+      >
         {title}
       </motion.h2>
       {children}

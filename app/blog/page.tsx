@@ -20,9 +20,9 @@ type FeedItem = {
 function PostSkeleton() {
   return (
     <div className="animate-pulse mb-8">
-      <div className="h-7 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2" />
-      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-1" />
-      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+      <div className="h-7 bg-neutral-200 dark:bg-neutral-700 rounded w-3/4 mb-2" />
+      <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-full mb-1" />
+      <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-1/2" />
     </div>
   )
 }
