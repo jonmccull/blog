@@ -77,9 +77,15 @@
 
   body {
     min-height: 100%;
+    background-color: var(--color-surface);
+    color: var(--color-neutral-800);
     transition:
       background-color var(--transition-normal),
       color var(--transition-normal);
+  }
+
+  .dark body {
+    color: var(--color-neutral-100);
   }
 
   /* Disable transitions on initial load to prevent flash */
@@ -100,6 +106,13 @@
 
 .dark ::selection {
   background: rgba(212, 130, 94, 0.25);
+}
+
+/* Body font for prose and CV content */
+.prose,
+.cv-job-description,
+.cv-experience-item p {
+  font-family: var(--font-body), system-ui, sans-serif;
 }
 
 /* Prose styles */

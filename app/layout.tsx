@@ -124,10 +124,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <JsonLd data={websiteSchema} />
       </head>
-      <body
-        className="antialiased h-full"
-        style={{ backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-800)' }}
-      >
+      <body className="antialiased h-full">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-neutral-900 focus:text-white dark:focus:bg-white dark:focus:text-neutral-900 focus:rounded-md focus:outline-none"
