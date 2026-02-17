@@ -21,7 +21,7 @@
     "framer-motion": "^12.12.1",
     "geist": "1.4.2",
     "next": "^16.1.5",
-    "next-mdx-remote": "^5.0.0",
+    "next-mdx-remote": "^6.0.0",
     "postcss": "^8.4.38",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",

@@ -81,7 +81,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <span>{readingTime}</span>
         </div>
         <div className="prose-pre:bg-neutral-100 dark:prose-pre:bg-neutral-800 prose-pre:border prose-pre:border-neutral-200 dark:prose-pre:border-neutral-700">
-          <MDXRemote source={content} components={mdxComponents} />
+          <MDXRemote source={content} options={{ blockJS: false }} components={mdxComponents} />
         </div>
       </article>
     </>
