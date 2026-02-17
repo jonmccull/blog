@@ -25,7 +25,7 @@ export function ExperienceItem({
 }: ExperienceItemProps) {
   return (
     <motion.div className="cv-experience-item">
-      <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 uppercase">{position}</h3>
+      <h3 className="font-semibold text-neutral-900 dark:text-neutral-100">{position}</h3>
       <div className="text-neutral-600 dark:text-neutral-400 mb-1">
         {companyLink ? (
           <a
