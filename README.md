@@ -43,5 +43,25 @@ content/
   blog/           Blog post MDX files
   portfolio/      Portfolio MDX files
 e2e/              Playwright tests
-public/           Static assets
+public/
+  images-blog/    Blog post images
+  images/
+    portfolio/    Portfolio project images
 ```
+
+## Images
+
+All images live in the repo under `public/` and are served as static assets by Next.js.
+
+| Directory                  | Used for                 |
+| -------------------------- | ------------------------ |
+| `public/images-blog/`      | Blog post images         |
+| `public/images/portfolio/` | Portfolio project images |
+
+Reference images in MDX using root-relative paths:
+
+```md
+![Alt text](/images-blog/my-image.webp)
+```
+
+Prefer `.webp` for photos/screenshots. Use `.png` for diagrams or images requiring transparency.
