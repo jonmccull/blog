@@ -30,9 +30,6 @@ export default function HomePage() {
           </a>
           .
         </p>
-        <p>
-          In my work I strive for simplicity, making sure what we build connects with real people.
-        </p>
         <p>I&apos;m open to new roles. Let&apos;s connect. &#x270C;&#xFE0F;</p>
       </div>
 
