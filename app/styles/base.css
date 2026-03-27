@@ -68,6 +68,7 @@
   html {
     min-width: 360px;
     height: 100%;
+    overflow-x: hidden;
     color-scheme: light;
   }
 
@@ -457,16 +458,6 @@
 
 .dark .blog-card-featured:hover {
   background-color: #332d27;
-}
-
-/* Portfolio wrapper - breaks out of narrow parent container */
-.portfolio-wrapper {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
 }
 
 /* Portfolio container - wider layout for portfolio pages */
