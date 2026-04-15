@@ -30,7 +30,10 @@ export default function HomePage() {
           </a>
           .
         </p>
-        <p>I&apos;m <Link href="/blog/looking">open to new roles</Link>. Let&apos;s connect. &#x270C;&#xFE0F;</p>
+        <p>
+          I&apos;m <Link href="/blog/looking">open to new roles</Link>. Let&apos;s connect.
+          &#x270C;&#xFE0F;
+        </p>
       </div>
 
       <nav className="home-links" aria-label="Contact links">
