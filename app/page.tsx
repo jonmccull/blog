@@ -31,11 +31,12 @@ export default function HomePage() {
           .
         </p>
         <p>
-          Lately, I've been building as much as strategizing. AI workflows, automation systems, the infrastructure that lets small marketing teams punch well above their weight.
+          Lately, I've been building as much as strategizing. AI workflows, automation systems, the
+          infrastructure that lets small marketing teams punch well above their weight.
         </p>
         <p>
-          I&apos;m <Link href="/blog/looking">exploring what's next</Link>&mdash;whether that's a senior PMM role or a consulting engagement. Let&apos;s connect.
-          &#x270C;&#xFE0F;
+          I&apos;m <Link href="/blog/looking">exploring what's next</Link>&mdash;whether that's a
+          senior PMM role or a consulting engagement. Let&apos;s connect. &#x270C;&#xFE0F;
         </p>
       </div>
 
