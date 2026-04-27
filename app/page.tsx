@@ -8,7 +8,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <div className="home-editorial">
-      <header className="mb-12 md:mb-16">
+      <header className="mb-8 md:mb-10">
         <h1 className="home-name">Jon McCullough</h1>
         <p className="home-descriptor">Product marketer, positioning specialist, and builder.</p>
       </header>
