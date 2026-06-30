@@ -35,8 +35,9 @@ export default function HomePage() {
           infrastructure that lets small marketing teams punch well above their weight.
         </p>
         <p>
-          I just joined <Link href="/cv">Rydoo</Link> as Product Marketing Manager. Let&apos;s
-          connect. &#x270C;&#xFE0F;
+          {'I just joined '}
+          <Link href="/cv">Rydoo</Link>
+          {' as Product Marketing Manager. Let’s connect. ✌️'}
         </p>
       </div>
 
