@@ -92,6 +92,13 @@ export default function CVPage() {
       <FadeIn delay={0.3}>
         <Section title="Volunteer & Freelance">
           <ExperienceItem
+            position="Guitar Technician"
+            company="MusikkHuset"
+            companyLink="https://musikkhuset.com"
+            startDate="May 2026"
+            endDate="Present"
+          />
+          <ExperienceItem
             position="Founder"
             company="MC Consulting"
             startDate="Sep 2023"
