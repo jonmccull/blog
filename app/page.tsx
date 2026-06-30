@@ -35,8 +35,8 @@ export default function HomePage() {
           infrastructure that lets small marketing teams punch well above their weight.
         </p>
         <p>
-          I&apos;m <Link href="/blog/looking">exploring what's next</Link>&mdash;whether that's a
-          senior PMM role or a consulting engagement. Let&apos;s connect. &#x270C;&#xFE0F;
+          I just joined <Link href="/cv">Rydoo</Link> as Product Marketing Manager. Let&apos;s
+          connect. &#x270C;&#xFE0F;
         </p>
       </div>
 
