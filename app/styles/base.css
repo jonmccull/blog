@@ -66,9 +66,7 @@
   }
 
   html {
-    min-width: 360px;
     height: 100%;
-    overflow-x: hidden;
     color-scheme: light;
   }
 
@@ -630,9 +628,10 @@
   background: white;
 }
 
-/* Animated layout container - expands on portfolio pages */
+/* Animated layout container - expands on portfolio pages.
+   No explicit width: as a block box it fills the space left by its
+   margins (mx-4), so it can never overflow the viewport. */
 .layout-container {
-  width: 100%;
   transition: max-width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
