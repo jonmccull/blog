@@ -12,7 +12,7 @@ export default function NowPage() {
   const content = fs.readFileSync(nowPath, 'utf-8')
 
   return (
-    <article className="prose prose-neutral dark:prose-invert max-w-2xl mx-auto pr-2 md:pr-0">
+    <article className="prose prose-neutral dark:prose-invert max-w-2xl mx-auto">
       <CustomMDX source={content} />
     </article>
   )

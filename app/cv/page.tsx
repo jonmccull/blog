@@ -44,7 +44,7 @@ export default function CVPage() {
       initial="initial"
       animate="animate"
       variants={stagger}
-      className="max-w-[1080px] mx-auto pr-2 md:pr-0"
+      className="max-w-[1080px] mx-auto"
     >
       {/* Header */}
       <FadeIn>
