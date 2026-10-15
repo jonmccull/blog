@@ -1,4 +1,5 @@
-const CACHE_NAME = 'blog-cache-v1'
+// Bump the name whenever the site's look changes, so returning visitors drop the old cache.
+const CACHE_NAME = 'blog-cache-v2'
 
 // Assets to cache
 const STATIC_ASSETS = ['/', '/blog']
@@ -11,6 +12,16 @@ self.addEventListener('install', (event) => {
   )
 })
 
+function cacheResponse(request, response) {
+  if (response.ok) {
+    const responseClone = response.clone()
+    caches.open(CACHE_NAME).then((cache) => {
+      cache.put(request, responseClone)
+    })
+  }
+  return response
+}
+
 self.addEventListener('fetch', (event) => {
   const { request } = event
   const url = new URL(request.url)
@@ -20,22 +31,20 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
+  // Pages: network first, so a new deploy shows at once; the cache is the offline fallback.
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then((response) => cacheResponse(request, response))
+        .catch(() => caches.match(request))
+    )
+    return
+  }
+
+  // Everything else: cache first
   event.respondWith(
     caches.match(request).then((response) => {
-      // Return cached version or fetch new version
-      return (
-        response ||
-        fetch(request).then((response) => {
-          // Cache new successful responses
-          if (response.ok) {
-            const responseClone = response.clone()
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, responseClone)
-            })
-          }
-          return response
-        })
-      )
+      return response || fetch(request).then((fresh) => cacheResponse(request, fresh))
     })
   )
 })
