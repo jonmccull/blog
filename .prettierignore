@@ -1,1 +1,3 @@
 app/cv/jobs/*.mdx
+# Vendored Foundations kit: byte-identical copies, never reformatted (see app/styles/foundations/README.md)
+app/styles/foundations/*.css
