@@ -13,9 +13,7 @@ export default function AnimatedContainer({ children, className = '' }: Animated
 
   return (
     <div
-      className={['layout-container', isWide ? 'layout-wide' : 'layout-narrow', className]
-        .filter(Boolean)
-        .join(' ')}
+      className={[isWide ? 'layout-wide' : 'layout-narrow', className].filter(Boolean).join(' ')}
     >
       {children}
     </div>

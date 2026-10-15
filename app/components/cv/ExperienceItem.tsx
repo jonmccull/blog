@@ -1,7 +1,3 @@
-'use client'
-
-import { motion } from '../motion'
-
 interface ExperienceItemProps {
   position: string
   company: string
@@ -13,6 +9,7 @@ interface ExperienceItemProps {
   jobContent?: string
 }
 
+// One hairline row: role, company and dates, then the summary and the bullet points.
 export function ExperienceItem({
   position,
   company,
@@ -24,34 +21,30 @@ export function ExperienceItem({
   jobContent,
 }: ExperienceItemProps) {
   return (
-    <motion.div className="cv-experience-item">
-      <h3 className="font-semibold text-neutral-900 dark:text-neutral-100">{position}</h3>
-      <div className="text-neutral-600 dark:text-neutral-400 mb-1">
-        {companyLink ? (
-          <a
-            href={companyLink}
-            className="link-underline hover:opacity-80 transition-opacity"
-            style={{ color: 'var(--color-primary)' }}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {company}
-          </a>
-        ) : (
-          <span>{company}</span>
-        )}
-        {location && <span> ({location})</span>}
-        <span> • </span>
-        <span className="tabular-nums">
+    <div className="cv-experience-item fdn-row">
+      <h3 className="cv-position title">{position}</h3>
+      <p className="cv-meta body-sm">
+        <span>
+          {companyLink ? (
+            <a href={companyLink} className="fdn-link" target="_blank" rel="noopener noreferrer">
+              {company}
+            </a>
+          ) : (
+            <span>{company}</span>
+          )}
+          {location && <span> ({location})</span>}
+        </span>
+        <span className="fdn-eyebrow tabular-nums">
           {startDate} → {endDate}
         </span>
-      </div>
-      {description && (
-        <p className="italic text-neutral-700 dark:text-neutral-300">{description}</p>
-      )}
+      </p>
+      {description && <p className="cv-summary body-sm">{description}</p>}
       {jobContent && jobContent.trim().length > 0 && (
-        <div className="cv-job-description" dangerouslySetInnerHTML={{ __html: jobContent }} />
+        <div
+          className="cv-job-description body-sm"
+          dangerouslySetInnerHTML={{ __html: jobContent }}
+        />
       )}
-    </motion.div>
+    </div>
   )
 }

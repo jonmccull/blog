@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { getAllPosts, getPortfolioProjects } from '../lib/mdx'
-import { Suspense } from 'react'
 
 export const metadata = {
   title: 'Blog',
@@ -15,16 +14,6 @@ type FeedItem = {
   excerpt: string
   date: string
   readingTime?: string
-}
-
-function PostSkeleton() {
-  return (
-    <div className="animate-pulse mb-8">
-      <div className="h-7 bg-neutral-200 dark:bg-neutral-700 rounded w-3/4 mb-2" />
-      <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-full mb-1" />
-      <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-1/2" />
-    </div>
-  )
 }
 
 export default async function BlogPage() {
@@ -57,48 +46,43 @@ export default async function BlogPage() {
   )
 
   return (
-    <section>
-      <h1 className="font-bold text-2xl mb-8 tracking-tighter text-neutral-900 dark:text-neutral-100">
-        Blog
-      </h1>
-      <Suspense
-        fallback={Array(3)
-          .fill(0)
-          .map((_, i) => (
-            <PostSkeleton key={i} />
-          ))}
-      >
-        <div className="prose prose-neutral dark:prose-invert max-w-none">
-          {sortedFeed.map((item) => (
-            <article key={`${item.type}-${item.slug}`} className="mb-6">
-              <Link
-                href={item.type === 'post' ? `/blog/${item.slug}` : `/portfolio/${item.slug}`}
-                className={`block no-underline group ${item.type === 'portfolio' ? 'blog-card-featured' : ''}`}
-                prefetch={true}
-              >
-                <h2 className="font-bold text-xl mb-1 tracking-tight text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-800 dark:group-hover:text-neutral-200">
-                  {item.title}
-                </h2>
-                <div className="flex gap-3 items-center text-sm text-neutral-600 dark:text-neutral-400">
-                  <time dateTime={item.date}>
-                    {new Date(item.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </time>
-                  {(item.readingTime || item.subtitle) && (
-                    <>
-                      <span>•</span>
-                      <span>{item.readingTime || item.subtitle}</span>
-                    </>
-                  )}
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
-      </Suspense>
+    <section className="blog-index">
+      <h1 className="page-title display-lg">Blog</h1>
+      <ol className="blog-list">
+        {sortedFeed.map((item) => (
+          <li key={`${item.type}-${item.slug}`} className="fdn-row">
+            <Link
+              href={item.type === 'post' ? `/blog/${item.slug}` : `/portfolio/${item.slug}`}
+              className="blog-row-link"
+              prefetch={true}
+            >
+              <h2 className="blog-row-title title">{item.title}</h2>
+              <p className="page-meta fdn-eyebrow">
+                {item.type === 'portfolio' && <span className="fdn-label is-on">Portfolio</span>}
+                <time dateTime={item.date}>
+                  {new Date(item.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+                {item.readingTime && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>{item.readingTime}</span>
+                  </>
+                )}
+                {item.subtitle && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>{item.subtitle}</span>
+                  </>
+                )}
+              </p>
+            </Link>
+          </li>
+        ))}
+      </ol>
     </section>
   )
 }

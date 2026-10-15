@@ -48,13 +48,24 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-function RoundedImage(props: ImageProps) {
-  return <Image className="rounded-lg" {...props} />
+function MdxImage({ alt, ...props }: ImageProps) {
+  return <Image alt={alt} {...props} />
 }
 
-function Code({ children, ...props }: { children: ReactNode } & React.HTMLAttributes<HTMLElement>) {
+// The kit's `code` style: mono, in ink, nothing behind it. Inside a pre it sits on the code block's surface.
+function Code({
+  children,
+  className,
+  ...props
+}: { children: ReactNode } & React.HTMLAttributes<HTMLElement>) {
   const codeHTML = highlight(children as string)
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+  return (
+    <code
+      className={['code', className].filter(Boolean).join(' ')}
+      dangerouslySetInnerHTML={{ __html: codeHTML }}
+      {...props}
+    />
+  )
 }
 
 function slugify(str: string): string {
@@ -68,12 +79,22 @@ function slugify(str: string): string {
     .replace(/\-\-+/g, '-') // Replace multiple - with single -
 }
 
+// Kit type class per heading level. not-prose keeps the typography plugin's sizes off them.
+export const headingClass: Record<1 | 2 | 3 | 4 | 5 | 6, string> = {
+  1: 'display-lg not-prose',
+  2: 'heading not-prose',
+  3: 'title not-prose',
+  4: 'title not-prose',
+  5: 'title not-prose',
+  6: 'title not-prose',
+}
+
 function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
   const Heading = ({ children }: { children: ReactNode }) => {
     const slug = slugify(children as string)
     return React.createElement(
       `h${level}`,
-      { id: slug },
+      { id: slug, className: headingClass[level] },
       [
         React.createElement('a', {
           href: `#${slug}`,
@@ -97,7 +118,7 @@ const components = {
   h4: createHeading(4),
   h5: createHeading(5),
   h6: createHeading(6),
-  Image: RoundedImage,
+  Image: MdxImage,
   a: CustomLink,
   code: Code,
   Table,

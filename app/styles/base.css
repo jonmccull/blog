@@ -10,55 +10,30 @@
 @layer base {
   :root {
     /*
-      Bridge: the Tailwind neutral-* scale points at kit tokens so pages not yet restyled stay on
-      the system. Removed in phase 2 once no neutral- utility remains.
-      The old scale was fixed (100 always lightest), and pages pair it with dark: variants, so the
-      dark theme below maps it the other way round to keep 100 the lightest.
+      Syntax highlighting (sugar-high). Site colours, not in the kit. Each one is checked at 4.5:1
+      or better on both ground and surface in its theme; none of them is a light.
     */
-    --color-neutral-100: var(--surface);
-    --color-neutral-200: var(--hairline);
-    --color-neutral-300: var(--hairline);
-    --color-neutral-400: var(--underline);
-    --color-neutral-500: var(--ink-muted);
-    --color-neutral-600: var(--ink-muted);
-    --color-neutral-700: var(--ink-secondary);
-    --color-neutral-800: var(--ink);
-    --color-neutral-900: var(--ink);
-
-    /* Syntax highlighting (site colours, not in the kit; phase 2 checks them) */
-    --sh-class: rgba(0, 0, 0, 0.88);
+    --sh-class: var(--ink);
     --sh-identifier: #354150;
-    --sh-sign: #8996a3;
-    --sh-string: #007f7a;
-    --sh-keyword: #e02518;
-    --sh-comment: #a19595;
-    --sh-jsxliterals: #6266d1;
-    --sh-property: #e25a1c;
-    --sh-entity: #e25a1c;
-
-    /* Still used by phase 2 rules below (prose links, blog card, CV) */
-    --transition-normal: 300ms;
-    --link-underline-width: 0.1em;
-    --link-underline-color: var(--underline);
-    --link-underline-opacity: 0.2;
-    --link-text-opacity: 0.85;
+    --sh-sign: #62707e;
+    --sh-string: #007c78;
+    --sh-keyword: #d82417;
+    --sh-comment: #7a6c6c;
+    --sh-jsxliterals: #5f63d0;
+    --sh-property: #bd4b17;
+    --sh-entity: #bd4b17;
   }
 
   [data-theme='dark'] {
-    --color-neutral-100: var(--ink);
-    --color-neutral-200: var(--ink);
-    --color-neutral-300: var(--ink-secondary);
-    --color-neutral-400: var(--ink-muted);
-    --color-neutral-500: var(--ink-muted);
-    --color-neutral-600: var(--underline);
-    --color-neutral-700: var(--hairline);
-    --color-neutral-800: var(--hairline);
-    --color-neutral-900: var(--surface);
-
     --sh-class: #4c97f8;
     --sh-identifier: var(--ink);
-    --sh-keyword: #f47067;
+    --sh-sign: #8996a3;
     --sh-string: #0fa295;
+    --sh-keyword: #f47067;
+    --sh-comment: #a19595;
+    --sh-jsxliterals: #7a7ed8;
+    --sh-property: #e35c1e;
+    --sh-entity: #e35c1e;
   }
 
   html {
@@ -157,117 +132,6 @@
   color: var(--ink-muted);
 }
 
-/* Body font for prose and CV content (phase 2 restyles these) */
-.prose,
-.cv-job-description,
-.cv-experience-item p {
-  font-family: var(--font-sans);
-}
-
-/* Prose styles */
-.prose .anchor {
-  @apply absolute invisible no-underline;
-  margin-left: -1em;
-  padding-right: 0.5em;
-  width: 80%;
-  max-width: 700px;
-  cursor: pointer;
-}
-
-.anchor:hover {
-  @apply visible;
-}
-
-.prose a {
-  color: var(--ink);
-  opacity: var(--link-text-opacity);
-  text-decoration: none;
-  background-image: linear-gradient(var(--link-underline-color), var(--link-underline-color));
-  background-position: 50% 100%;
-  background-repeat: no-repeat;
-  background-size: 0% var(--link-underline-width);
-  padding-bottom: 0.1em;
-  transition: all var(--transition-normal) ease-in-out;
-}
-
-.prose a:hover,
-.prose a:focus {
-  opacity: 1;
-  background-size: 100% var(--link-underline-width);
-}
-
-.prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
-  content: '#';
-}
-
-.prose *:hover > .anchor {
-  @apply visible;
-}
-
-/* Code block styles */
-.prose pre {
-  @apply bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-700;
-}
-
-.prose pre code {
-  @apply bg-transparent border-0 p-0;
-}
-
-.prose code {
-  @apply text-neutral-900 dark:text-neutral-100 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded-md text-[0.875em] font-normal border border-neutral-200 dark:border-neutral-700;
-}
-
-/* Typography styles */
-.prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose strong {
-  @apply font-medium;
-}
-
-.prose ul {
-  @apply list-disc pl-6;
-}
-
-.prose ol {
-  @apply list-decimal pl-6;
-}
-
-/* Utility classes */
-
-.title {
-  text-wrap: balance;
-  @apply text-6xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  overflow: hidden;
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
 /* Home page: copy left, portrait right on desktop; portrait first on phones */
 .home-editorial {
   display: grid;
@@ -324,9 +188,9 @@
   text-wrap: balance;
 }
 
-/* The kit clamps display-xl to 36px on phones (tokens.json, display-xl usage) */
+/* The kit clamps display-xl to 36px on phones (tokens.json, display-xl usage); tokens.css does not, so it lives here for every page */
 @media (max-width: 639px) {
-  .home-name {
+  .display-xl {
     font-size: 36px;
   }
 }
@@ -357,136 +221,236 @@
   border-top: 1px solid var(--hairline);
 }
 
-/* The kit's text link, kept under this name for app/cv/page.tsx until phase 2 moves it to fdn-link */
-.home-link {
+/* Page title: the one headline on an inner page (display-lg or display-xl from the kit) */
+.page-title {
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+/* Post and page meta: dates and reading time as a mono eyebrow */
+.page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+/* Prose: size and leading from the kit's body class; colours come through tailwind.config.js */
+.prose .anchor {
+  @apply absolute invisible no-underline;
+  margin-left: -1em;
+  padding-right: 0.5em;
+  width: 80%;
+  max-width: 700px;
+  cursor: pointer;
+}
+
+.anchor:hover {
+  @apply visible;
+}
+
+.prose .anchor:after {
+  color: var(--ink-muted);
+  content: '#';
+}
+
+.prose *:hover > .anchor {
+  @apply visible;
+}
+
+/* Text links in prose and CV copy: the kit's fdn-link, restated because prose and injected HTML can't take the class */
+.prose a:not(.anchor),
+.cv-job-description a {
   color: var(--ink);
   text-decoration: underline;
   text-decoration-color: var(--underline);
   text-underline-offset: 5px;
 }
 
-.home-link:hover {
+.prose a:not(.anchor):hover,
+.cv-job-description a:hover {
   text-decoration-color: var(--ink);
 }
 
-/* Remove prose link underline from all blog feed items */
-.prose article a.block,
-.prose article a.block:hover,
-.prose article a.block:focus {
-  background-image: none;
-  color: inherit;
-  opacity: 1;
+/* Headings carry a kit class and not-prose (app/components/mdx.tsx); these rules only space them */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--ink);
+  text-wrap: balance;
 }
 
-/* Reset all prose margins inside featured card */
-.blog-card-featured * {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+.prose h1 {
+  margin: 0 0 var(--space-5);
 }
 
-.blog-card-featured h2 {
-  margin-bottom: 0.25rem !important;
-  line-height: 1.2 !important;
+.prose h2 {
+  margin: var(--space-7) 0 var(--space-4);
 }
 
-/* Blog feed card — warm background for portfolio items */
-.blog-card-featured {
-  border-radius: 0.75rem;
-  padding: 1rem 1.5rem;
-  margin-left: -1.5rem;
-  margin-right: -1.5rem;
-  background-color: var(--color-neutral-100);
+.prose h3,
+.prose h4 {
+  margin: var(--space-6) 0 var(--space-3);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+/* Code block: a framed sheet on surface, set apart by a hairline, square */
+.prose pre {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-none);
+}
+
+/* Quotes: set in ink and indented, no rule beside them */
+.prose blockquote {
+  border: 0;
+}
+
+.prose ul {
+  @apply list-disc pl-6;
+}
+
+.prose ol {
+  @apply list-decimal pl-6;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Blog feed: hairline rows on the ground; a portfolio item is told apart by its status word only */
+.blog-index {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  transition: background-color var(--transition-normal) ease;
+  gap: var(--space-7);
 }
 
-.blog-card-featured:hover {
-  background-color: var(--color-neutral-200);
+.blog-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-[data-theme='dark'] .blog-card-featured {
-  background-color: #2a2520;
+.blog-row-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  color: inherit;
+  text-decoration: none;
 }
 
-[data-theme='dark'] .blog-card-featured:hover {
-  background-color: #332d27;
+.blog-row-title {
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
 }
 
-/* Portfolio container - wider layout for portfolio pages */
-.portfolio-container {
-  max-width: 896px; /* max-w-4xl equivalent */
-  width: 100%;
-  margin-top: -0.5rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+.blog-row-link:hover .blog-row-title {
+  text-decoration: underline;
+  text-decoration-color: var(--ink);
+  text-underline-offset: 5px;
 }
 
-@media (min-width: 1024px) {
-  .portfolio-container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
+.blog-row-subtitle {
+  color: var(--ink-secondary);
 }
 
-/* Portfolio page styles */
+/* Blog post */
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.post-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Error and not-found pages */
+.notice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.notice p {
+  margin: 0;
+  color: var(--ink-secondary);
+}
+
+/* Portfolio pages: the wide column, nothing indented past the nav */
 .portfolio-page {
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
 }
 
-.portfolio-content h2 {
-  @apply text-xl font-semibold tracking-tight mt-0 mb-4;
+.portfolio-back {
+  color: var(--ink-muted);
+  text-decoration: none;
 }
 
-.portfolio-content p {
-  @apply text-base leading-relaxed;
+.portfolio-back:hover {
+  color: var(--ink);
+}
+
+.portfolio-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
 /* Two-column layout for Overview/Approach */
 .portfolio-two-col {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: var(--space-6);
+  margin-bottom: var(--space-7);
 }
 
 @media (min-width: 640px) {
   .portfolio-two-col {
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: var(--space-7);
   }
 }
 
-.portfolio-two-col h2 {
-  @apply text-lg font-semibold mb-4 mt-0;
+.prose .portfolio-two-col h2 {
+  margin: 0 0 var(--space-3);
 }
 
-.portfolio-two-col p {
-  @apply text-neutral-600 dark:text-neutral-300 text-base leading-relaxed mb-4;
+.portfolio-two-col p:first-of-type {
+  margin-top: 0;
 }
 
 .portfolio-two-col p:last-child {
-  @apply mb-0;
+  margin-bottom: 0;
 }
 
-/* Video container */
+/* Video: sits straight on the ground */
 .portfolio-video {
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;
-  margin: 2.5rem 0;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--color-neutral-100);
-}
-
-[data-theme='dark'] .portfolio-video {
-  background: var(--color-neutral-800);
+  margin: var(--space-7) 0;
 }
 
 .portfolio-video iframe {
@@ -502,10 +466,11 @@
 .portfolio-list-two-col {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.5rem 2rem;
+  gap: var(--space-2) var(--space-6);
   list-style: disc;
-  padding-left: 1.25rem;
-  margin: 1.5rem 0 2.5rem;
+  padding-left: var(--space-5);
+  margin: var(--space-5) 0 var(--space-7);
+  color: var(--ink-secondary);
 }
 
 @media (min-width: 640px) {
@@ -514,37 +479,30 @@
   }
 }
 
-.portfolio-list-two-col li {
-  @apply text-neutral-600 dark:text-neutral-300 text-base;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 0;
+.portfolio-list-two-col li::marker {
+  color: var(--ink-muted);
 }
 
-/* Portfolio images */
+/* Portfolio images: straight on the ground, square, no shadow */
 .portfolio-images {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin: 2rem 0;
+  gap: var(--space-5);
+  margin: var(--space-6) 0;
 }
 
 .portfolio-images img {
   width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin: 0;
 }
 
-[data-theme='dark'] .portfolio-images img {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Image slideshow */
+/* Image slideshow: square image, square position marks under it */
 .slideshow-container {
-  position: relative;
   width: 100%;
-  margin: 2rem 0;
-  border-radius: 12px;
+  margin: var(--space-6) 0;
+}
+
+.slideshow-viewport {
   overflow: hidden;
 }
 
@@ -556,43 +514,50 @@
   width: 100%;
   flex-shrink: 0;
   display: block;
+  margin: 0 !important;
 }
 
 .slideshow-dots {
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  gap: 0.5rem;
-  z-index: 2;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
 }
 
 .slideshow-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.5);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-none);
+  background: var(--ink-muted);
+  opacity: 0.35;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
 .slideshow-dot:hover {
-  background: rgba(255, 255, 255, 0.8);
+  opacity: 0.7;
 }
 
 .slideshow-dot.active {
-  background: white;
+  background: var(--ink);
+  opacity: 1;
 }
 
-/* Animated layout container - expands on portfolio pages.
-   No explicit width: as a block box it fills the space left by its
-   margins (mx-4), so it can never overflow the viewport. */
-.layout-container {
-  transition: max-width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+/* Figure (app/components/Image.tsx): image on the ground, caption in mono */
+.figure {
+  margin: var(--space-6) 0;
 }
 
+.figure img {
+  margin: 0;
+}
+
+.figure figcaption {
+  margin-top: var(--space-3);
+}
+
+/* Layout width: narrow for reading, wide for home and portfolio pages. It switches, it does not animate.
+   No explicit width: as a block box it fills the space left by its margins (mx-4). */
 .layout-narrow {
   max-width: 36rem; /* max-w-xl equivalent */
 }
@@ -601,17 +566,82 @@
   max-width: 56rem; /* max-w-4xl equivalent */
 }
 
-/* CV job details */
+/* CV */
+.cv {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.cv-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.cv-role {
+  margin: 0;
+  color: var(--ink-secondary);
+}
+
+.cv-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+}
+
+.cv-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.cv-section-title {
+  margin: 0;
+  color: var(--ink);
+}
+
+.cv-profile {
+  margin: 0;
+  color: var(--ink-secondary);
+}
+
+.cv-profile strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* Each job is one hairline row (fdn-row) */
 .cv-experience-item {
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
-.cv-experience-item:last-child {
-  margin-bottom: 0;
+.cv-experience-item:first-child {
+  padding-top: 0;
 }
 
-.cv-job-description {
-  padding-top: 0.25rem;
+.cv-position {
+  margin: 0;
+  color: var(--ink);
+}
+
+.cv-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  color: var(--ink-secondary);
+}
+
+.cv-summary {
+  margin: 0;
+  font-style: italic;
+  color: var(--ink-secondary);
 }
 
 .cv-job-description ul,
@@ -622,50 +652,20 @@
 }
 
 .cv-job-description li {
-  color: var(--color-neutral-600);
-  line-height: 1.5;
-  padding: 0.25rem 0;
-  padding-left: 1.25rem;
+  color: var(--ink-secondary);
+  padding: var(--space-1) 0 var(--space-1) 1.25rem;
   text-indent: -1.25rem;
 }
 
 .cv-job-description li::before {
   content: '•';
   margin-right: 0.5rem;
-  color: var(--color-neutral-400);
+  color: var(--ink-muted);
 }
 
-[data-theme='dark'] .cv-job-description li {
-  color: var(--color-neutral-400);
-}
-
-.cv-job-description a {
+.cv-job-description strong {
+  font-weight: 500;
   color: var(--ink);
-  text-decoration: none;
-  position: relative;
-  transition: all var(--transition-normal) ease;
-}
-
-.cv-job-description a::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: var(--link-underline-width);
-  background: currentColor;
-  left: 0;
-  bottom: -0.1em;
-  transform: scaleX(0);
-  transform-origin: center;
-  opacity: var(--link-underline-opacity);
-  transition:
-    transform var(--transition-normal) ease,
-    opacity var(--transition-normal) ease;
-}
-
-.cv-job-description a:hover::after,
-.cv-job-description a:focus-visible::after {
-  transform: scaleX(1);
-  opacity: 0.4;
 }
 
 /* Reduced motion support for accessibility (WCAG 2.3.3) */
@@ -677,16 +677,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  /* Keep some visual feedback for loading states */
-  .animate-pulse {
-    animation: none;
-    opacity: 0.6;
-  }
-
-  /* Disable layout animation for reduced motion */
-  .layout-container {
-    transition: none;
   }
 }
