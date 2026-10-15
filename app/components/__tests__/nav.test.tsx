@@ -2,7 +2,12 @@ import { render, screen } from '@testing-library/react'
 import { Navbar } from '../nav'
 import { ThemeProvider } from '../../context/ThemeContext'
 
+const mockPathname = jest.fn(() => '/')
+jest.mock('next/navigation', () => ({ usePathname: () => mockPathname() }))
+
 describe('Navbar', () => {
+  beforeEach(() => mockPathname.mockReturnValue('/'))
+
   it('renders navigation links', () => {
     render(
       <ThemeProvider>
@@ -21,7 +26,18 @@ describe('Navbar', () => {
     expect(blogLink).toHaveAttribute('href', '/blog')
   })
 
-  it('renders the wordmark linking home', () => {
+  it('leaves the wordmark out on home, where the page headline carries the name', () => {
+    render(
+      <ThemeProvider>
+        <Navbar />
+      </ThemeProvider>
+    )
+
+    expect(screen.queryByRole('link', { name: 'Jon McCullough' })).not.toBeInTheDocument()
+  })
+
+  it('renders the wordmark linking home on every other page', () => {
+    mockPathname.mockReturnValue('/blog')
     render(
       <ThemeProvider>
         <Navbar />

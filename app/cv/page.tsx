@@ -38,15 +38,12 @@ export default function CVPage() {
         <nav className="cv-links body-sm" aria-label="Contact links">
           <a
             href="https://www.linkedin.com/in/jonmccullough/"
-            className="fdn-link"
             target="_blank"
             rel="noopener noreferrer"
           >
             LinkedIn
           </a>
-          <a href="mailto:hey@jonm.cc" className="fdn-btn">
-            Mail
-          </a>
+          <a href="mailto:hey@jonm.cc">Mail</a>
         </nav>
       </header>
 

@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata = {
@@ -22,7 +21,7 @@ export default function HomePage() {
             I&apos;ve spent twelve years getting really good at the fundamentals&mdash;positioning,
             messaging, launching products that resonate&mdash;working with{' '}
             <a
-              className="fdn-link"
+              className="link-underline"
               href="https://www.slite.com/"
               target="_blank"
               rel="noopener noreferrer"
@@ -31,7 +30,7 @@ export default function HomePage() {
             </a>
             , leading{' '}
             <a
-              className="fdn-link"
+              className="link-underline"
               href="https://www.todoist.com/"
               target="_blank"
               rel="noopener noreferrer"
@@ -40,7 +39,7 @@ export default function HomePage() {
             </a>
             , and niche{' '}
             <a
-              className="fdn-link"
+              className="link-underline"
               href="https://www.vivaldi.com/"
               target="_blank"
               rel="noopener noreferrer"
@@ -56,7 +55,7 @@ export default function HomePage() {
           </p>
           <p>
             {'I just joined '}
-            <Link className="fdn-link" href="/cv">
+            <Link className="link-underline" href="/cv">
               Rydoo
             </Link>
             {' as Product Marketing Manager. Let’s connect. ✌️'}
@@ -64,43 +63,43 @@ export default function HomePage() {
         </div>
 
         <nav className="home-links body-sm" aria-label="Contact links">
-          <Link href="/cv" className="fdn-link">
-            CV
-          </Link>
+          <Link href="/cv">CV</Link>
           <a
             href="https://www.linkedin.com/in/jonmccullough/"
-            className="fdn-link"
             target="_blank"
             rel="noopener noreferrer"
           >
             LinkedIn
           </a>
-          <a href="mailto:hey@jonm.cc" className="fdn-btn">
-            Mail
-          </a>
+          <a href="mailto:hey@jonm.cc">Mail</a>
         </nav>
       </div>
 
-      {/* Drawn on a 2px dither grid: shown at exactly 256px (1024 / 4) so the dots stay sharp.
-          Two files, one per theme, swapped by CSS on data-theme (the toggle is manual, so no media query). */}
+      {/* One file per theme, swapped by CSS on data-theme (the toggle is manual, so no media query).
+          Shown at exactly 256px: the 256 file has 1px cells for 1x screens, the 1024 file 2px cells for 2x. */}
       <div className="home-portrait">
-        <Image
+        {/* A plain img because next/image can't take a hand-written 1x/2x srcset */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           className="home-portrait-img is-light"
-          src="/images/jon-dither-light-1024.webp"
+          src="/images/jon-dither-light-soft-256.webp"
+          srcSet="/images/jon-dither-light-soft-256.webp 1x, /images/jon-dither-light-soft-1024.webp 2x"
           alt="Jon McCullough, one-bit dither portrait"
           width={256}
           height={256}
-          unoptimized
           loading="eager"
+          decoding="async"
         />
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           className="home-portrait-img is-dark"
-          src="/images/jon-dither-dark-1024.webp"
+          src="/images/jon-dither-dark-soft-256.webp"
+          srcSet="/images/jon-dither-dark-soft-256.webp 1x, /images/jon-dither-dark-soft-1024.webp 2x"
           alt="Jon McCullough, one-bit dither portrait"
           width={256}
           height={256}
-          unoptimized
           loading="eager"
+          decoding="async"
         />
       </div>
     </div>

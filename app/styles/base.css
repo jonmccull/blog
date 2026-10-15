@@ -9,6 +9,9 @@
 
 @layer base {
   :root {
+    /* Hover transitions only (link underlines, the contact row, the theme toggle); collapsed under reduced motion */
+    --transition-fast: 200ms;
+
     /*
       Syntax highlighting (sugar-high). Site colours, not in the kit. Each one is checked at 4.5:1
       or better on both ground and surface in its theme; none of them is a light.
@@ -72,8 +75,10 @@
   margin-bottom: var(--space-8);
 }
 
+/* margin-left: auto keeps the links right-aligned on home, where the bar has no wordmark */
 .site-bar nav {
   gap: var(--space-5);
+  margin-left: auto;
 }
 
 .site-bar-links {
@@ -85,11 +90,91 @@
   color: var(--ink);
 }
 
+.site-bar-links a:focus-visible {
+  color: var(--ink);
+}
+
+/* Nav and footer links: no resting underline; a lime stroke grows from the centre on hover */
+.site-bar-links a,
+.site-footer-link {
+  position: relative;
+  transition: color var(--transition-fast) ease;
+}
+
+.site-bar-links a::after,
+.site-footer-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.2em;
+  width: 100%;
+  height: 0.1em;
+  background: var(--lime);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition-fast) ease;
+}
+
+.site-bar-links a:hover::after,
+.site-bar-links a:focus-visible::after,
+.site-footer-link:hover::after,
+.site-footer-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* In-copy links: ink text on a thin resting underline, which a lime stroke covers from the centre on hover.
+   Two background layers rather than ::after, so a link that wraps is underlined on every line. */
+.link-underline,
+.prose a:not(.anchor),
+.cv-job-description a {
+  color: var(--ink);
+  text-decoration: none;
+  background-image:
+    linear-gradient(var(--lime), var(--lime)), linear-gradient(var(--underline), var(--underline));
+  background-repeat: no-repeat;
+  background-position:
+    50% 100%,
+    0 100%;
+  background-size:
+    0% 0.1em,
+    100% 1px;
+  padding-bottom: 0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size var(--transition-fast) ease;
+}
+
+.link-underline:hover,
+.link-underline:focus-visible,
+.prose a:not(.anchor):hover,
+.prose a:not(.anchor):focus-visible,
+.cv-job-description a:hover,
+.cv-job-description a:focus-visible {
+  background-size:
+    100% 0.1em,
+    100% 1px;
+}
+
+/* Theme toggle: ink-muted outline at rest; on hover the stroke darkens to ink and the icon fills with lime */
 .theme-toggle {
   background: transparent;
   border: 0;
   padding: 0;
   cursor: pointer;
+  transition: color var(--transition-fast) ease;
+}
+
+.theme-toggle:focus-visible {
+  color: var(--ink);
+}
+
+.theme-toggle svg path {
+  transition: fill var(--transition-fast) ease;
+}
+
+.theme-toggle:hover svg path,
+.theme-toggle:focus-visible svg path {
+  fill: var(--lime);
 }
 
 /* Footer: hairline on top, quiet links */
@@ -123,7 +208,8 @@
   text-decoration: none;
 }
 
-.site-footer-link:hover {
+.site-footer-link:hover,
+.site-footer-link:focus-visible {
   color: var(--ink);
 }
 
@@ -132,18 +218,30 @@
   color: var(--ink-muted);
 }
 
-/* Home page: copy left, portrait right on desktop; portrait first on phones */
+/* Home page: copy left, portrait right on desktop; portrait first on phones.
+   main grows to fill the screen (layout.tsx), and the auto margins centre the home block in what is left. */
 .home-editorial {
   display: grid;
   grid-template-columns: minmax(0, 32rem);
   gap: var(--space-6);
+  margin: auto 0;
   padding-top: var(--space-6);
+}
+
+/* Home only: the bar and footer sit closer so the whole page fits one screen (the bar itself does not move) */
+.site-bar:has(+ main > .home-editorial) {
+  margin-bottom: var(--space-6);
+}
+
+main:has(> .home-editorial) + .site-footer {
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-6);
 }
 
 .home-copy {
   display: flex;
   flex-direction: column;
-  gap: var(--space-7);
+  gap: var(--space-6);
 }
 
 .home-portrait {
@@ -174,7 +272,7 @@
     grid-template-columns: minmax(0, 32rem) 256px;
     gap: var(--space-8);
     align-items: start;
-    padding-top: var(--space-8);
+    padding-top: 0; /* the auto margins supply the air once the block is centred */
   }
 
   .home-portrait {
@@ -183,7 +281,7 @@
 }
 
 .home-name {
-  margin: 0 0 var(--space-3);
+  margin: 0 0 var(--space-2);
   color: var(--ink);
   text-wrap: balance;
 }
@@ -216,9 +314,37 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-5);
-  padding-top: var(--space-6);
+  padding-top: var(--space-5);
   border-top: 1px solid var(--hairline);
+}
+
+/* Departs from the kit's one-lime-block-at-rest rule on Jon's call: plain links at rest, lime only on hover/focus */
+.home-links a,
+.cv-links a {
+  display: inline-block;
+  padding: 14px 22px; /* the .fdn-btn box */
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast) ease,
+    color var(--transition-fast) ease;
+}
+
+.home-links a:hover,
+.home-links a:focus-visible,
+.cv-links a:hover,
+.cv-links a:focus-visible {
+  background-color: var(--lime);
+  color: var(--on-lime);
+}
+
+/* On wider screens the first label lines up with the copy and its lime block hangs into the margin */
+@media (min-width: 768px) {
+  .home-links a:first-child,
+  .cv-links a:first-child {
+    margin-left: -22px;
+  }
 }
 
 /* Page title: the one headline on an inner page (display-lg or display-xl from the kit) */
@@ -258,20 +384,6 @@
 
 .prose *:hover > .anchor {
   @apply visible;
-}
-
-/* Text links in prose and CV copy: the kit's fdn-link, restated because prose and injected HTML can't take the class */
-.prose a:not(.anchor),
-.cv-job-description a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-color: var(--underline);
-  text-underline-offset: 5px;
-}
-
-.prose a:not(.anchor):hover,
-.cv-job-description a:hover {
-  text-decoration-color: var(--ink);
 }
 
 /* Headings carry a kit class and not-prose (app/components/mdx.tsx); these rules only space them */
@@ -496,7 +608,7 @@
   margin: 0;
 }
 
-/* Image slideshow: square image, square position marks under it */
+/* Image slideshow: square image, square position marks under it; the current one is the kit's lime selection mark */
 .slideshow-container {
   width: 100%;
   margin: var(--space-6) 0;
@@ -524,8 +636,8 @@
 }
 
 .slideshow-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   padding: 0;
   border: 0;
   border-radius: var(--radius-none);
@@ -539,7 +651,7 @@
 }
 
 .slideshow-dot.active {
-  background: var(--ink);
+  background: var(--lime);
   opacity: 1;
 }
 
@@ -588,7 +700,6 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-5);
   padding-top: var(--space-5);
 }
 

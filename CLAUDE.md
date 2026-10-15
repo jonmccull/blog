@@ -19,11 +19,12 @@ The site uses the **Foundations kit** on every page (shell, home, blog, posts, p
 - **Tailwind names**: `ground`, `surface`, `ink`, `ink-secondary`, `ink-muted`, `hairline`, `underline`, `lime`, `lime-glow`, `on-lime`; `font-sans` (Outfit), `font-mono` (JetBrains Mono). The old `neutral-*` scale and the `--color-*` variables are gone; don't bring them back.
 - **Fonts**: one Google Fonts link in `app/layout.tsx` (from the kit's `fonts.html`). No next/font.
 - **Dark mode**: `data-theme="dark"` on `<html>` (light = no attribute). Set before paint by the inline script in `layout.tsx` (stored `theme`, else OS), kept in sync by `ThemeContext`. Tailwind `dark:` uses `['selector', '[data-theme="dark"]']`.
-- **The three rules**: flat page on `ground`, no cards/panels/shadows, square corners; hairlines (`--hairline`) are the only edge; lime is one block per view (the Mail button on home and CV, "Try again" on the error page), `lime-glow` for quiet highlights (the blog's Portfolio label), never text or border, text on it is `on-lime`.
+- **The three rules**: flat page on `ground`, no cards/panels/shadows, square corners; hairlines (`--hairline`) are the only edge; lime is one block per view at rest ("Try again" on the error page); the home and CV contact links (CV, LinkedIn, Mail) rest as plain text and take the lime block only on hover or focus, on Jon's call; lime is also the stroke of the link underlines and the theme toggle's hover fill; `lime-glow` for quiet highlights (the blog's Portfolio label), never text or border, text on it is `on-lime`.
 - **Syntax colours**: the `--sh-*` variables in `base.css` are site colours, not kit tokens, each checked at 4.5:1 on ground and surface in its theme.
-- **Motion**: none. No hover motion; links darken. Focus is the kit's 2px `ink` outline, offset 2px.
+- **Motion**: hover only, 200ms (`--transition-fast` in `base.css`), collapsed under `prefers-reduced-motion`. In-copy links (`.link-underline`, prose, CV job copy) rest on a thin `--underline` line that a lime stroke covers from the centre; nav and footer links have no resting line and grow the same lime stroke. Focus is the kit's 2px `ink` outline, offset 2px.
+- **Nav bar**: no wordmark on home (the page headline carries the name); the links stay right-aligned.
 - **Layout width**: home and portfolio detail pages use the wide container (56rem), others narrow (36rem); see `LayoutWidthContext.tsx`.
-- **Home portrait**: two dither files (`public/images/jon-dither-{light,dark}-1024.webp`) swapped by CSS on `data-theme`, shown at exactly 256px with `image-rendering: pixelated`. Never resize to an in-between size.
+- **Home portrait**: one dither portrait per theme with soft bottom and right edges, swapped by CSS on `data-theme`, shown at exactly 256px with `image-rendering: pixelated`. A plain `<img>` with a 1x/2x `srcset`: `jon-dither-{light,dark}-soft-256.webp` (1px cells) for 1x screens, `-soft-1024.webp` (2px cells) for 2x. Never resize to an in-between size.
 
 ## Content
 

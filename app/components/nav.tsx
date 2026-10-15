@@ -20,9 +20,12 @@ export function Navbar() {
 
   return (
     <header className="fdn-bar site-bar">
-      <Link href="/" className="fdn-wordmark">
-        Jon McCullough
-      </Link>
+      {/* Home already has the name as its headline, so the bar drops the wordmark there */}
+      {pathname !== '/' && (
+        <Link href="/" className="fdn-wordmark">
+          Jon McCullough
+        </Link>
+      )}
       <nav id="nav" aria-label="Main navigation">
         <div className="site-bar-links" role="list">
           {Object.entries(navItems).map(([path, { name, label }]) => {
