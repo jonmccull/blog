@@ -6,8 +6,7 @@ My personal website and blog. Built with Next.js, TypeScript, and Tailwind CSS. 
 
 - **Framework**: Next.js 16 (App Router)
 - **Content**: MDX via next-mdx-remote
-- **Styling**: Tailwind CSS + Geist font
-- **Animations**: Framer Motion (CV page)
+- **Styling**: Tailwind CSS on the Foundations kit (Outfit + JetBrains Mono); see `app/styles/foundations/README.md`
 - **Testing**: Jest + Playwright
 - **Deployment**: Vercel
 

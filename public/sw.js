@@ -4,11 +4,13 @@ const CACHE_NAME = 'blog-cache-v2'
 // Assets to cache
 const STATIC_ASSETS = ['/', '/blog']
 
+// A new worker takes over at once, so a bumped cache name reaches returning visitors on their next visit.
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS)
-    })
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then(() => self.skipWaiting())
   )
 })
 
@@ -52,12 +54,15 @@ self.addEventListener('fetch', (event) => {
 // Clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((cacheName) => cacheName !== CACHE_NAME)
-          .map((cacheName) => caches.delete(cacheName))
-      )
-    })
+    caches
+      .keys()
+      .then((cacheNames) => {
+        return Promise.all(
+          cacheNames
+            .filter((cacheName) => cacheName !== CACHE_NAME)
+            .map((cacheName) => caches.delete(cacheName))
+        )
+      })
+      .then(() => self.clients.claim())
   )
 })

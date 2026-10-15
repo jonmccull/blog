@@ -13,13 +13,14 @@ Next.js 16 (App Router) + Tailwind 3.4 + TypeScript. Content in MDX. Deployed on
 
 ## Design System
 
-The site uses the **Foundations kit** (restyle in progress on branch `foundations-kit`: phase 1 shell + home done; blog, portfolio, CV, now pages are phase 2). Read `app/styles/foundations/README.md` first.
+The site uses the **Foundations kit** on every page (shell, home, blog, posts, portfolio, CV, now, error and 404). Read `app/styles/foundations/README.md` first.
 
 - **Vendored kit**: `app/styles/foundations/tokens.css` and `bundle.css` are byte-identical copies of the kit, imported in `app/layout.tsx` before `base.css`. Never edit them; never retype a token value. Colours and fonts come from `var(--token)`, a kit type class (`display-xl`, `lead`, `body`, `small`, `footnote`, ...) or a `fdn-` class (`fdn-btn`, `fdn-link`, `fdn-bar`, `fdn-wordmark`, ...).
-- **Tailwind names**: `ground`, `surface`, `ink`, `ink-secondary`, `ink-muted`, `hairline`, `underline`, `lime`, `lime-glow`, `on-lime`; `font-sans` (Outfit), `font-mono` (JetBrains Mono). The old `neutral-*` scale is a temporary bridge onto kit tokens (`base.css`), removed in phase 2.
+- **Tailwind names**: `ground`, `surface`, `ink`, `ink-secondary`, `ink-muted`, `hairline`, `underline`, `lime`, `lime-glow`, `on-lime`; `font-sans` (Outfit), `font-mono` (JetBrains Mono). The old `neutral-*` scale and the `--color-*` variables are gone; don't bring them back.
 - **Fonts**: one Google Fonts link in `app/layout.tsx` (from the kit's `fonts.html`). No next/font.
 - **Dark mode**: `data-theme="dark"` on `<html>` (light = no attribute). Set before paint by the inline script in `layout.tsx` (stored `theme`, else OS), kept in sync by `ThemeContext`. Tailwind `dark:` uses `['selector', '[data-theme="dark"]']`.
-- **The three rules**: flat page on `ground`, no cards/panels/shadows, square corners; hairlines (`--hairline`) are the only edge; lime is one block per view (the home page's Mail button), never text or border, text on it is `on-lime`.
+- **The three rules**: flat page on `ground`, no cards/panels/shadows, square corners; hairlines (`--hairline`) are the only edge; lime is one block per view (the Mail button on home and CV, "Try again" on the error page), `lime-glow` for quiet highlights (the blog's Portfolio label), never text or border, text on it is `on-lime`.
+- **Syntax colours**: the `--sh-*` variables in `base.css` are site colours, not kit tokens, each checked at 4.5:1 on ground and surface in its theme.
 - **Motion**: none. No hover motion; links darken. Focus is the kit's 2px `ink` outline, offset 2px.
 - **Layout width**: home and portfolio detail pages use the wide container (56rem), others narrow (36rem); see `LayoutWidthContext.tsx`.
 - **Home portrait**: two dither files (`public/images/jon-dither-{light,dark}-1024.webp`) swapped by CSS on `data-theme`, shown at exactly 256px with `image-rendering: pixelated`. Never resize to an in-between size.
