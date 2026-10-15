@@ -42,6 +42,7 @@ const createMatchMediaMock = (matches: boolean) => {
 describe('ThemeToggle', () => {
   beforeEach(() => {
     localStorageMock.clear()
+    document.documentElement.removeAttribute('data-theme')
     window.matchMedia = createMatchMediaMock(false)
   })
 
@@ -103,7 +104,7 @@ describe('ThemeToggle', () => {
 
     await waitFor(() => {
       expect(localStorageMock.getItem('theme')).toBe('dark')
-      expect(document.documentElement.classList.contains('dark')).toBe(true)
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
     })
   })
 
@@ -128,7 +129,7 @@ describe('ThemeToggle', () => {
 
     await waitFor(() => {
       expect(localStorageMock.getItem('theme')).toBe('light')
-      expect(document.documentElement.classList.contains('dark')).toBe(false)
+      expect(document.documentElement.hasAttribute('data-theme')).toBe(false)
     })
   })
 
@@ -168,7 +169,7 @@ describe('ThemeToggle', () => {
     })
   })
 
-  it('has correct styling classes', async () => {
+  it('is a plain square icon button in the kit colours', async () => {
     render(
       <ThemeProvider>
         <ThemeToggle />
@@ -183,8 +184,10 @@ describe('ThemeToggle', () => {
         'w-9',
         'items-center',
         'justify-center',
-        'rounded-lg'
+        'text-ink-muted',
+        'hover:text-ink'
       )
+      expect(button.className).not.toMatch(/rounded|border|ring/)
     })
   })
 

@@ -32,6 +32,21 @@ describe('Footer', () => {
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
+  it('renders the now link', () => {
+    render(<Footer />)
+
+    expect(screen.getByRole('link', { name: /now page/i })).toHaveAttribute('href', '/now')
+  })
+
+  it('uses the kit type sizes and no theme-class styling', () => {
+    const { container } = render(<Footer />)
+
+    const currentYear = new Date().getFullYear()
+    expect(screen.getByText(new RegExp(`© ${currentYear} Jon McCullough`))).toHaveClass('footnote')
+    expect(container.querySelector('.site-footer-links')).toHaveClass('small')
+    expect(container.innerHTML).not.toMatch(/\b(dark:|rounded|ring-)/)
+  })
+
   it('renders copyright text with current year', () => {
     render(<Footer />)
 

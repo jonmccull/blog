@@ -21,6 +21,31 @@ describe('Navbar', () => {
     expect(blogLink).toHaveAttribute('href', '/blog')
   })
 
+  it('renders the wordmark linking home', () => {
+    render(
+      <ThemeProvider>
+        <Navbar />
+      </ThemeProvider>
+    )
+
+    const wordmark = screen.getByRole('link', { name: 'Jon McCullough' })
+    expect(wordmark).toHaveAttribute('href', '/')
+    expect(wordmark).toHaveClass('fdn-wordmark')
+  })
+
+  it('marks the current page and uses the kit bar', () => {
+    const { container } = render(
+      <ThemeProvider>
+        <Navbar />
+      </ThemeProvider>
+    )
+
+    expect(screen.getByRole('link', { name: /home page/i })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByRole('link', { name: /blog posts/i })).not.toHaveAttribute('aria-current')
+    expect(container.querySelector('header')).toHaveClass('fdn-bar')
+    expect(container.innerHTML).not.toMatch(/\b(dark:|rounded|ring-)/)
+  })
+
   it('has proper accessibility attributes', () => {
     render(
       <ThemeProvider>

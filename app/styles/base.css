@@ -2,24 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
+/*
+  Colours, type and spacing come from the Foundations kit (app/styles/foundations/, loaded before
+  this file). Never retype a kit value here: use var(--token) or a kit type class.
+*/
+
 @layer base {
   :root {
-    /* Colors — ink & paper palette */
-    --color-primary: #b85c38;
-    --color-primary-light: rgba(184, 92, 56, 0.1);
-    --color-surface: #f9f6f1;
-    --color-neutral-100: #f0ebe3;
-    --color-neutral-200: #e2dcd3;
-    --color-neutral-300: #ccc5ba;
-    --color-neutral-400: #a69e93;
-    --color-neutral-500: #8a8178;
-    --color-neutral-600: #6b6359;
-    --color-neutral-700: #4a443d;
-    --color-neutral-800: #2a2520;
-    --color-neutral-900: #1c1917;
+    /*
+      Bridge: the Tailwind neutral-* scale points at kit tokens so pages not yet restyled stay on
+      the system. Removed in phase 2 once no neutral- utility remains.
+      The old scale was fixed (100 always lightest), and pages pair it with dark: variants, so the
+      dark theme below maps it the other way round to keep 100 the lightest.
+    */
+    --color-neutral-100: var(--surface);
+    --color-neutral-200: var(--hairline);
+    --color-neutral-300: var(--hairline);
+    --color-neutral-400: var(--underline);
+    --color-neutral-500: var(--ink-muted);
+    --color-neutral-600: var(--ink-muted);
+    --color-neutral-700: var(--ink-secondary);
+    --color-neutral-800: var(--ink);
+    --color-neutral-900: var(--ink);
 
-    /* Syntax highlighting */
+    /* Syntax highlighting (site colours, not in the kit; phase 2 checks them) */
     --sh-class: rgba(0, 0, 0, 0.88);
     --sh-identifier: #354150;
     --sh-sign: #8996a3;
@@ -30,37 +36,27 @@
     --sh-property: #e25a1c;
     --sh-entity: #e25a1c;
 
-    /* Spacing */
-    --space-4: 4px;
-    --space-8: 8px;
-    --space-12: 12px;
-    --space-16: 16px;
-    --space-24: 24px;
-    --space-32: 32px;
-
-    /* Border radius */
-    --radius-sm: 2px;
-    --radius-md: 4px;
-    --radius-lg: 8px;
-
-    /* Transitions */
-    --transition-fast: 200ms;
+    /* Still used by phase 2 rules below (prose links, blog card, CV) */
     --transition-normal: 300ms;
-    --transition-slow: 500ms;
-
-    /* Link styling */
     --link-underline-width: 0.1em;
-    --link-underline-color: var(--color-primary);
+    --link-underline-color: var(--underline);
     --link-underline-opacity: 0.2;
     --link-text-opacity: 0.85;
   }
 
-  /* Dark mode overrides */
-  .dark {
-    --color-surface: #1c1917;
-    --color-primary: #d4825e;
+  [data-theme='dark'] {
+    --color-neutral-100: var(--ink);
+    --color-neutral-200: var(--ink);
+    --color-neutral-300: var(--ink-secondary);
+    --color-neutral-400: var(--ink-muted);
+    --color-neutral-500: var(--ink-muted);
+    --color-neutral-600: var(--underline);
+    --color-neutral-700: var(--hairline);
+    --color-neutral-800: var(--hairline);
+    --color-neutral-900: var(--surface);
+
     --sh-class: #4c97f8;
-    --sh-identifier: #f0ebe3;
+    --sh-identifier: var(--ink);
     --sh-keyword: #f47067;
     --sh-string: #0fa295;
   }
@@ -70,48 +66,102 @@
     color-scheme: light;
   }
 
-  .dark html {
+  html[data-theme='dark'] {
     color-scheme: dark;
   }
 
   body {
     min-height: 100%;
-    background-color: var(--color-surface);
-    color: var(--color-neutral-800);
-    transition:
-      background-color var(--transition-normal),
-      color var(--transition-normal);
-  }
-
-  .dark body {
-    color: var(--color-neutral-100);
-  }
-
-  /* Disable transitions on initial load to prevent flash */
-  .no-transitions,
-  .no-transitions * {
-    transition: none !important;
-  }
-
-  a {
-    transition: color var(--transition-normal);
   }
 }
 
-/* Selection styles */
 ::selection {
-  background: rgba(184, 92, 56, 0.15);
+  background: var(--lime-glow);
+  color: var(--ink);
 }
 
-.dark ::selection {
-  background: rgba(212, 130, 94, 0.25);
+/* Skip link: hidden until focused, then a plain ink label on the ground with the kit focus ring */
+.skip-link:focus {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 50;
+  padding: var(--space-2) var(--space-4);
+  background: var(--ground);
+  color: var(--ink);
 }
 
-/* Body font for prose and CV content */
+/* Nav bar: the kit's fdn-bar, aligned to the content column */
+.site-bar {
+  padding: 0;
+  margin-bottom: var(--space-8);
+}
+
+.site-bar nav {
+  gap: var(--space-5);
+}
+
+.site-bar-links {
+  display: flex;
+  gap: var(--space-5);
+}
+
+.fdn-bar nav a[aria-current='page'] {
+  color: var(--ink);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Footer: hairline on top, quiet links */
+.site-footer {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.site-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .site-footer-links {
+    flex-direction: row;
+    gap: var(--space-6);
+  }
+}
+
+.site-footer-link {
+  display: flex;
+  align-items: center;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+
+.site-footer-link:hover {
+  color: var(--ink);
+}
+
+.site-footer-copyright {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+/* Body font for prose and CV content (phase 2 restyles these) */
 .prose,
 .cv-job-description,
 .cv-experience-item p {
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* Prose styles */
@@ -129,7 +179,7 @@
 }
 
 .prose a {
-  color: var(--color-primary);
+  color: var(--ink);
   opacity: var(--link-text-opacity);
   text-decoration: none;
   background-image: linear-gradient(var(--link-underline-color), var(--link-underline-color));
@@ -199,11 +249,6 @@
 
 /* Utility classes */
 
-/* Shared horizontal page shell used for nav, content, and footer gutters */
-.page-shell {
-  @apply px-4 md:px-0;
-}
-
 .title {
   text-wrap: balance;
   @apply text-6xl font-medium tracking-tight mt-6 mb-2;
@@ -223,192 +268,105 @@
   height: 100%;
 }
 
-/* Special link styles for navigation and footer */
-.nav-link,
-.footer-link {
-  position: relative;
-  text-decoration: none;
-  opacity: var(--link-text-opacity);
-  transition: all var(--transition-normal) ease;
-}
-
-.nav-link:hover,
-.footer-link:hover,
-.nav-link:focus-visible,
-.footer-link:focus-visible {
-  opacity: 1;
-  outline: none;
-}
-
-.nav-link::after,
-.footer-link::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: var(--link-underline-width);
-  background: currentColor;
-  left: 0;
-  bottom: -0.1em;
-  transform: scaleX(0);
-  transform-origin: center;
-  opacity: var(--link-underline-opacity);
-  transition:
-    transform var(--transition-normal) ease,
-    opacity var(--transition-normal) ease;
-}
-
-.nav-link:hover::after,
-.footer-link:hover::after,
-.nav-link:focus-visible::after,
-.footer-link:focus-visible::after {
-  transform: scaleX(1);
-  opacity: 0.4;
-}
-
-/* Active navigation link */
-.nav-link-active::after {
-  transform: scaleX(1);
-  opacity: 0.4;
-}
-
-/* Reusable animated underline link style */
-.link-underline {
-  position: relative;
-  text-decoration: none;
-  transition: all var(--transition-normal) ease;
-}
-
-.link-underline::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: var(--link-underline-width);
-  background: currentColor;
-  left: 0;
-  bottom: -0.1em;
-  transform: scaleX(0);
-  transform-origin: center;
-  opacity: var(--link-underline-opacity);
-  transition:
-    transform var(--transition-normal) ease,
-    opacity var(--transition-normal) ease;
-}
-
-.link-underline:hover::after,
-.link-underline:focus-visible::after {
-  transform: scaleX(1);
-  opacity: 0.4;
-}
-
-/* Home page — editorial layout */
+/* Home page: copy left, portrait right on desktop; portrait first on phones */
 .home-editorial {
-  max-width: 32rem;
-  padding-top: 4rem;
+  display: grid;
+  grid-template-columns: minmax(0, 32rem);
+  gap: var(--space-6);
+  padding-top: var(--space-6);
+}
+
+.home-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.home-portrait {
+  order: -1;
+  width: 256px;
+  height: 256px;
+}
+
+/* Each file sits on its own theme's ground, so neither needs an edge */
+.home-portrait-img {
+  display: block;
+  width: 256px;
+  height: 256px;
+  image-rendering: pixelated;
+}
+
+.home-portrait-img.is-dark,
+[data-theme='dark'] .home-portrait-img.is-light {
+  display: none;
+}
+
+[data-theme='dark'] .home-portrait-img.is-dark {
+  display: block;
 }
 
 @media (min-width: 768px) {
   .home-editorial {
-    padding-top: 5rem;
+    grid-template-columns: minmax(0, 32rem) 256px;
+    gap: var(--space-8);
+    align-items: start;
+    padding-top: var(--space-8);
+  }
+
+  .home-portrait {
+    order: 0;
   }
 }
 
 .home-name {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
-  font-variation-settings:
-    'WONK' 0,
-    'SOFT' 50;
-  font-size: 3rem;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--color-neutral-900);
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--space-3);
+  color: var(--ink);
+  text-wrap: balance;
 }
 
-@media (min-width: 768px) {
+/* The kit clamps display-xl to 36px on phones (tokens.json, display-xl usage) */
+@media (max-width: 639px) {
   .home-name {
-    font-size: 3.75rem;
+    font-size: 36px;
   }
 }
 
-.dark .home-name {
-  color: #f0ebe3;
-}
-
 .home-descriptor {
-  font-size: 1.125rem;
-  line-height: 1.5;
-  color: var(--color-neutral-500);
-  letter-spacing: -0.01em;
   margin: 0;
+  max-width: 30em;
+  color: var(--ink-secondary);
 }
 
 .home-body {
-  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  color: var(--ink-secondary);
 }
 
 .home-body p {
-  font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 1rem;
-  line-height: 1.75;
-  color: var(--color-neutral-700);
-  margin: 0 0 1.25rem;
-}
-
-.dark .home-body p {
-  color: #ccc5ba;
-}
-
-.home-body p:last-child {
-  margin-bottom: 0;
-}
-
-.home-body a {
-  color: var(--color-primary);
-  opacity: var(--link-text-opacity);
-  text-decoration: none;
-  background-image: linear-gradient(var(--link-underline-color), var(--link-underline-color));
-  background-position: 50% 100%;
-  background-repeat: no-repeat;
-  background-size: 0% var(--link-underline-width);
-  padding-bottom: 0.1em;
-  transition: all var(--transition-normal) ease-in-out;
-}
-
-.home-body a:hover,
-.home-body a:focus {
-  opacity: 1;
-  background-size: 100% var(--link-underline-width);
+  margin: 0;
 }
 
 .home-links {
   display: flex;
-  gap: 1.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--color-neutral-200);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline);
 }
 
-.dark .home-links {
-  border-color: var(--color-neutral-800);
-}
-
+/* The kit's text link, kept under this name for app/cv/page.tsx until phase 2 moves it to fdn-link */
 .home-link {
-  font-size: 0.875rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-neutral-500);
-  text-decoration: none;
-  transition: color var(--transition-normal) ease;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--underline);
+  text-underline-offset: 5px;
 }
 
-.home-link:hover,
-.home-link:focus {
-  color: var(--color-neutral-900);
-}
-
-.dark .home-link:hover,
-.dark .home-link:focus {
-  color: var(--color-neutral-100);
+.home-link:hover {
+  text-decoration-color: var(--ink);
 }
 
 /* Remove prose link underline from all blog feed items */
@@ -450,11 +408,11 @@
   background-color: var(--color-neutral-200);
 }
 
-.dark .blog-card-featured {
+[data-theme='dark'] .blog-card-featured {
   background-color: #2a2520;
 }
 
-.dark .blog-card-featured:hover {
+[data-theme='dark'] .blog-card-featured:hover {
   background-color: #332d27;
 }
 
@@ -527,7 +485,7 @@
   background: var(--color-neutral-100);
 }
 
-.dark .portfolio-video {
+[data-theme='dark'] .portfolio-video {
   background: var(--color-neutral-800);
 }
 
@@ -577,7 +535,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.dark .portfolio-images img {
+[data-theme='dark'] .portfolio-images img {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -677,12 +635,12 @@
   color: var(--color-neutral-400);
 }
 
-.dark .cv-job-description li {
+[data-theme='dark'] .cv-job-description li {
   color: var(--color-neutral-400);
 }
 
 .cv-job-description a {
-  color: var(--color-primary);
+  color: var(--ink);
   text-decoration: none;
   position: relative;
   transition: all var(--transition-normal) ease;

@@ -24,6 +24,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    // Read the stored or OS theme only after mount, so the server and first client render match.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setThemeState(getInitialTheme())
     setMounted(true)
   }, [])
@@ -45,12 +47,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('theme', newTheme)
   }, [])
 
+  // The Foundations kit reads data-theme="dark" on <html>; light is the default, so no attribute.
   useEffect(() => {
     if (!mounted) return
     if (theme === 'dark') {
-      document.documentElement.classList.add('dark')
+      document.documentElement.setAttribute('data-theme', 'dark')
     } else {
-      document.documentElement.classList.remove('dark')
+      document.documentElement.removeAttribute('data-theme')
     }
   }, [theme, mounted])
 

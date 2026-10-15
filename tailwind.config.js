@@ -1,10 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}'],
-  darkMode: 'class',
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
+      // Foundations kit tokens (app/styles/foundations/tokens.css). Values switch with data-theme.
       colors: {
+        ground: 'var(--ground)',
+        surface: 'var(--surface)',
+        ink: 'var(--ink)',
+        'ink-secondary': 'var(--ink-secondary)',
+        'ink-muted': 'var(--ink-muted)',
+        hairline: 'var(--hairline)',
+        underline: 'var(--underline)',
+        lime: 'var(--lime)',
+        'lime-glow': 'var(--lime-glow)',
+        'on-lime': 'var(--on-lime)',
+        // Bridge to kit tokens via app/styles/base.css; removed in phase 2.
         neutral: {
           100: 'var(--color-neutral-100)',
           200: 'var(--color-neutral-200)',
@@ -16,6 +28,10 @@ module.exports = {
           800: 'var(--color-neutral-800)',
           900: 'var(--color-neutral-900)',
         },
+      },
+      fontFamily: {
+        sans: ['var(--font-sans)'],
+        mono: ['var(--font-mono)'],
       },
       typography: {
         DEFAULT: {

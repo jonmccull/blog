@@ -13,32 +13,16 @@ Next.js 16 (App Router) + Tailwind 3.4 + TypeScript. Content in MDX. Deployed on
 
 ## Design System
 
-### Typography (three-font system)
+The site uses the **Foundations kit** (restyle in progress on branch `foundations-kit`: phase 1 shell + home done; blog, portfolio, CV, now pages are phase 2). Read `app/styles/foundations/README.md` first.
 
-- **Fraunces** (`--font-display`) — display/headings. Used for page titles, section headings on CV. Settings: `font-weight: 500`, `font-variation-settings: 'WONK' 0, 'SOFT' 50`.
-- **Nunito Sans** (`--font-body`) — body text. Used for prose content, CV descriptions, blog posts.
-- **Geist Sans / Geist Mono** — UI chrome only: nav, footer links, metadata, code blocks.
-
-### Color Palette (ink & paper)
-
-Warm-shifted neutrals defined as CSS variables in `app/styles/base.css`. Tailwind's `neutral-*` scale is remapped to these in `tailwind.config.js`.
-
-| Token                 | Light                    | Dark                   |
-| --------------------- | ------------------------ | ---------------------- |
-| `--color-surface`     | `#F9F6F1` (cream)        | `#1C1917` (warm black) |
-| `--color-primary`     | `#B85C38` (burnt sienna) | `#D4825E` (lighter)    |
-| `--color-neutral-800` | `#2A2520` (text)         | —                      |
-| `--color-neutral-100` | `#F0EBE3`                | —                      |
-
-Full neutral scale: 100–900, all warm-shifted (brown undertone, not cool gray).
-
-### Key Patterns
-
-- **Link hover**: animated underline via `background-size` transition (prose) or `scaleX` pseudo-element (nav/footer)
-- **Dark mode**: class-based (`darkMode: 'class'`), stored in localStorage, respects system preference
-- **Layout width**: animated container that expands for portfolio pages (narrow: 36rem, wide: 56rem)
-- **Motion**: Framer Motion on CV page (staggered fade-in). Respects `prefers-reduced-motion`.
-- **Selection**: warm sienna tint (`rgba(184, 92, 56, 0.15)`)
+- **Vendored kit**: `app/styles/foundations/tokens.css` and `bundle.css` are byte-identical copies of the kit, imported in `app/layout.tsx` before `base.css`. Never edit them; never retype a token value. Colours and fonts come from `var(--token)`, a kit type class (`display-xl`, `lead`, `body`, `small`, `footnote`, ...) or a `fdn-` class (`fdn-btn`, `fdn-link`, `fdn-bar`, `fdn-wordmark`, ...).
+- **Tailwind names**: `ground`, `surface`, `ink`, `ink-secondary`, `ink-muted`, `hairline`, `underline`, `lime`, `lime-glow`, `on-lime`; `font-sans` (Outfit), `font-mono` (JetBrains Mono). The old `neutral-*` scale is a temporary bridge onto kit tokens (`base.css`), removed in phase 2.
+- **Fonts**: one Google Fonts link in `app/layout.tsx` (from the kit's `fonts.html`). No next/font.
+- **Dark mode**: `data-theme="dark"` on `<html>` (light = no attribute). Set before paint by the inline script in `layout.tsx` (stored `theme`, else OS), kept in sync by `ThemeContext`. Tailwind `dark:` uses `['selector', '[data-theme="dark"]']`.
+- **The three rules**: flat page on `ground`, no cards/panels/shadows, square corners; hairlines (`--hairline`) are the only edge; lime is one block per view (the home page's Mail button), never text or border, text on it is `on-lime`.
+- **Motion**: none. No hover motion; links darken. Focus is the kit's 2px `ink` outline, offset 2px.
+- **Layout width**: home and portfolio detail pages use the wide container (56rem), others narrow (36rem); see `LayoutWidthContext.tsx`.
+- **Home portrait**: two dither files (`public/images/jon-dither-{light,dark}-1024.webp`) swapped by CSS on `data-theme`, shown at exactly 256px with `image-rendering: pixelated`. Never resize to an in-between size.
 
 ## Content
 

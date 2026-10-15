@@ -40,6 +40,7 @@ const createMatchMediaMock = (matches: boolean) => {
 describe('ThemeContext', () => {
   beforeEach(() => {
     localStorageMock.clear()
+    document.documentElement.removeAttribute('data-theme')
     window.matchMedia = createMatchMediaMock(false)
   })
 
@@ -94,7 +95,7 @@ describe('ThemeContext', () => {
       expect(result.current.theme).toBe('dark')
     })
 
-    it('applies dark class to document when theme is dark', async () => {
+    it('sets data-theme="dark" on the document when theme is dark', async () => {
       const { result } = renderHook(() => useTheme(), {
         wrapper: ThemeProvider,
       })
@@ -108,11 +109,11 @@ describe('ThemeContext', () => {
       })
 
       await waitFor(() => {
-        expect(document.documentElement.classList.contains('dark')).toBe(true)
+        expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
       })
     })
 
-    it('removes dark class from document when theme is light', async () => {
+    it('removes data-theme from the document when theme is light', async () => {
       localStorageMock.setItem('theme', 'dark')
 
       const { result } = renderHook(() => useTheme(), {
@@ -128,8 +129,62 @@ describe('ThemeContext', () => {
       })
 
       await waitFor(() => {
-        expect(document.documentElement.classList.contains('dark')).toBe(false)
+        expect(document.documentElement.hasAttribute('data-theme')).toBe(false)
       })
+    })
+  })
+
+  describe('Following the OS', () => {
+    function mockMatchMediaWithListener(initial: boolean) {
+      let listener: ((e: { matches: boolean }) => void) | undefined
+      window.matchMedia = jest.fn().mockImplementation((query) => ({
+        matches: initial,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+        addEventListener: (_: string, fn: (e: { matches: boolean }) => void) => {
+          listener = fn
+        },
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+      }))
+      return (matches: boolean) => listener?.({ matches })
+    }
+
+    it('follows an OS change while no choice is stored', async () => {
+      const fireChange = mockMatchMediaWithListener(false)
+      const { result } = renderHook(() => useTheme(), { wrapper: ThemeProvider })
+
+      await waitFor(() => {
+        expect(result.current.mounted).toBe(true)
+      })
+
+      act(() => {
+        fireChange(true)
+      })
+
+      await waitFor(() => {
+        expect(result.current.theme).toBe('dark')
+        expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+      })
+    })
+
+    it('ignores an OS change once a choice is stored', async () => {
+      localStorageMock.setItem('theme', 'light')
+      const fireChange = mockMatchMediaWithListener(false)
+      const { result } = renderHook(() => useTheme(), { wrapper: ThemeProvider })
+
+      await waitFor(() => {
+        expect(result.current.mounted).toBe(true)
+      })
+
+      act(() => {
+        fireChange(true)
+      })
+
+      expect(result.current.theme).toBe('light')
+      expect(document.documentElement.hasAttribute('data-theme')).toBe(false)
     })
   })
 
@@ -206,7 +261,7 @@ describe('ThemeContext', () => {
       })
 
       // Initially mounted might be false
-      const initialMounted = result.current.mounted
+      expect(typeof result.current.mounted).toBe('boolean')
 
       await waitFor(() => {
         expect(result.current.mounted).toBe(true)
