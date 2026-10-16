@@ -9,6 +9,9 @@
 
 @layer base {
   :root {
+    /* main's top margin (layout.tsx); the home field stage takes it back to start at the bar's hairline */
+    --main-top: 1.5rem;
+
     /*
       Syntax highlighting (sugar-high). Site colours, not in the kit. Each one is checked at 4.5:1
       or better on both ground and surface in its theme; none of them is a light.
@@ -760,8 +763,8 @@ main:has(> .home-field) + .site-footer {
   flex-direction: column;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  margin-top: calc(-1 * (var(--space-6) + 1.5rem));
-  padding-top: calc(var(--space-6) + 1.5rem);
+  margin-top: calc(-1 * (var(--space-6) + var(--main-top)));
+  padding-top: calc(var(--space-6) + var(--main-top));
   overflow: hidden;
 }
 

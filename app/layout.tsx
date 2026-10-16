@@ -112,7 +112,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AnimatedContainer className="mx-4 lg:mx-auto">
             <div className="flex min-h-screen flex-col">
               <Navbar />
-              <main id="main-content" className="flex-auto min-w-0 mt-6 flex flex-col">
+              <main
+                id="main-content"
+                className="flex-auto min-w-0 mt-[var(--main-top)] flex flex-col"
+              >
                 {children}
               </main>
               <Footer />
