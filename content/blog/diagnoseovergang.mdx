@@ -8,7 +8,7 @@ _**Diagnoseovergang** is a free, open-source resource that explains what changes
 
 ---
 
-**TODO (Jon):** one or two lines on why _you_ started this. What put ICD-11 on your radar, and who asked?
+This one started with a message from a mental health professional here in Norway. They'd spotted the gap and had been thinking about building something like this themselves. They asked for my help, so I built it. 🙂
 
 ## Wait, what's ICD?
 
@@ -18,11 +18,11 @@ It isn't just a renumbering. The codes look different (ICD-10's F60.31 versus IC
 
 ## Why it's needed
 
-Norway still codes diagnoses in ICD-10, but the move to ICD-11 is coming. The official national introduction is targeted for around 2028–2029. ICD-11 has no official Norwegian translation yet, and Norwegian isn't one of the languages WHO's ICD-11 API offers.
+Norway still codes diagnoses in ICD-10, but the move to ICD-11 is underway. [Helsedirektoratet](https://www.helsedirektoratet.no/digitalisering-og-e-helse/helsefaglige-kodeverk/icd/om-overgangen-til-icd-11-i-norge) is aiming for 2028–2029, though that date isn't final yet. The official Norwegian translation is being done one field at a time, and Norwegian isn't one of the languages WHO's ICD-11 API offers. So for now there's no official Norwegian version to learn from.
 
-But the gap that bites right now isn't language. Clinicians already know ICD-10 inside out. What they need is to understand **what changed**, and how to re-code.
+That leaves clinicians in a kind of limbo. The switch is coming, and for mental health it's a big one. Personality disorders were the field Helsedirektoratet picked for its own first ICD-11 trial. But the official Norwegian material isn't there yet.
 
-**TODO (Jon):** confirm before publishing: "I couldn't find a free, Norwegian-language resource that explains the changes." (The repo doesn't say this, and the build brief notes that Helsedirektoratet has its own free materials on the way.)
+And the gap that bites right now isn't really language. Clinicians already know ICD-10 inside out. What they need is to understand **what changed**, and how to re-code.
 
 ## Personality disorders first
 
@@ -43,8 +43,6 @@ ICD-11 is WHO's work, licensed CC BY-ND, which means no derivatives. A Norwegian
 3. **The site never translates WHO text.** Official text sits in an English panel. If you want it in Norwegian, your own browser can translate it on your device. The site doesn't call any translation service, store machine translations, or offer an "Oversett" button. A disclaimer fixes confusion. It doesn't make an unauthorised derivative OK.
 4. **No mapping table you can download.** The ICD-10 → ICD-11 crosswalk is presented as prose and decision support, not as a file that claims to be _the_ mapping.
 
-**TODO (Jon):** your call on the open question here. Each entry's JSON pairs ICD-10 codes with ICD-11 codes. Now that the repo is public, those pairs can be pulled out by a script. They're editorial and CC BY-SA, but they sit close to rule 4. Mention it, or leave it out?
-
 ## How it's built
 
 - **Astro + Tailwind** on Cloudflare Pages. It's mostly content with a few interactive bits.
@@ -61,8 +59,6 @@ The rules above shouldn't be taken on trust. With the code public, a clinician, 
 
 ## What's still rough
 
-Every entry is still a draft, badged _"Utkast – ikke klinisk kvalitetssikret"_ (draft, not clinically reviewed). None has had a clinician review yet. For now, the feedback form is the review process.
-
-**TODO (Jon):** mention the clinician who's helped, without naming them? Or leave it out.
+Every entry is still a draft, badged _"Utkast – ikke klinisk kvalitetssikret"_ (draft, not clinically reviewed). None has had a formal clinical review yet. For now, the feedback form is the review process.
 
 If you work with ICD codes in Norway, [have a look](https://diagnoseovergang.pages.dev) and mark anything that's wrong. That's exactly what the feedback form is there for.
