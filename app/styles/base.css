@@ -631,22 +631,6 @@ main:has(> .home-field) + .site-footer {
   margin-top: var(--space-3);
 }
 
-/* ThemeImage: one render per theme, each on its own theme's ground */
-.theme-image {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.theme-image.is-dark,
-[data-theme='dark'] .theme-image.is-light {
-  display: none;
-}
-
-[data-theme='dark'] .theme-image.is-dark {
-  display: block;
-}
-
 /* Layout width: narrow for reading, wide for home and portfolio pages. It switches, it does not animate.
    No explicit width: as a block box it fills the space left by its margins (mx-4). */
 .layout-narrow {

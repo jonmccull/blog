@@ -1,7 +1,6 @@
 import NextImage from 'next/image'
 import type { ReactNode } from 'react'
 import Image from './Image'
-import ThemeImage from './ThemeImage'
 import { headingClass } from './mdx'
 
 function MdxImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
@@ -32,7 +31,6 @@ function heading(level: 1 | 2 | 3 | 4) {
 
 export const mdxComponents = {
   Image,
-  ThemeImage,
   img: MdxImage,
   h1: heading(1),
   h2: heading(2),
