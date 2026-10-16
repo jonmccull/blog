@@ -71,16 +71,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   return (
     <>
       <JsonLd data={blogPostingSchema} />
-      <article className="prose prose-neutral dark:prose-invert max-w-2xl mx-auto">
-        <h1 className="font-bold tracking-tighter text-neutral-900 dark:text-neutral-100">
-          {title}
-        </h1>
-        <div className="flex gap-3 items-center text-sm text-neutral-600 dark:text-neutral-400 mb-8">
-          <time dateTime={date}>{formatDate(date)}</time>
-          <span>•</span>
-          <span>{readingTime}</span>
-        </div>
-        <div className="prose-pre:bg-neutral-100 dark:prose-pre:bg-neutral-800 prose-pre:border prose-pre:border-neutral-200 dark:prose-pre:border-neutral-700">
+      <article className="post">
+        <header className="post-header">
+          <h1 className="page-title display-lg">{title}</h1>
+          <p className="page-meta fdn-eyebrow">
+            <time dateTime={date}>{formatDate(date)}</time>
+            <span aria-hidden="true">·</span>
+            <span>{readingTime}</span>
+          </p>
+        </header>
+        <div className="prose body max-w-none">
           <MDXRemote source={content} options={{ blockJS: false }} components={mdxComponents} />
         </div>
       </article>

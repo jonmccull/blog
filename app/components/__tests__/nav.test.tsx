@@ -2,7 +2,12 @@ import { render, screen } from '@testing-library/react'
 import { Navbar } from '../nav'
 import { ThemeProvider } from '../../context/ThemeContext'
 
+const mockPathname = jest.fn(() => '/')
+jest.mock('next/navigation', () => ({ usePathname: () => mockPathname() }))
+
 describe('Navbar', () => {
+  beforeEach(() => mockPathname.mockReturnValue('/'))
+
   it('renders navigation links', () => {
     render(
       <ThemeProvider>
@@ -19,6 +24,46 @@ describe('Navbar', () => {
     const blogLink = screen.getByRole('link', { name: /blog posts/i })
     expect(blogLink).toBeInTheDocument()
     expect(blogLink).toHaveAttribute('href', '/blog')
+  })
+
+  it.each(['/', '/cv'])(
+    'leaves the wordmark out on %s, where the page headline carries the name',
+    (path) => {
+      mockPathname.mockReturnValue(path)
+      render(
+        <ThemeProvider>
+          <Navbar />
+        </ThemeProvider>
+      )
+
+      expect(screen.queryByRole('link', { name: 'Jon McCullough' })).not.toBeInTheDocument()
+    }
+  )
+
+  it('renders the wordmark linking home on every other page', () => {
+    mockPathname.mockReturnValue('/blog')
+    render(
+      <ThemeProvider>
+        <Navbar />
+      </ThemeProvider>
+    )
+
+    const wordmark = screen.getByRole('link', { name: 'Jon McCullough' })
+    expect(wordmark).toHaveAttribute('href', '/')
+    expect(wordmark).toHaveClass('fdn-wordmark')
+  })
+
+  it('marks the current page and uses the kit bar', () => {
+    const { container } = render(
+      <ThemeProvider>
+        <Navbar />
+      </ThemeProvider>
+    )
+
+    expect(screen.getByRole('link', { name: /home page/i })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByRole('link', { name: /blog posts/i })).not.toHaveAttribute('aria-current')
+    expect(container.querySelector('header')).toHaveClass('fdn-bar')
+    expect(container.innerHTML).not.toMatch(/\b(dark:|rounded|ring-)/)
   })
 
   it('has proper accessibility attributes', () => {

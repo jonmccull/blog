@@ -1,8 +1,7 @@
+import './styles/foundations/tokens.css'
+import './styles/foundations/bundle.css'
 import './styles/base.css'
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-import { Fraunces, Nunito_Sans } from 'next/font/google'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
@@ -55,9 +54,6 @@ export const metadata: Metadata = {
   },
 }
 
-const cx = (...classes: (string | boolean | undefined | null)[]): string =>
-  classes.filter(Boolean).join(' ')
-
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -76,64 +72,45 @@ const websiteSchema = {
   },
 }
 
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
-})
-
-const nunitoSans = Nunito_Sans({
-  subsets: ['latin'],
-  variable: '--font-body',
-  display: 'swap',
-})
+// Sets data-theme before first paint: the stored choice, else the OS preference. Light is no attribute.
+const themeScript = `
+(function() {
+  try {
+    var theme = localStorage.getItem('theme');
+    if (theme !== 'dark' && theme !== 'light') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  } catch (e) {}
+})();
+`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={cx(
-        'h-full',
-        GeistSans.variable,
-        GeistMono.variable,
-        fraunces.variable,
-        nunitoSans.variable
-      )}
-    >
+    <html lang="en" className="h-full" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="theme-color" content="#1C1917" media="(prefers-color-scheme: dark)" />
-        <meta name="theme-color" content="#F9F6F1" media="(prefers-color-scheme: light)" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                document.documentElement.classList.add('no-transitions');
-                var theme = localStorage.getItem('theme');
-                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark');
-                }
-                requestAnimationFrame(function() {
-                  requestAnimationFrame(function() {
-                    document.documentElement.classList.remove('no-transitions');
-                  });
-                });
-              })();
-            `,
-          }}
+        {/* These two mirror --ground in app/styles/foundations/tokens.css (light and dark). */}
+        <meta name="theme-color" content="#151a17" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#f2f3f1" media="(prefers-color-scheme: light)" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* The kit's one fonts link (foundations-kit fonts.html). The root layout covers every page. */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap"
         />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <JsonLd data={websiteSchema} />
       </head>
-      <body className="antialiased h-full">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-neutral-900 focus:text-white dark:focus:bg-white dark:focus:text-neutral-900 focus:rounded-md focus:outline-none"
-        >
+      <body className="fdn-page h-full">
+        <a href="#main-content" className="skip-link sr-only focus:not-sr-only">
           Skip to main content
         </a>
         <Providers>
-          <AnimatedContainer className="mx-4 mt-8 lg:mx-auto">
-            <div className="page-shell flex min-h-screen flex-col">
+          <AnimatedContainer className="mx-4 lg:mx-auto">
+            <div className="flex min-h-screen flex-col">
               <Navbar />
               <main id="main-content" className="flex-auto min-w-0 mt-6 flex flex-col">
                 {children}

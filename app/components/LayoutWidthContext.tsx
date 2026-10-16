@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useContext, ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
 
 type LayoutWidthContextType = {
@@ -15,13 +15,9 @@ export function useLayoutWidth() {
 
 export function LayoutWidthProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
-  const [isWide, setIsWide] = useState(false)
-
-  useEffect(() => {
-    // Portfolio detail pages should use wide layout
-    const shouldBeWide = pathname?.startsWith('/portfolio/') ?? false
-    setIsWide(shouldBeWide)
-  }, [pathname])
+  // Portfolio detail pages and the home page (copy plus portrait column) use the wide layout.
+  // Derived from the path on every render, so a page loads at its width instead of animating to it.
+  const isWide = pathname === '/' || (pathname?.startsWith('/portfolio/') ?? false)
 
   return <LayoutWidthContext.Provider value={{ isWide }}>{children}</LayoutWidthContext.Provider>
 }

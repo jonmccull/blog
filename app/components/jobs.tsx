@@ -1,5 +1,3 @@
-'use client'
-
 import { ExperienceItem } from './cv/ExperienceItem'
 
 // Pre-formatted job data passed from server component
@@ -21,7 +19,7 @@ interface JobExperienceProps {
 
 export function JobExperience({ jobs }: JobExperienceProps) {
   return (
-    <div className="space-y-6">
+    <div>
       {jobs.map((job) => (
         <ExperienceItem
           key={job.key}

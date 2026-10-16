@@ -13,32 +13,18 @@ Next.js 16 (App Router) + Tailwind 3.4 + TypeScript. Content in MDX. Deployed on
 
 ## Design System
 
-### Typography (three-font system)
+The site uses the **Foundations kit** on every page (shell, home, blog, posts, portfolio, CV, now, error and 404). Read `app/styles/foundations/README.md` first.
 
-- **Fraunces** (`--font-display`) — display/headings. Used for page titles, section headings on CV. Settings: `font-weight: 500`, `font-variation-settings: 'WONK' 0, 'SOFT' 50`.
-- **Nunito Sans** (`--font-body`) — body text. Used for prose content, CV descriptions, blog posts.
-- **Geist Sans / Geist Mono** — UI chrome only: nav, footer links, metadata, code blocks.
-
-### Color Palette (ink & paper)
-
-Warm-shifted neutrals defined as CSS variables in `app/styles/base.css`. Tailwind's `neutral-*` scale is remapped to these in `tailwind.config.js`.
-
-| Token                 | Light                    | Dark                   |
-| --------------------- | ------------------------ | ---------------------- |
-| `--color-surface`     | `#F9F6F1` (cream)        | `#1C1917` (warm black) |
-| `--color-primary`     | `#B85C38` (burnt sienna) | `#D4825E` (lighter)    |
-| `--color-neutral-800` | `#2A2520` (text)         | —                      |
-| `--color-neutral-100` | `#F0EBE3`                | —                      |
-
-Full neutral scale: 100–900, all warm-shifted (brown undertone, not cool gray).
-
-### Key Patterns
-
-- **Link hover**: animated underline via `background-size` transition (prose) or `scaleX` pseudo-element (nav/footer)
-- **Dark mode**: class-based (`darkMode: 'class'`), stored in localStorage, respects system preference
-- **Layout width**: animated container that expands for portfolio pages (narrow: 36rem, wide: 56rem)
-- **Motion**: Framer Motion on CV page (staggered fade-in). Respects `prefers-reduced-motion`.
-- **Selection**: warm sienna tint (`rgba(184, 92, 56, 0.15)`)
+- **Vendored kit**: `app/styles/foundations/tokens.css` and `bundle.css` are byte-identical copies of the kit, imported in `app/layout.tsx` before `base.css`. Never edit them; never retype a token value. Colours and fonts come from `var(--token)`, a kit type class (`display-xl`, `lead`, `body`, `small`, `footnote`, ...) or a `fdn-` class (`fdn-btn`, `fdn-link`, `fdn-bar`, `fdn-wordmark`, ...).
+- **Tailwind names**: `ground`, `surface`, `ink`, `ink-secondary`, `ink-muted`, `hairline`, `underline`, `lime`, `lime-glow`, `on-lime`; `font-sans` (Outfit), `font-mono` (JetBrains Mono). The old `neutral-*` scale and the `--color-*` variables are gone; don't bring them back.
+- **Fonts**: one Google Fonts link in `app/layout.tsx` (from the kit's `fonts.html`). No next/font.
+- **Dark mode**: `data-theme="dark"` on `<html>` (light = no attribute). Set before paint by the inline script in `layout.tsx` (stored `theme`, else OS), kept in sync by `ThemeContext`. Tailwind `dark:` uses `['selector', '[data-theme="dark"]']`.
+- **The three rules**: flat page on `ground`, no cards/panels/shadows, square corners; hairlines (`--hairline`) are the only edge; lime is one block per view at rest ("Try again" on the error page); the home and CV contact links (CV, LinkedIn, Mail) rest as plain text and take the lime block only on hover or focus, on Jon's call; lime is also the stroke of the link underlines and the theme toggle's hover fill; `lime-glow` for quiet highlights (the blog's Portfolio label), never text or border, text on it is `on-lime`.
+- **Syntax colours**: the `--sh-*` variables in `base.css` are site colours, not kit tokens, each checked at 4.5:1 on ground and surface in its theme.
+- **Motion**: hover only, 200ms (`--transition-fast` in `base.css`), collapsed under `prefers-reduced-motion`. In-copy links (`.link-underline`, prose, CV job copy) rest on a thin `--underline` line that a lime stroke covers from the centre; nav and footer links have no resting line and grow the same lime stroke. Focus is the kit's 2px `ink` outline, offset 2px.
+- **Nav bar**: no wordmark on home (the page headline carries the name); the links stay right-aligned.
+- **Layout width**: home and portfolio detail pages use the wide container (56rem), others narrow (36rem); see `LayoutWidthContext.tsx`.
+- **Home portrait**: one dither portrait per theme with soft bottom and right edges, swapped by CSS on `data-theme`, shown at exactly 256px with `image-rendering: pixelated`. A plain `<img>` with a 1x/2x `srcset`: `jon-dither-{light,dark}-soft-256.webp` (1px cells) for 1x screens, `-soft-1024.webp` (2px cells) for 2x. Never resize to an in-between size.
 
 ## Content
 

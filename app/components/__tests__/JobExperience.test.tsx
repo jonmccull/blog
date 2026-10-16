@@ -50,4 +50,14 @@ describe('JobExperience', () => {
     expect(contentBlocks[0].textContent).toContain('First job details')
     expect(contentBlocks[1].textContent).toContain('Second job details')
   })
+
+  it('renders each job as a flat hairline row with kit links', () => {
+    const { container } = render(<JobExperience jobs={createJobs()} />)
+
+    const rows = container.querySelectorAll('.cv-experience-item')
+    expect(rows).toHaveLength(2)
+    rows.forEach((row) => expect(row).toHaveClass('fdn-row'))
+    expect(screen.getByRole('link', { name: 'Acme' })).toHaveClass('link-underline')
+    expect(container.innerHTML).not.toMatch(/\b(dark:|rounded|shadow|neutral-)/)
+  })
 })

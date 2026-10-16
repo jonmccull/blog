@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- fs mocks return loose shapes */
 import fs from 'fs'
-import path from 'path'
 import {
   formatDate,
   formatCVDate,
