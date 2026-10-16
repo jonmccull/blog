@@ -1,0 +1,67 @@
+---
+title: 'Diagnoseovergang'
+date: '2026-10-16'
+excerpt: 'A free, Norwegian-language guide to what changes from ICD-10 to ICD-11 for mental disorders, and how I built it.'
+header: 'icd-rain'
+---
+
+_**Diagnoseovergang** is a free, open-source resource that explains what changes from ICD-10 to ICD-11 for mental and behavioural disorders, in Norwegian. It's live at [diagnoseovergang.pages.dev](https://diagnoseovergang.pages.dev), and as of this week the code is public [on GitHub](https://github.com/jonmccull/diagnoseovergang)._
+
+---
+
+## What's ICD?
+
+ICD is the International Classification of Diseases, the World Health Organisation's standard list of diagnoses. Every diagnosis gets a code, and those codes are how a diagnosis is written into a patient's record, reported and counted, across countries. ICD-10 has been the standard since the 1990s. WHO adopted ICD-11 in 2019, and it came into effect in 2022, but each country switches over on its own timeline.
+
+It isn't just a renumbering. The codes look different (ICD-10's F60.31 versus ICD-11's 6D11.5), and in places the thinking behind them has changed too. Mental, behavioural and neurodevelopmental disorders live in chapter 06 of ICD-11, and that's the chapter this project covers.
+
+## Why it's needed
+
+Norway still codes diagnoses in ICD-10, but the move to ICD-11 is underway. [Helsedirektoratet](https://www.helsedirektoratet.no/digitalisering-og-e-helse/helsefaglige-kodeverk/icd/om-overgangen-til-icd-11-i-norge) is aiming for 2028–2029, though that date isn't final yet. The official Norwegian translation is being done one field at a time, and Norwegian isn't one of the languages WHO's ICD-11 API offers. So for now there's no official Norwegian version to learn from.
+
+That leaves clinicians in a kind of limbo. The switch is coming, and for mental health it's a big one. Personality disorders were the field Helsedirektoratet picked for its own first ICD-11 trial. But the official Norwegian material isn't there yet.
+
+And the gap that bites right now isn't really language. Clinicians already know ICD-10 inside out. What they need is to understand **what changed**, and how to re-code.
+
+## Personality disorders first
+
+The project started with personality disorders, because that's where ICD-11 changes the most. ICD-10 sorted people into separate types: paranoid, schizoid, dissocial, emotionally unstable, and so on. ICD-11 drops the types. There's now one diagnosis, personality disorder (6D10). You rate severity first (mild, moderate or severe), then note which trait domains stand out. Borderline survives only as an optional "pattern" qualifier (6D11.5).
+
+That's a different way of thinking, not just a new set of codes. So the site has three things: an entry for each meaningful change (F60.31 on one side, what it is now on the other, then "what changed" and "what to do now"), a crosswalk from familiar ICD-10 codes, and a small tool that walks through severity and traits and builds up the ICD-11 coding pattern. That tool is labelled as an educational aid, not a diagnostic instrument.
+
+![A Diagnoseovergang entry: borderline in ICD-10 next to the borderline pattern in ICD-11](/images-blog/Diagnoseovergang/entry-borderline.webp)
+
+From there it grew to cover all of chapter 06. There are 37 entries now, one per meaningful change rather than one per code: complex PTSD, prolonged grief, gaming disorder, catatonia getting its own grouping, gender incongruence moving out of the chapter entirely, plus an overview for every grouping.
+
+## The interesting part: staying on the right side of WHO
+
+ICD-11 is WHO's work, licensed CC BY-ND, which means no derivatives. A straight Norwegian translation would be a derivative. Facts and ideas aren't copyrightable, though, so explaining _what changed_ in my own words is fine. The whole project rests on that line, and the code is built so the line holds by design, not by good intentions. Four rules:
+
+1. **Official codes, titles and URIs come live from WHO's API.** Content files store only the code. Titles are never typed in or translated by me, so they can't drift from the source.
+2. **Every piece of commentary is labelled** _"Redaksjonelt innhold – ikke fra WHO"_ (editorial content, not from WHO). A field in the content schema drives the label, so an entry can't render without it.
+3. **The site never translates WHO text.** Official text sits in an English panel. If you want it in Norwegian, your own browser can translate it on your device. The site doesn't call any translation service, store machine translations, or offer an "Oversett" button. A disclaimer fixes confusion. It doesn't make an unauthorised derivative OK.
+4. **No mapping table you can download.** The ICD-10 → ICD-11 crosswalk is presented as prose and decision support, not as a file that claims to be _the_ mapping.
+
+## How it's built
+
+- **Astro + Tailwind** on Cloudflare Pages. It's mostly content with a few interactive bits.
+- **A small Hono Worker** holds the WHO credentials and proxies the API. Responses are cached in KV, and a nightly job pre-warms every code the content refers to, so the site keeps working if WHO is down.
+- **Content as code.** Each entry is a JSON file, checked against a schema at build time and edited through pull requests. A clinician can fix the wording without touching app code.
+- **Private feedback.** Highlight a passage, suggest a change. Submissions go to Cloudflare D1 and are never shown publicly. Email, role and consent are required. The IP is stored only as a salted hash, and email and hash are wiped within 12 months by a nightly job.
+- **My Foundations design kit**, the same one this site uses.
+
+I built it with Claude Code. I wrote a detailed build brief, with the compliance rules marked as non-negotiable, and approved it milestone by milestone. The first working version came together over about a day in July. The biggest risk with AI-written medical content turned out to be drift: commentary that slowly turns into the WHO definition, just in Norwegian. So every entry got the same test: would this page still work with all the WHO text removed? Six of the 37 leaned too close and were rewritten.
+
+## Why open source
+
+The rules above shouldn't be taken on trust. With the code public, a clinician, a lawyer or Helsedirektoratet can check that they actually hold, and tell me when they don't. The code is MIT, the commentary is CC BY-SA (so improvements stay open), and WHO's material stays under WHO's own licence.
+
+## What's still rough
+
+Every entry is still a draft, badged _"Utkast – ikke klinisk kvalitetssikret"_ (draft, not clinically reviewed). None has had a formal clinical review yet. For now, the feedback form is the review process.
+
+If you work with ICD codes in Norway, [have a look](https://diagnoseovergang.pages.dev) and mark anything that's wrong. That's exactly what the feedback form is there for.
+
+---
+
+_Diagnoseovergang is free and open source. If it's useful to you, you can [support the project here](https://buymeacoffee.com/jonmccull)._
