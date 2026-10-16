@@ -57,7 +57,7 @@ describe('JobExperience', () => {
     const rows = container.querySelectorAll('.cv-experience-item')
     expect(rows).toHaveLength(2)
     rows.forEach((row) => expect(row).toHaveClass('fdn-row'))
-    expect(screen.getByRole('link', { name: 'Acme' })).toHaveClass('link-underline')
+    expect(screen.getByRole('link', { name: 'Acme' })).toHaveClass('fdn-link')
     expect(container.innerHTML).not.toMatch(/\b(dark:|rounded|shadow|neutral-)/)
   })
 })

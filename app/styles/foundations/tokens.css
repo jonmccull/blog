@@ -44,6 +44,7 @@
   --space-7: 56px;
   --space-8: 64px;
   --space-9: 96px;
+  --link-underline-offset: 5px;
   --radius-none: 0px;
   --motion-drift-speed: 1;
   --motion-drift-distance: 4px;
@@ -54,6 +55,15 @@
   --motion-trail-fade: 1s;
   --motion-glow-width: 8px;
   --motion-bloom-size: 22px;
+  --motion-hover: 200ms;
+  --motion-field-motion: 0.6;
+  --motion-field-frame-rate: 20;
+  --motion-field-ripple-speed: 1.7;
+  --motion-field-ripple-life: 2.4s;
+  --motion-field-lime: 1.6;
+  --motion-field-clouds: 0.55;
+  --motion-field-quiet-reach: 200px;
+  --motion-field-glyph: 6px;
   --font-sans: "Outfit", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 }
@@ -75,3 +85,7 @@
 .graph-hub { font-family: var(--font-mono); font-size: 11.5px; line-height: 1.4; font-weight: 500; }
 .graph-leaf { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.4; font-weight: 400; }
 .code { font-family: var(--font-mono); font-size: 0.9em; line-height: 1.4; font-weight: 400; }
+
+@media (max-width: 639px) {
+  .display-xl { font-size: 36px; }
+}
