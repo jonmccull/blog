@@ -88,3 +88,23 @@ test.describe('Smoke tests', () => {
     expect(criticalErrors).toEqual([])
   })
 })
+
+test.describe('Home field', () => {
+  test('draws the field and the portrait canvas on desktop, keeping the portrait alt text', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 })
+    await page.goto('/')
+    await expect(page.locator('.home-field > canvas')).toHaveCount(1, { timeout: 10000 })
+    await expect(page.locator('.home-portrait')).toHaveClass(/is-canvas/, { timeout: 10000 })
+    await expect(page.getByRole('img', { name: /dither portrait/ })).toHaveCount(1)
+  })
+
+  test('leaves phones with the plain portrait', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto('/')
+    await page.waitForLoadState('networkidle')
+    await expect(page.locator('.home-field > canvas')).toHaveCount(0)
+    await expect(page.locator('.home-portrait-img.is-light')).toBeVisible()
+  })
+})
