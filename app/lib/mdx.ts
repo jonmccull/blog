@@ -235,6 +235,19 @@ function calculateReadingTime(content: string): string {
   return `${minutes} min read`
 }
 
+// One shape for a post, whichever loader read it
+function toPost(slug: string, metadata: BlogMetadata, content: string): Post {
+  return {
+    slug,
+    title: metadata.title,
+    date: metadata.date,
+    excerpt: metadata.excerpt || '',
+    content,
+    readingTime: calculateReadingTime(content),
+    header: metadata.header,
+  }
+}
+
 export async function getAllPosts(): Promise<Post[]> {
   // Return cached posts if available
   if (postsCache) {
@@ -244,17 +257,7 @@ export async function getAllPosts(): Promise<Post[]> {
   const blogPosts = getBlogPosts()
 
   const allPostsData = blogPosts.map((post) => {
-    const readingTime = calculateReadingTime(post.content)
-
-    const postData: Post = {
-      slug: post.slug,
-      title: post.metadata.title,
-      date: post.metadata.date,
-      excerpt: post.metadata.excerpt || '',
-      content: post.content,
-      readingTime,
-      header: post.metadata.header,
-    }
+    const postData = toPost(post.slug, post.metadata, post.content)
 
     // Cache individual post
     postCache[post.slug] = postData
@@ -277,17 +280,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     const fullPath = path.join(process.cwd(), 'content', 'blog', `${slug}.mdx`)
     const { metadata, content } = readMDXFile<BlogMetadata>(fullPath)
 
-    const readingTime = calculateReadingTime(content)
-
-    const post: Post = {
-      slug,
-      title: metadata.title,
-      date: metadata.date,
-      excerpt: metadata.excerpt || '',
-      content,
-      readingTime,
-      header: metadata.header,
-    }
+    const post = toPost(slug, metadata, content)
 
     // Cache the post
     postCache[slug] = post
