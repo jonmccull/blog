@@ -458,6 +458,19 @@ main:has(> .home-field) + .site-footer {
   gap: var(--space-4);
 }
 
+/* IcdRain (app/components/icdRainField.ts): the band is reserved before the drawing starts, so nothing shifts */
+.icd-rain {
+  width: 100%;
+  aspect-ratio: 576 / 200;
+  min-height: 140px;
+  margin-bottom: var(--space-4);
+}
+
+.icd-rain canvas {
+  display: block;
+  max-width: 100%;
+}
+
 /* Error and not-found pages */
 .notice {
   display: flex;

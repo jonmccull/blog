@@ -7,6 +7,7 @@ export type BlogMetadata = {
   date: string
   excerpt: string
   image?: string
+  header?: string
 }
 
 export type CVMetadata = {
@@ -220,6 +221,7 @@ export type Post = {
   content: string
   excerpt: string
   slug: string
+  header?: string
 }
 
 // Simple in-memory cache
@@ -251,6 +253,7 @@ export async function getAllPosts(): Promise<Post[]> {
       excerpt: post.metadata.excerpt || '',
       content: post.content,
       readingTime,
+      header: post.metadata.header,
     }
 
     // Cache individual post
@@ -283,6 +286,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       excerpt: metadata.excerpt || '',
       content,
       readingTime,
+      header: metadata.header,
     }
 
     // Cache the post

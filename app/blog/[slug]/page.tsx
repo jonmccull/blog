@@ -4,6 +4,7 @@ import { getPostBySlug, getAllPosts, type Post } from '../../lib/mdx'
 import { mdxComponents } from '../../components/mdx-components'
 import type { Metadata } from 'next'
 import JsonLd from '../../components/JsonLd'
+import IcdRain from '../../components/IcdRain'
 import { baseUrl } from '../../sitemap'
 
 export async function generateStaticParams() {
@@ -37,6 +38,9 @@ export async function generateMetadata({
   }
 }
 
+// Drawn headers a post can opt into with `header:` in its frontmatter
+const headers: Record<string, () => React.JSX.Element> = { 'icd-rain': IcdRain }
+
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -53,7 +57,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     notFound()
   }
 
-  const { title, date, readingTime, content, excerpt } = post as Post
+  const { title, date, readingTime, content, excerpt, header } = post as Post
+  const Header = header ? headers[header] : undefined
 
   const blogPostingSchema = {
     '@context': 'https://schema.org',
@@ -73,6 +78,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <JsonLd data={blogPostingSchema} />
       <article className="post">
         <header className="post-header">
+          {Header && <Header />}
           <h1 className="page-title display-lg">{title}</h1>
           <p className="page-meta fdn-eyebrow">
             <time dateTime={date}>{formatDate(date)}</time>
