@@ -8,11 +8,9 @@ _**Diagnoseovergang** is a free, open-source resource that explains what changes
 
 ---
 
-This one started with a message from a mental health professional here in Norway. They'd spotted the gap and had been thinking about building something like this themselves. They asked for my help, so I built it. 🙂
+## What's ICD?
 
-## Wait, what's ICD?
-
-ICD is the International Classification of Diseases, WHO's standard list of diagnoses. Every diagnosis gets a code, and those codes are how a diagnosis is written into a patient's record, reported and counted, across countries. ICD-10 has been the standard since the 1990s. WHO adopted ICD-11 in 2019, and it came into effect in 2022, but each country switches over on its own timeline.
+ICD is the International Classification of Diseases, the World Health Organisation's standard list of diagnoses. Every diagnosis gets a code, and those codes are how a diagnosis is written into a patient's record, reported and counted, across countries. ICD-10 has been the standard since the 1990s. WHO adopted ICD-11 in 2019, and it came into effect in 2022, but each country switches over on its own timeline.
 
 It isn't just a renumbering. The codes look different (ICD-10's F60.31 versus ICD-11's 6D11.5), and in places the thinking behind them has changed too. Mental, behavioural and neurodevelopmental disorders live in chapter 06 of ICD-11, and that's the chapter this project covers.
 
@@ -36,7 +34,7 @@ From there it grew to cover all of chapter 06. There are 37 entries now, one per
 
 ## The interesting part: staying on the right side of WHO
 
-ICD-11 is WHO's work, licensed CC BY-ND, which means no derivatives. A Norwegian translation would be a derivative. Facts and ideas aren't copyrightable, though, so explaining _what changed_ in my own words is fine. The whole project rests on that line, and the code is built so the line holds by design, not by good intentions. Four rules:
+ICD-11 is WHO's work, licensed CC BY-ND, which means no derivatives. A straight Norwegian translation would be a derivative. Facts and ideas aren't copyrightable, though, so explaining _what changed_ in my own words is fine. The whole project rests on that line, and the code is built so the line holds by design, not by good intentions. Four rules:
 
 1. **Official codes, titles and URIs come live from WHO's API.** Content files store only the code. Titles are never typed in or translated by me, so they can't drift from the source.
 2. **Every piece of commentary is labelled** _"Redaksjonelt innhold – ikke fra WHO"_ (editorial content, not from WHO). A field in the content schema drives the label, so an entry can't render without it.
@@ -62,3 +60,7 @@ The rules above shouldn't be taken on trust. With the code public, a clinician, 
 Every entry is still a draft, badged _"Utkast – ikke klinisk kvalitetssikret"_ (draft, not clinically reviewed). None has had a formal clinical review yet. For now, the feedback form is the review process.
 
 If you work with ICD codes in Norway, [have a look](https://diagnoseovergang.pages.dev) and mark anything that's wrong. That's exactly what the feedback form is there for.
+
+---
+
+_Diagnoseovergang is free and open source. If it's useful to you, you can [support the project here](https://buymeacoffee.com/jonmccull)._
