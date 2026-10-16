@@ -229,11 +229,11 @@
 }
 
 /* Home only: the bar and footer sit closer so the whole page fits one screen (the bar itself does not move) */
-.site-bar:has(+ main > .home-editorial) {
+.site-bar:has(+ main > .home-field) {
   margin-bottom: var(--space-6);
 }
 
-main:has(> .home-editorial) + .site-footer {
+main:has(> .home-field) + .site-footer {
   margin-top: var(--space-6);
   margin-bottom: var(--space-6);
 }
@@ -789,4 +789,45 @@ main:has(> .home-editorial) + .site-footer {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Home: the kit's Field stage, full bleed across the viewport, growing to fill main like the home block did.
+   It starts at the bar's hairline: the negative margin takes back main's top margin and the bar's bottom margin. */
+.home-field {
+  position: relative;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: calc(-1 * (var(--space-6) + 1.5rem));
+  padding-top: calc(var(--space-6) + 1.5rem);
+  overflow: hidden;
+}
+
+.home-field > .home-editorial {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 56rem;
+  margin: auto;
+  padding-inline: 1rem;
+}
+
+/* The portrait redrawn on a canvas the field's ripples bend (fieldPortrait.ts).
+   The imgs stay underneath at opacity 0, for layout, for no-JS and so the alt text stays in the accessibility tree. */
+.home-field .home-portrait {
+  position: relative;
+}
+
+.home-portrait-canvas {
+  position: absolute;
+  inset: 0;
+  width: 256px;
+  height: 256px;
+  image-rendering: pixelated;
+}
+
+.home-portrait.is-canvas .home-portrait-img {
+  opacity: 0;
 }
