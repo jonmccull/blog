@@ -2,14 +2,13 @@
 
 These files are a pinned copy of the Foundations design kit. Do not edit them here.
 
-|                        |                                                                                                                                     |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Source repo            | [jonmccull/foundations-kit](https://github.com/jonmccull/foundations-kit)                                                           |
-| Kit commit             | `2dcbe7b`                                                                                                                           |
-| Kit commit, `field.js` | `d204f47` ([foundations-kit#4](https://github.com/jonmccull/foundations-kit/pull/4)), artifact `1792156123-e5a7`, pulled 2026-10-16 |
-| Artifact version       | `1792096454-5019`                                                                                                                   |
-| Tokens version         | 3                                                                                                                                   |
-| Pulled                 | 2026-10-15                                                                                                                          |
+|                  |                                                                                               |
+| ---------------- | --------------------------------------------------------------------------------------------- |
+| Source repo      | [jonmccull/foundations-kit](https://github.com/jonmccull/foundations-kit)                     |
+| Kit commit       | `3b46159` (merge of [foundations-kit#4](https://github.com/jonmccull/foundations-kit/pull/4)) |
+| Artifact version | `1792156123-e5a7`                                                                             |
+| Tokens version   | 5                                                                                             |
+| Pulled           | 2026-10-16                                                                                    |
 
 | File here    | Kit file                    |
 | ------------ | --------------------------- |
@@ -17,7 +16,7 @@ These files are a pinned copy of the Foundations design kit. Do not edit them he
 | `bundle.css` | `components/bundle.css`     |
 | `field.js`   | `components/Field/field.js` |
 
-All are byte-identical to the kit: the two stylesheets at the first commit, `field.js` at its own. The field reads its `field-*` motion tokens from `tokens.css` when they are there and has the same values built in, so the older stylesheets lack nothing it needs. The two stylesheets are imported in `app/layout.tsx` before `app/styles/base.css`; `field.js` is loaded only on home, by `app/components/HomeField.tsx`. `.prettierignore` and the ESLint ignores keep the tools off them. The fonts link in `app/layout.tsx` is the one from the kit's `fonts.html`.
+All three are byte-identical to the kit at that commit. The field reads its `field-*` motion tokens from `tokens.css` (it has the same values built in). The two stylesheets are imported in `app/layout.tsx` before `app/styles/base.css`; `field.js` is loaded only on home, by `app/components/HomeField.tsx`. `.prettierignore` and the ESLint ignores keep the tools off them. The fonts link in `app/layout.tsx` is the one from the kit's `fonts.html`.
 
 Site code never retypes a token value. Colours and fonts come from `var(--token)`, or from the Tailwind names mapped in `tailwind.config.js` (`ground`, `surface`, `ink`, `ink-secondary`, `ink-muted`, `hairline`, `underline`, `lime`, `lime-glow`, `on-lime`; `font-sans`, `font-mono`).
 

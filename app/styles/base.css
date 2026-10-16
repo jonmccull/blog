@@ -9,9 +9,6 @@
 
 @layer base {
   :root {
-    /* Hover transitions only (link underlines, the contact row, the theme toggle); collapsed under reduced motion */
-    --transition-fast: 200ms;
-
     /*
       Syntax highlighting (sugar-high). Site colours, not in the kit. Each one is checked at 4.5:1
       or better on both ground and surface in its theme; none of them is a light.
@@ -69,9 +66,8 @@
   color: var(--ink);
 }
 
-/* Nav bar: the kit's fdn-bar, aligned to the content column */
+/* Nav bar: the kit's fdn-bar is-column, aligned to the content column */
 .site-bar {
-  padding: 0;
   margin-bottom: var(--space-8);
 }
 
@@ -86,45 +82,8 @@
   gap: var(--space-5);
 }
 
-.fdn-bar nav a[aria-current='page'] {
-  color: var(--ink);
-}
-
-.site-bar-links a:focus-visible {
-  color: var(--ink);
-}
-
-/* Nav and footer links: no resting underline; a lime stroke grows from the centre on hover */
-.site-bar-links a,
-.site-footer-link {
-  position: relative;
-  transition: color var(--transition-fast) ease;
-}
-
-.site-bar-links a::after,
-.site-footer-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -0.2em;
-  width: 100%;
-  height: 0.1em;
-  background: var(--lime);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform var(--transition-fast) ease;
-}
-
-.site-bar-links a:hover::after,
-.site-bar-links a:focus-visible::after,
-.site-footer-link:hover::after,
-.site-footer-link:focus-visible::after {
-  transform: scaleX(1);
-}
-
-/* In-copy links: ink text on a thin resting underline, which a lime stroke covers from the centre on hover.
-   Two background layers rather than ::after, so a link that wraps is underlined on every line. */
-.link-underline,
+/* In-copy links in markdown: the kit's fdn-link look (elsewhere the fdn-link class itself), for elements that cannot carry a class.
+   The kit's fdn-prose has the same rule, but these wrappers are Tailwind's prose, not fdn-prose. */
 .prose a:not(.anchor),
 .cv-job-description a {
   color: var(--ink);
@@ -141,11 +100,9 @@
   padding-bottom: 0.1em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  transition: background-size var(--transition-fast) ease;
+  transition: background-size var(--motion-hover) ease;
 }
 
-.link-underline:hover,
-.link-underline:focus-visible,
 .prose a:not(.anchor):hover,
 .prose a:not(.anchor):focus-visible,
 .cv-job-description a:hover,
@@ -161,7 +118,7 @@
   border: 0;
   padding: 0;
   cursor: pointer;
-  transition: color var(--transition-fast) ease;
+  transition: color var(--motion-hover) ease;
 }
 
 .theme-toggle:focus-visible {
@@ -169,7 +126,7 @@
 }
 
 .theme-toggle svg path {
-  transition: fill var(--transition-fast) ease;
+  transition: fill var(--motion-hover) ease;
 }
 
 .theme-toggle:hover svg path,
@@ -201,16 +158,26 @@
   }
 }
 
+/* Footer links: the kit's bar-link stroke (bundle.css, .fdn-bar nav a), which the kit applies only inside the bar */
 .site-footer-link {
   display: flex;
   align-items: center;
   color: var(--ink-muted);
   text-decoration: none;
+  background-image: linear-gradient(var(--lime), var(--lime));
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  background-size: 0% 0.1em;
+  padding-bottom: 0.1em;
+  transition:
+    color var(--motion-hover) ease,
+    background-size var(--motion-hover) ease;
 }
 
 .site-footer-link:hover,
 .site-footer-link:focus-visible {
   color: var(--ink);
+  background-size: 100% 0.1em;
 }
 
 .site-footer-copyright {
@@ -286,13 +253,6 @@ main:has(> .home-field) + .site-footer {
   text-wrap: balance;
 }
 
-/* The kit clamps display-xl to 36px on phones (tokens.json, display-xl usage); tokens.css does not, so it lives here for every page */
-@media (max-width: 639px) {
-  .display-xl {
-    font-size: 36px;
-  }
-}
-
 .home-descriptor {
   margin: 0;
   max-width: 30em;
@@ -327,8 +287,8 @@ main:has(> .home-field) + .site-footer {
   color: var(--ink);
   text-decoration: none;
   transition:
-    background-color var(--transition-fast) ease,
-    color var(--transition-fast) ease;
+    background-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .home-links a:hover,
@@ -475,7 +435,7 @@ main:has(> .home-field) + .site-footer {
 .blog-row-link:hover .blog-row-title {
   text-decoration: underline;
   text-decoration-color: var(--ink);
-  text-underline-offset: 5px;
+  text-underline-offset: var(--link-underline-offset);
 }
 
 .blog-row-subtitle {

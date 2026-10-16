@@ -26,12 +26,7 @@ export function ExperienceItem({
       <p className="cv-meta body-sm">
         <span>
           {companyLink ? (
-            <a
-              href={companyLink}
-              className="link-underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={companyLink} className="fdn-link" target="_blank" rel="noopener noreferrer">
               {company}
             </a>
           ) : (

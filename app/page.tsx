@@ -24,7 +24,7 @@ export default function HomePage() {
               fundamentals&mdash;positioning, messaging, launching products that
               resonate&mdash;working with{' '}
               <a
-                className="link-underline"
+                className="fdn-link"
                 href="https://www.slite.com/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -33,7 +33,7 @@ export default function HomePage() {
               </a>
               , leading{' '}
               <a
-                className="link-underline"
+                className="fdn-link"
                 href="https://www.todoist.com/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -42,7 +42,7 @@ export default function HomePage() {
               </a>
               , and niche{' '}
               <a
-                className="link-underline"
+                className="fdn-link"
                 href="https://www.vivaldi.com/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -58,7 +58,7 @@ export default function HomePage() {
             </p>
             <p>
               {'I just joined '}
-              <Link className="link-underline" href="/cv">
+              <Link className="fdn-link" href="/cv">
                 Rydoo
               </Link>
               {' as Product Marketing Manager. Let’s connect. ✌️'}

@@ -22,7 +22,7 @@ export function Navbar() {
   const pathname = usePathname()
 
   return (
-    <header className="fdn-bar site-bar">
+    <header className="fdn-bar is-column site-bar">
       {!pagesWithNameHeadline.includes(pathname) && (
         <Link href="/" className="fdn-wordmark">
           Jon McCullough
