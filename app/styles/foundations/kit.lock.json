@@ -1,0 +1,23 @@
+{
+  "kit": "jonmccull/foundations-kit",
+  "commit": "3b4615983703af38f90c827e51ccf14b1a831406",
+  "tokensVersion": 5,
+  "artifactVersion": "1792156123-e5a7",
+  "pulled": "2026-10-16",
+  "pinDoc": "README.md",
+  "fontsHref": "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap",
+  "files": {
+    "tokens.css": {
+      "from": "tokens.css",
+      "sha256": "ef340cf16fd1c13682ed169d010fb7e57fb85667332956d8e08ab8d602d43eda"
+    },
+    "bundle.css": {
+      "from": "components/bundle.css",
+      "sha256": "6e6e092050e19fa10153a5c5ce182c169672b7b4fed10ad754ee017593c3c645"
+    },
+    "field.js": {
+      "from": "components/Field/field.js",
+      "sha256": "99face8499907f236d60f16e70134df68f6e08fed3327366f9bc9773b183c75c"
+    }
+  }
+}

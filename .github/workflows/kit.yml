@@ -1,0 +1,19 @@
+name: kit
+
+# The Foundations kit check: the vendored copy matches the pinned kit commit, and every token used exists.
+# Updates arrive as a "Foundations kit update" PR from the kit repo. See app/styles/foundations/kit.lock.json.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check the vendored kit
+        run: node app/styles/foundations/check-kit.mjs
