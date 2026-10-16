@@ -209,6 +209,27 @@ export function mountIcdRain(canvas: HTMLCanvasElement, { from, to, speed = 1 }:
       }
   }
 
+  // JetBrains Mono's zero carries an oval dot that, thickened and on the glyph grid, joins the walls and reads as
+  // an 8; clear the band inside each 0 (fractions of its inked box, measured at 500 with the 0.06em stroke)
+  function clearZeroDots(
+    tc: OffscreenCanvasRenderingContext2D,
+    str: string,
+    x0: number,
+    base: number
+  ) {
+    const z = tc.measureText('0'),
+      pad = tc.lineWidth / 2,
+      top = base - z.actualBoundingBoxAscent - pad,
+      h = z.actualBoundingBoxAscent + z.actualBoundingBoxDescent + 2 * pad
+    tc.globalCompositeOperation = 'destination-out'
+    for (let i = str.indexOf('0'); i !== -1; i = str.indexOf('0', i + 1)) {
+      const left = x0 + tc.measureText(str.slice(0, i)).width - z.actualBoundingBoxLeft - pad,
+        w = z.actualBoundingBoxLeft + z.actualBoundingBoxRight + 2 * pad
+      tc.fillRect(left + w * 0.335, top + h * 0.36, w * 0.33, h * 0.28)
+    }
+    tc.globalCompositeOperation = 'source-over'
+  }
+
   // Each code is laid on the glyph grid, so its strokes stay straight: the type's cover in every cell, pushed
   // almost to on or off, its slope for the relief, and a quiet halo around the strokes where the cloth thins.
   function relieve(
@@ -222,6 +243,7 @@ export function mountIcdRain(canvas: HTMLCanvasElement, { from, to, speed = 1 }:
     tc.clearRect(0, 0, W, H)
     tc.fillText(str, x0, base)
     tc.strokeText(str, x0, base)
+    clearZeroDots(tc, str, x0, base)
     const a = tc.getImageData(0, 0, W, H).data,
       v = new Float32Array(N),
       gx = new Float32Array(N),
