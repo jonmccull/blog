@@ -15,13 +15,15 @@ const navItems = {
   },
 }
 
+// Pages whose headline is the name already; the bar drops the wordmark there
+const pagesWithNameHeadline = ['/', '/cv']
+
 export function Navbar() {
   const pathname = usePathname()
 
   return (
     <header className="fdn-bar site-bar">
-      {/* Home already has the name as its headline, so the bar drops the wordmark there */}
-      {pathname !== '/' && (
+      {!pagesWithNameHeadline.includes(pathname) && (
         <Link href="/" className="fdn-wordmark">
           Jon McCullough
         </Link>

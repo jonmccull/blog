@@ -26,15 +26,19 @@ describe('Navbar', () => {
     expect(blogLink).toHaveAttribute('href', '/blog')
   })
 
-  it('leaves the wordmark out on home, where the page headline carries the name', () => {
-    render(
-      <ThemeProvider>
-        <Navbar />
-      </ThemeProvider>
-    )
+  it.each(['/', '/cv'])(
+    'leaves the wordmark out on %s, where the page headline carries the name',
+    (path) => {
+      mockPathname.mockReturnValue(path)
+      render(
+        <ThemeProvider>
+          <Navbar />
+        </ThemeProvider>
+      )
 
-    expect(screen.queryByRole('link', { name: 'Jon McCullough' })).not.toBeInTheDocument()
-  })
+      expect(screen.queryByRole('link', { name: 'Jon McCullough' })).not.toBeInTheDocument()
+    }
+  )
 
   it('renders the wordmark linking home on every other page', () => {
     mockPathname.mockReturnValue('/blog')
