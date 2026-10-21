@@ -188,14 +188,13 @@
   color: var(--ink-muted);
 }
 
-/* Home page: copy left, portrait right on desktop; portrait first on phones.
+/* Home page: copy left, portrait right on desktop; text only on phones.
    main grows to fill the screen (layout.tsx), and the auto margins centre the home block in what is left. */
 .home-editorial {
   display: grid;
   grid-template-columns: minmax(0, 32rem);
   gap: var(--space-6);
   margin: auto 0;
-  padding-top: var(--space-6);
 }
 
 /* Home only: the bar and footer sit closer so the whole page fits one screen (the bar itself does not move) */
@@ -214,8 +213,9 @@ main:has(> .home-field) + .site-footer {
   gap: var(--space-6);
 }
 
+/* Phones get no portrait; its imgs load lazily, so a hidden one is never fetched */
 .home-portrait {
-  order: -1;
+  display: none;
   width: 256px;
   height: 256px;
 }
@@ -242,64 +242,10 @@ main:has(> .home-field) + .site-footer {
     grid-template-columns: minmax(0, 32rem) 256px;
     gap: var(--space-8);
     align-items: start;
-    padding-top: 0; /* the auto margins supply the air once the block is centred */
   }
 
   .home-portrait {
-    order: 0;
-  }
-}
-
-/* Phones: a 128px portrait right of the name as a byline (the copy keeps one left edge), the rest full width under it.
-   display: contents lets the header, body and links sit in the editorial grid without new markup. */
-@media (max-width: 767px) {
-  .home-editorial {
-    grid-template-columns: minmax(0, 1fr) 128px;
-    grid-template-areas:
-      'header portrait'
-      'body body'
-      'links links';
-    column-gap: var(--space-4);
-    padding-top: 0; /* the field's own top padding is air enough */
-  }
-
-  .home-copy {
-    display: contents;
-  }
-
-  .home-header {
-    grid-area: header;
-    align-self: center;
-  }
-
-  .home-body {
-    grid-area: body;
-  }
-
-  .home-links {
-    grid-area: links;
-  }
-
-  .home-portrait {
-    grid-area: portrait;
-  }
-
-  .home-portrait,
-  .home-portrait-img {
-    width: 128px;
-    height: 128px;
-  }
-}
-
-/* Under 360px "McCullough" no longer fits beside the portrait, so the two stack */
-@media (max-width: 359px) {
-  .home-editorial {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      'portrait'
-      'header'
-      'body'
-      'links';
+    display: block;
   }
 }
 
@@ -843,7 +789,7 @@ main:has(> .home-field) + .site-footer {
   padding-inline: 1rem;
 }
 
-/* Phones start the block at the top; centring it left a band of empty ground above the portrait */
+/* Phones start the block at the top, under the field's own top padding; centring it left a band of empty ground */
 @media (max-width: 767px) {
   .home-field > .home-editorial {
     margin-top: 0;

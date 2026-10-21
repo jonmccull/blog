@@ -80,35 +80,31 @@ export default function HomePage() {
 
         {/* One file per theme, swapped by CSS on data-theme (the toggle is manual, so no media query).
           Shown at exactly 256px: the 256 file has 1px cells for 1x screens, the 1024 file 2px cells for 2x.
-          Phones show it at 128px from the 256 file alone, exact at 2x; the 1024 file would drop cells at 3x. */}
+          Hidden on phones; loading="lazy" means a hidden img is never fetched. */}
         <div className="home-portrait">
-          {/* Plain imgs because next/image can't take a hand-written 1x/2x srcset */}
-          <picture>
-            <source media="(max-width: 767px)" srcSet="/images/jon-dither-light-soft-256.webp" />
-            <img
-              className="home-portrait-img is-light"
-              src="/images/jon-dither-light-soft-256.webp"
-              srcSet="/images/jon-dither-light-soft-256.webp 1x, /images/jon-dither-light-soft-1024.webp 2x"
-              alt="Jon McCullough, one-bit dither portrait"
-              width={256}
-              height={256}
-              loading="eager"
-              decoding="async"
-            />
-          </picture>
-          <picture>
-            <source media="(max-width: 767px)" srcSet="/images/jon-dither-dark-soft-256.webp" />
-            <img
-              className="home-portrait-img is-dark"
-              src="/images/jon-dither-dark-soft-256.webp"
-              srcSet="/images/jon-dither-dark-soft-256.webp 1x, /images/jon-dither-dark-soft-1024.webp 2x"
-              alt="Jon McCullough, one-bit dither portrait"
-              width={256}
-              height={256}
-              loading="eager"
-              decoding="async"
-            />
-          </picture>
+          {/* A plain img because next/image can't take a hand-written 1x/2x srcset */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="home-portrait-img is-light"
+            src="/images/jon-dither-light-soft-256.webp"
+            srcSet="/images/jon-dither-light-soft-256.webp 1x, /images/jon-dither-light-soft-1024.webp 2x"
+            alt="Jon McCullough, one-bit dither portrait"
+            width={256}
+            height={256}
+            loading="lazy"
+            decoding="async"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="home-portrait-img is-dark"
+            src="/images/jon-dither-dark-soft-256.webp"
+            srcSet="/images/jon-dither-dark-soft-256.webp 1x, /images/jon-dither-dark-soft-1024.webp 2x"
+            alt="Jon McCullough, one-bit dither portrait"
+            width={256}
+            height={256}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </HomeField>
