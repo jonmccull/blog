@@ -32,6 +32,7 @@ The site uses the **Foundations kit** on every page (shell, home, blog, posts, p
 - Blog posts: `content/blog/*.mdx`
 - Portfolio projects: `content/portfolio/*.mdx`
 - CV jobs: `content/cv/*.mdx`
+- Images: `public/images-blog/` (posts, now) and `public/images/` (portfolio, home), webp at about 1200px wide. Markdown images (`![alt](/path)`) on every MDX page render through `app/components/MdxImage.tsx`, which reads the file's real size at build time; there is no need to give a width or height.
 
 ## Conventions
 
