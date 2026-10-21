@@ -13,7 +13,7 @@ export default async function sitemap() {
     lastModified: project.metadata.date,
   }))
 
-  const routes = ['', '/blog', '/cv'].map((route) => ({
+  const routes = ['', '/blog', '/projects', '/cv'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }))

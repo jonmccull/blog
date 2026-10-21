@@ -13,6 +13,10 @@ const navItems = {
     name: 'posts',
     label: 'Blog posts',
   },
+  '/projects': {
+    name: 'projects',
+    label: 'Projects',
+  },
 }
 
 // Pages whose headline is the name already; the bar drops the wordmark there
