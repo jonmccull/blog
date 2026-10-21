@@ -189,12 +189,12 @@
 }
 
 /* Home page: copy left, portrait right on desktop; text only on phones.
-   main grows to fill the screen (layout.tsx), and the auto margins centre the home block in what is left. */
+   main grows to fill the screen (layout.tsx), and the auto margins on .home-field > .home-editorial (below)
+   centre the home block in what is left. */
 .home-editorial {
   display: grid;
   grid-template-columns: minmax(0, 32rem);
   gap: var(--space-6);
-  margin: auto 0;
 }
 
 /* Home only: the bar and footer sit closer so the whole page fits one screen (the bar itself does not move) */
