@@ -4,6 +4,7 @@ import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React, { ReactNode } from 'react'
 import ImageSlideshow from './ImageSlideshow'
+import MdxImage from './MdxImage'
 
 interface TableData {
   headers: string[]
@@ -48,7 +49,7 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-function MdxImage({ alt, ...props }: ImageProps) {
+function JsxImage({ alt, ...props }: ImageProps) {
   return <Image alt={alt} {...props} />
 }
 
@@ -118,7 +119,8 @@ const components = {
   h4: createHeading(4),
   h5: createHeading(5),
   h6: createHeading(6),
-  Image: MdxImage,
+  Image: JsxImage,
+  img: MdxImage,
   a: CustomLink,
   code: Code,
   Table,
