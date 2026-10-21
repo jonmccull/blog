@@ -85,6 +85,9 @@ const themeScript = `
 })();
 `
 
+// Cloudflare Web Analytics site token. Public by design: it ships in the page source.
+const cfBeaconToken = '4287249b668342eab264756455024884'
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
@@ -102,6 +105,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap"
         />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* Production deploys only, so previews and local runs stay out of the counts. */}
+        {process.env.VERCEL_ENV === 'production' && (
+          <script
+            type="module"
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+          />
+        )}
         <JsonLd data={websiteSchema} />
       </head>
       <body className="fdn-page h-full">
