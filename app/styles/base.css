@@ -250,13 +250,13 @@ main:has(> .home-field) + .site-footer {
   }
 }
 
-/* Phones: a 128px portrait beside the name as a byline, the rest full width under it.
+/* Phones: a 128px portrait right of the name as a byline (the copy keeps one left edge), the rest full width under it.
    display: contents lets the header, body and links sit in the editorial grid without new markup. */
 @media (max-width: 767px) {
   .home-editorial {
-    grid-template-columns: 128px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) 128px;
     grid-template-areas:
-      'portrait header'
+      'header portrait'
       'body body'
       'links links';
     column-gap: var(--space-4);
