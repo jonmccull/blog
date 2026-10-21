@@ -1,8 +1,9 @@
 /* Foundations Field: the business written down as a woven cloth of glyphs, faint under drifting clouds,
    exposed by a lime ripple where you click. One classic script, no dependencies.
-   FoundationsField.mount(stage, options) draws behind the stage's content and returns { stats, destroy }.
+   FoundationsField.mount(stage, options) draws behind the stage's content and returns { stats, ready, ripple, destroy }.
    Options: quiet (copy elements ripples avoid), figure (elements the cloth thins behind while ripples pass through),
    onFrame (called after each full paint with the ripple per glyph cell, for a figure drawn on top).
+   ripple(clientX, clientY, { strength, life }) starts a ripple at a viewport point, as a click does, and says whether it did.
    Colours come from --ground, --graph-line and --lime; values from the motion tokens --motion-field-*. */
 (function () {
   'use strict';
@@ -190,9 +191,10 @@
       if (!sheet || !prev) return;
       if (y0 == null) { y0 = 0; y1 = rows; }
       var f0 = performance.now(), m = reduce ? 0 : T.motion, t = now / 1000, life = T['ripple-life'], speed = T['ripple-speed'];
-      ripples = ripples.filter(function (r) { return (now - r.t0) / 1000 < life; });
+      ripples = ripples.filter(function (r) { return (now - r.t0) / 1000 < life * r.life; });
       var nr = ripples.length, rx = [], rz = [], rR = [], rE = [];
-      ripples.forEach(function (r) { var age = (now - r.t0) / 1000; rx.push(r.x); rz.push(r.z); rR.push(speed * age); rE.push(1 - Math.min(1, Math.max(0, (age - life * 0.45) / (life * 0.55)))); });
+      // Each ripple carries its own strength, which scales its tilt and its lime, and its own share of the life.
+      ripples.forEach(function (r) { var age = (now - r.t0) / 1000, L = life * r.life; rx.push(r.x); rz.push(r.z); rR.push(speed * age); rE.push(r.s * (1 - Math.min(1, Math.max(0, (age - L * 0.45) / (L * 0.55))))); });
       var iW2 = 1 / (RIP.width * RIP.width), kW = 2 * Math.PI / RIP.wave, iTr = 1 / RIP.trail, hiU = RIP.width * 3, loU = -RIP.trail * 3;
       var sw = SWELLS.map(function (s) { var k = 2 * Math.PI / s.len; return { dx: s.dx, dz: s.dz, k: k, amp: s.amp * 2 * m, w: k * s.speed * (0.5 + m) }; });
       var ox = t * DRIFT[0] * 2 * m, oy = t * DRIFT[1] * 2 * m, open = T.clouds, lo = 0.62 - open * 0.25, lg = T.lime, dark = pal.dark;
@@ -246,11 +248,18 @@
     var io = new IntersectionObserver(function (en) { visible = en[0].isIntersecting; });
     io.observe(stage);
 
+    // A ripple at a viewport point. A click is strength 1 and its full life; a quieter pulse, such as on hover, is less.
+    function ripple(cx, cy, opts) {
+      var s = opts && opts.strength != null ? Math.max(0, Math.min(1, +opts.strength || 0)) : 1, l = opts && opts.life != null ? Math.max(0.1, +opts.life || 0) : 1;
+      if (reduce || !ready || !s) return false;
+      var r = canvas.getBoundingClientRect(), x = Math.floor((cx - r.left) / atlas.cw), y = Math.floor((cy - r.top) / atlas.ch), i = y * cols + x;
+      if (x < 0 || y < 0 || x >= cols || y >= rows || !hit[i]) return false;
+      ripples.push({ x: P[i * 2], z: P[i * 2 + 1], t0: performance.now(), s: s, life: l });
+      return true;
+    }
     function onDown(ev) {
-      if (reduce || !ready || (ev.target.closest && ev.target.closest(o.ignore))) return;
-      var r = canvas.getBoundingClientRect(), x = Math.floor((ev.clientX - r.left) / atlas.cw), y = Math.floor((ev.clientY - r.top) / atlas.ch), i = y * cols + x;
-      if (x < 0 || y < 0 || x >= cols || y >= rows || !hit[i]) return;
-      ripples.push({ x: P[i * 2], z: P[i * 2 + 1], t0: performance.now() });
+      if (ev.target.closest && ev.target.closest(o.ignore)) return;
+      ripple(ev.clientX, ev.clientY);
     }
     stage.addEventListener('pointerdown', onDown);
     var ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(build, 200); });
@@ -270,9 +279,10 @@
     return {
       stats: stats,
       get ready() { return ready; },
+      ripple: ripple,
       destroy: function () { token++; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); mo.disconnect(); stage.removeEventListener('pointerdown', onDown); canvas.remove(); }
     };
   }
 
-  window.FoundationsField = { mount: mount, version: 2 };
+  window.FoundationsField = { mount: mount, version: 3 };
 })();

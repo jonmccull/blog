@@ -2,13 +2,13 @@
 
 These files are a pinned copy of the Foundations design kit. Do not edit them here.
 
-|                  |                                                                                               |
-| ---------------- | --------------------------------------------------------------------------------------------- |
-| Source repo      | [jonmccull/foundations-kit](https://github.com/jonmccull/foundations-kit)                     |
-| Kit commit       | `3b46159` (merge of [foundations-kit#4](https://github.com/jonmccull/foundations-kit/pull/4)) |
-| Artifact version | `1792156123-e5a7`                                                                             |
-| Tokens version   | 5                                                                                             |
-| Pulled           | 2026-10-16                                                                                    |
+|                  |                                                                                                 |
+| ---------------- | ----------------------------------------------------------------------------------------------- |
+| Source repo      | [jonmccull/foundations-kit](https://github.com/jonmccull/foundations-kit)                       |
+| Kit commit       | `91dd644` (merge of [foundations-kit#18](https://github.com/jonmccull/foundations-kit/pull/18)) |
+| Artifact version | `1792614510-be4c`                                                                               |
+| Tokens version   | 6                                                                                               |
+| Pulled           | 2026-10-21                                                                                      |
 
 | File here    | Kit file                    |
 | ------------ | --------------------------- |

@@ -85,6 +85,18 @@
   gap: var(--space-5);
 }
 
+/* Phones: three links plus the wordmark only fit on one line with tighter gaps */
+.site-bar .fdn-wordmark {
+  white-space: nowrap;
+}
+
+@media (max-width: 479px) {
+  .site-bar nav,
+  .site-bar-links {
+    gap: var(--space-3);
+  }
+}
+
 /* In-copy links in markdown: the kit's fdn-link look (elsewhere the fdn-link class itself), for elements that cannot carry a class.
    The kit's fdn-prose has the same rule, but these wrappers are Tailwind's prose, not fdn-prose. */
 .prose a:not(.anchor),
@@ -281,8 +293,7 @@ main:has(> .home-field) + .site-footer {
 }
 
 /* Departs from the kit's one-lime-block-at-rest rule on Jon's call: plain links at rest, lime only on hover/focus */
-.home-links a,
-.cv-links a {
+.home-links a {
   display: inline-block;
   padding: 14px 22px; /* the .fdn-btn box */
   font-weight: 500;
@@ -294,17 +305,14 @@ main:has(> .home-field) + .site-footer {
 }
 
 .home-links a:hover,
-.home-links a:focus-visible,
-.cv-links a:hover,
-.cv-links a:focus-visible {
+.home-links a:focus-visible {
   background-color: var(--lime);
   color: var(--on-lime);
 }
 
 /* On wider screens the first label lines up with the copy and its lime block hangs into the margin */
 @media (min-width: 768px) {
-  .home-links a:first-child,
-  .cv-links a:first-child {
+  .home-links a:first-child {
     margin-left: -22px;
   }
 }
@@ -671,13 +679,6 @@ main:has(> .home-field) + .site-footer {
   color: var(--ink-secondary);
 }
 
-.cv-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  padding-top: var(--space-5);
-}
-
 .cv-section {
   display: flex;
   flex-direction: column;
@@ -812,4 +813,166 @@ main:has(> .home-field) + .site-footer {
 
 .home-portrait.is-canvas .home-portrait-img {
   opacity: 0;
+}
+
+/* Projects: hairline-edged tiles on the ground with gaps between them, on Jon's call (the kit's rule is no cards).
+   From 768px the home page's Field runs full bleed behind them (ProjectsField.tsx) and shows in the gaps. */
+.projects-field {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: calc(-1 * (var(--space-8) + var(--main-top)));
+  padding: calc(var(--space-8) + var(--main-top)) 0 var(--space-8);
+  overflow: hidden;
+}
+
+.projects {
+  position: relative;
+  z-index: 1;
+  width: min(56rem, 100vw - 2rem);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.projects-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: fit-content;
+}
+
+.projects-intro {
+  margin: 0;
+  color: var(--ink-secondary);
+}
+
+/* Closing call to action (ContactCta.tsx) on Projects and the CV: a hairline, one line and the page's one lime block
+   at rest (the kit's fdn-btn); on Projects it is a quiet zone of the field */
+.contact-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline);
+}
+
+.contact-cta p {
+  margin: 0;
+  color: var(--ink);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .projects-grid {
+    gap: var(--space-5);
+  }
+}
+
+.project-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  border: 1px solid var(--hairline);
+  background: var(--ground);
+  transition: border-color var(--motion-hover) ease;
+}
+
+/* Hover: the edge darkens and the name takes the kit's lime row stroke (fdn-row-title); the field pulses underneath */
+.project-cell:hover {
+  border-color: var(--ink-muted);
+}
+
+.project-name .fdn-row-title {
+  display: block;
+  text-decoration: none;
+}
+
+.project-cell:hover .fdn-row-title {
+  background-size: 100% 0.1em;
+}
+
+.project-cell p {
+  margin: 0;
+}
+
+.project-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* Tags: up to three pills, right-aligned beside the years, wrapping on narrow cards */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Tag: a rounded pill, the one round shape on the site, on Jon's call */
+.project-tag {
+  flex: none;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+}
+
+.project-name {
+  margin: 0;
+  color: var(--ink);
+}
+
+.project-description {
+  flex: 1;
+  color: var(--ink-secondary);
+}
+
+/* Link icons: 1-bit pixel marks (PixelIcon.tsx) that take the lime block on hover, like the home links */
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-left: -6px;
+  padding-top: var(--space-2);
+}
+
+.project-link {
+  display: inline-flex;
+  padding: 6px;
+  color: var(--ink-secondary);
+  transition:
+    background-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  background-color: var(--lime);
+  color: var(--on-lime);
+}
+
+.pixel-icon {
+  display: block;
 }

@@ -24,6 +24,8 @@ describe('Navbar', () => {
     const blogLink = screen.getByRole('link', { name: /blog posts/i })
     expect(blogLink).toBeInTheDocument()
     expect(blogLink).toHaveAttribute('href', '/blog')
+
+    expect(screen.getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '/projects')
   })
 
   it.each(['/', '/cv'])(

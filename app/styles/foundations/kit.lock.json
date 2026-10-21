@@ -1,15 +1,15 @@
 {
   "kit": "jonmccull/foundations-kit",
-  "commit": "3b4615983703af38f90c827e51ccf14b1a831406",
-  "tokensVersion": 5,
-  "artifactVersion": "1792156123-e5a7",
-  "pulled": "2026-10-16",
+  "commit": "91dd6446f411a623f947f30436c0faec8d4a5a4c",
+  "tokensVersion": 6,
+  "artifactVersion": "1792614510-be4c",
+  "pulled": "2026-10-21",
   "pinDoc": "README.md",
   "fontsHref": "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap",
   "files": {
     "tokens.css": {
       "from": "tokens.css",
-      "sha256": "ef340cf16fd1c13682ed169d010fb7e57fb85667332956d8e08ab8d602d43eda"
+      "sha256": "faaddfe671e246cdc8b3a57b0ba9b2b560e9164ab13a7966b39bc0f2872a059a"
     },
     "bundle.css": {
       "from": "components/bundle.css",
@@ -17,7 +17,7 @@
     },
     "field.js": {
       "from": "components/Field/field.js",
-      "sha256": "99face8499907f236d60f16e70134df68f6e08fed3327366f9bc9773b183c75c"
+      "sha256": "e3811d7ffa76d145159d365770a6a4bb9a5e7ac10f8986cf21361a741c8475f4"
     }
   }
 }

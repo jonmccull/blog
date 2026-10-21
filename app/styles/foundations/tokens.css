@@ -15,6 +15,11 @@
   --on-lime: #2b302d;
   --lime-deep: #94b21a;
   --loop-line: #a9bf4a;
+  --layer-context: #5f80a3;
+  --layer-rules: #b07656;
+  --layer-reach: #4f8f84;
+  --layer-operations: #7d72a6;
+  --layer-loop: #86a218;
 }
 
 [data-theme="dark"] {
@@ -32,6 +37,11 @@
   --on-lime: #2b302d;
   --lime-deep: #94b21a;
   --loop-line: #8aa03a;
+  --layer-context: #93add0;
+  --layer-rules: #d29d80;
+  --layer-reach: #7fbcb0;
+  --layer-operations: #ab9fd0;
+  --layer-loop: #bcd65a;
 }
 
 :root {
