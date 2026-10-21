@@ -100,11 +100,17 @@ test.describe('Home field', () => {
     await expect(page.getByRole('img', { name: /dither portrait/ })).toHaveCount(1)
   })
 
-  test('leaves phones with the plain portrait', async ({ page }) => {
+  test('leaves phones text only, without fetching the portrait', async ({ page }) => {
+    const portraitRequests: string[] = []
+    page.on('request', (request) => {
+      if (request.url().includes('jon-dither')) portraitRequests.push(request.url())
+    })
     await page.setViewportSize({ width: 375, height: 812 })
     await page.goto('/')
     await page.waitForLoadState('networkidle')
     await expect(page.locator('.home-field > canvas')).toHaveCount(0)
-    await expect(page.locator('.home-portrait-img.is-light')).toBeVisible()
+    await expect(page.locator('.home-portrait')).toBeHidden()
+    await expect(page.locator('.home-name')).toBeVisible()
+    expect(portraitRequests).toEqual([])
   })
 })

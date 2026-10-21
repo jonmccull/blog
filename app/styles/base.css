@@ -188,14 +188,13 @@
   color: var(--ink-muted);
 }
 
-/* Home page: copy left, portrait right on desktop; portrait first on phones.
+/* Home page: copy left, portrait right on desktop; text only on phones.
    main grows to fill the screen (layout.tsx), and the auto margins centre the home block in what is left. */
 .home-editorial {
   display: grid;
   grid-template-columns: minmax(0, 32rem);
   gap: var(--space-6);
   margin: auto 0;
-  padding-top: var(--space-6);
 }
 
 /* Home only: the bar and footer sit closer so the whole page fits one screen (the bar itself does not move) */
@@ -214,8 +213,9 @@ main:has(> .home-field) + .site-footer {
   gap: var(--space-6);
 }
 
+/* Phones get no portrait; its imgs load lazily, so a hidden one is never fetched */
 .home-portrait {
-  order: -1;
+  display: none;
   width: 256px;
   height: 256px;
 }
@@ -242,11 +242,10 @@ main:has(> .home-field) + .site-footer {
     grid-template-columns: minmax(0, 32rem) 256px;
     gap: var(--space-8);
     align-items: start;
-    padding-top: 0; /* the auto margins supply the air once the block is centred */
   }
 
   .home-portrait {
-    order: 0;
+    display: block;
   }
 }
 
@@ -788,6 +787,13 @@ main:has(> .home-field) + .site-footer {
   max-width: 56rem;
   margin: auto;
   padding-inline: 1rem;
+}
+
+/* Phones start the block at the top, under the field's own top padding; centring it left a band of empty ground */
+@media (max-width: 767px) {
+  .home-field > .home-editorial {
+    margin-top: 0;
+  }
 }
 
 /* The portrait redrawn on a canvas the field's ripples bend (fieldPortrait.ts).

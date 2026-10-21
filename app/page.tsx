@@ -79,7 +79,8 @@ export default function HomePage() {
         </div>
 
         {/* One file per theme, swapped by CSS on data-theme (the toggle is manual, so no media query).
-          Shown at exactly 256px: the 256 file has 1px cells for 1x screens, the 1024 file 2px cells for 2x. */}
+          Shown at exactly 256px: the 256 file has 1px cells for 1x screens, the 1024 file 2px cells for 2x.
+          Hidden on phones; loading="lazy" means a hidden img is never fetched. */}
         <div className="home-portrait">
           {/* A plain img because next/image can't take a hand-written 1x/2x srcset */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -90,7 +91,7 @@ export default function HomePage() {
             alt="Jon McCullough, one-bit dither portrait"
             width={256}
             height={256}
-            loading="eager"
+            loading="lazy"
             decoding="async"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -101,7 +102,7 @@ export default function HomePage() {
             alt="Jon McCullough, one-bit dither portrait"
             width={256}
             height={256}
-            loading="eager"
+            loading="lazy"
             decoding="async"
           />
         </div>
