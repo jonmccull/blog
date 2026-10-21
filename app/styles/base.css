@@ -85,12 +85,16 @@
   gap: var(--space-5);
 }
 
-/* Phones: three links plus the wordmark only fit on one line with tighter gaps */
+/* Phones: the wordmark already links home, so the "home" link drops out and the gaps tighten; the bar keeps one line down to 320px */
 .site-bar .fdn-wordmark {
   white-space: nowrap;
 }
 
 @media (max-width: 479px) {
+  .site-bar-links a[href='/'] {
+    display: none;
+  }
+
   .site-bar nav,
   .site-bar-links {
     gap: var(--space-3);
