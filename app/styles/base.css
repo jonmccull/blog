@@ -250,6 +250,59 @@ main:has(> .home-field) + .site-footer {
   }
 }
 
+/* Phones: a 128px portrait beside the name as a byline, the rest full width under it.
+   display: contents lets the header, body and links sit in the editorial grid without new markup. */
+@media (max-width: 767px) {
+  .home-editorial {
+    grid-template-columns: 128px minmax(0, 1fr);
+    grid-template-areas:
+      'portrait header'
+      'body body'
+      'links links';
+    column-gap: var(--space-4);
+    padding-top: 0; /* the field's own top padding is air enough */
+  }
+
+  .home-copy {
+    display: contents;
+  }
+
+  .home-header {
+    grid-area: header;
+    align-self: center;
+  }
+
+  .home-body {
+    grid-area: body;
+  }
+
+  .home-links {
+    grid-area: links;
+  }
+
+  .home-portrait {
+    grid-area: portrait;
+  }
+
+  .home-portrait,
+  .home-portrait-img {
+    width: 128px;
+    height: 128px;
+  }
+}
+
+/* Under 360px "McCullough" no longer fits beside the portrait, so the two stack */
+@media (max-width: 359px) {
+  .home-editorial {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'portrait'
+      'header'
+      'body'
+      'links';
+  }
+}
+
 .home-name {
   margin: 0 0 var(--space-2);
   color: var(--ink);
@@ -788,6 +841,13 @@ main:has(> .home-field) + .site-footer {
   max-width: 56rem;
   margin: auto;
   padding-inline: 1rem;
+}
+
+/* Phones start the block at the top; centring it left a band of empty ground above the portrait */
+@media (max-width: 767px) {
+  .home-field > .home-editorial {
+    margin-top: 0;
+  }
 }
 
 /* The portrait redrawn on a canvas the field's ripples bend (fieldPortrait.ts).
