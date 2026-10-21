@@ -32,7 +32,7 @@ export default function ProjectsField({ children }: { children: ReactNode }) {
 
     return {
       options: {
-        quiet: [...el.querySelectorAll<HTMLElement>('.projects-header, .projects-cta')],
+        quiet: [...el.querySelectorAll<HTMLElement>('.projects-header, .contact-cta')],
         ignore: 'a, button, input, label, select, textarea, .project-cell',
       },
       cleanup: () => el.removeEventListener('pointerover', onOver),

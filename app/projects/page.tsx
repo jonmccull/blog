@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { ComponentProps } from 'react'
+import { ContactCta } from '../components/ContactCta'
 import { PixelIcon } from '../components/PixelIcon'
 import { projects, type Project } from './projects'
 import ProjectsField from './ProjectsField'
@@ -66,12 +67,7 @@ export default function ProjectsPage() {
             </li>
           ))}
         </ReflowGrid>
-        <aside className="projects-cta">
-          <p className="title">Have an idea? Let’s chat. ✌️</p>
-          <a className="fdn-btn" href="mailto:hey@jonm.cc">
-            Get in Touch
-          </a>
-        </aside>
+        <ContactCta />
       </section>
     </ProjectsField>
   )

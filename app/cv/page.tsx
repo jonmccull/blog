@@ -1,3 +1,4 @@
+import { ContactCta } from '../components/ContactCta'
 import { Section } from '../components/cv/Section'
 import { ExperienceItem } from '../components/cv/ExperienceItem'
 import { JobExperience, type FormattedJob } from '../components/jobs'
@@ -35,16 +36,6 @@ export default function CVPage() {
       <header className="cv-header">
         <h1 className="page-title display-xl">Jon McCullough</h1>
         <p className="cv-role lead">Product Marketer</p>
-        <nav className="cv-links body-sm" aria-label="Contact links">
-          <a
-            href="https://www.linkedin.com/in/jonmccullough/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a href="mailto:hey@jonm.cc">Mail</a>
-        </nav>
       </header>
 
       {/* Profile */}
@@ -115,6 +106,8 @@ export default function CVPage() {
           endDate="2001"
         />
       </Section>
+
+      <ContactCta />
     </article>
   )
 }

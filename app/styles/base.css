@@ -293,8 +293,7 @@ main:has(> .home-field) + .site-footer {
 }
 
 /* Departs from the kit's one-lime-block-at-rest rule on Jon's call: plain links at rest, lime only on hover/focus */
-.home-links a,
-.cv-links a {
+.home-links a {
   display: inline-block;
   padding: 14px 22px; /* the .fdn-btn box */
   font-weight: 500;
@@ -306,17 +305,14 @@ main:has(> .home-field) + .site-footer {
 }
 
 .home-links a:hover,
-.home-links a:focus-visible,
-.cv-links a:hover,
-.cv-links a:focus-visible {
+.home-links a:focus-visible {
   background-color: var(--lime);
   color: var(--on-lime);
 }
 
 /* On wider screens the first label lines up with the copy and its lime block hangs into the margin */
 @media (min-width: 768px) {
-  .home-links a:first-child,
-  .cv-links a:first-child {
+  .home-links a:first-child {
     margin-left: -22px;
   }
 }
@@ -683,13 +679,6 @@ main:has(> .home-field) + .site-footer {
   color: var(--ink-secondary);
 }
 
-.cv-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  padding-top: var(--space-5);
-}
-
 .cv-section {
   display: flex;
   flex-direction: column;
@@ -859,8 +848,9 @@ main:has(> .home-field) + .site-footer {
   color: var(--ink-secondary);
 }
 
-/* Closing call to action: a hairline, one line and the page's one lime block at rest (the kit's fdn-btn); a quiet zone of the field */
-.projects-cta {
+/* Closing call to action (ContactCta.tsx) on Projects and the CV: a hairline, one line and the page's one lime block
+   at rest (the kit's fdn-btn); on Projects it is a quiet zone of the field */
+.contact-cta {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -870,7 +860,7 @@ main:has(> .home-field) + .site-footer {
   border-top: 1px solid var(--hairline);
 }
 
-.projects-cta p {
+.contact-cta p {
   margin: 0;
   color: var(--ink);
 }
