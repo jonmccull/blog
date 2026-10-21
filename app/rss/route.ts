@@ -8,7 +8,7 @@ export async function GET() {
   <channel>
     <title>Jon McCullough's Blog</title>
     <link>${baseUrl}</link>
-    <description>Jon McCullough is a Canadian product marketer based in Norway working at Doist.</description>
+    <description>Jon McCullough is a Canadian product marketer based in Norway.</description>
     <language>en</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${baseUrl}/rss" rel="self" type="application/rss+xml"/>

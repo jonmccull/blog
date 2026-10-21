@@ -17,11 +17,11 @@ export const metadata: Metadata = {
     template: '%s | Jon McCullough',
   },
   description:
-    'Jon McCullough is a Canadian product marketer based in Norway working at Doist. Welcome to his digital garden. 🌳',
+    'Jon McCullough is a Canadian product marketer based in Norway. Welcome to his digital garden. 🌳',
   openGraph: {
     title: 'Jon McCullough',
     description:
-      'Jon McCullough is a Canadian product marketer based in Norway working at Doist. Welcome to his digital garden. 🌳',
+      'Jon McCullough is a Canadian product marketer based in Norway. Welcome to his digital garden. 🌳',
     url: baseUrl,
     siteName: 'Jon McCullough',
     locale: 'en_US',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Jon McCullough',
     description:
-      'Jon McCullough is a Canadian product marketer based in Norway working at Doist. Welcome to his digital garden. 🌳',
+      'Jon McCullough is a Canadian product marketer based in Norway. Welcome to his digital garden. 🌳',
   },
   robots: {
     index: true,
@@ -58,17 +58,13 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Jon McCullough',
-  description: 'Jon McCullough is a Canadian product marketer based in Norway working at Doist.',
+  description: 'Jon McCullough is a Canadian product marketer based in Norway.',
   url: baseUrl,
   author: {
     '@type': 'Person',
     name: 'Jon McCullough',
     url: baseUrl,
     jobTitle: 'Product Marketer',
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Doist',
-    },
   },
 }
 
