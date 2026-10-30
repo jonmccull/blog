@@ -46,6 +46,7 @@ app/
   blog/           Blog pages
   cv/             CV page + job MDX files
   portfolio/      Portfolio pages
+  photos/         Photos page + its list (not in the nav)
   components/     Shared components
   context/        Theme context
   lib/            Utilities (MDX parsing, etc.)
@@ -61,6 +62,7 @@ e2e/              Playwright tests
 public/
   images-blog/    Blog post images
   images/
+    photos/       Photos page pictures (scripts/photo-prep.mjs writes them)
     portfolio/    Portfolio project images
 ```
 

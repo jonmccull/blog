@@ -976,3 +976,52 @@ main:has(> .home-field) + .site-footer {
 .pixel-icon {
   display: block;
 }
+
+/* Photos: one column of pictures on the ground, in the wide layout, each under a quiet mono caption.
+   Not in the nav; the page is reached by its address. */
+.photos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.photos-empty {
+  margin: 0;
+  color: var(--ink-secondary);
+}
+
+.photos-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.photo {
+  margin: 0;
+}
+
+/* The picture fills the column; a portrait stops at the height of the screen instead */
+.photo-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 85vh;
+}
+
+/* Caption: gear on the left, place and month on the right, mono in the muted ink at a size that still reads */
+.photo-caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-4);
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+}
