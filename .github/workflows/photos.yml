@@ -70,6 +70,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           BRANCH: ${{ steps.ingest.outputs.branch }}
           COUNT: ${{ steps.ingest.outputs.count }}
+          HUSKY: 0 # the pre-push hook would run the site build here, a minute per photo, for a branch CI builds anyway
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
