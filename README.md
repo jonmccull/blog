@@ -31,7 +31,7 @@ npm run dev
 
 CI also runs the Foundations kit check: `node app/styles/foundations/check-kit.mjs`.
 
-The `photos` workflow watches `photos/inbox/` on `main` and opens a pull request for each batch of new photos. It needs "Allow GitHub Actions to create and approve pull requests" switched on under Settings → Actions → General.
+The `photos` workflow watches `photos/inbox/` on `main`, and answers the Add to Photos iOS shortcut (`docs/photos-shortcut/`, originals on a draft release), and opens a pull request for each batch of new photos. It needs "Allow GitHub Actions to create and approve pull requests" switched on under Settings → Actions → General.
 
 ## Design system
 
@@ -60,6 +60,7 @@ content/
   portfolio/      Portfolio MDX files
 docs/
   foundations-kit/  Restyle before/after screenshots
+  photos-shortcut/  The Add to Photos iOS shortcut, its generator and setup notes
 e2e/              Playwright tests
 photos/inbox/     Drop originals here; the photos workflow turns them into Photos page entries
 scripts/          photo-prep.mjs (by hand) and photo-ingest.mjs (the workflow), on scripts/lib/
