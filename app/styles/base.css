@@ -1003,22 +1003,30 @@ main:has(> .home-field) + .site-footer {
   margin: 0;
 }
 
-/* The picture is a button that opens the lightbox; nothing changes on hover but the cursor */
+/* The picture is a button that opens the lightbox; nothing changes on hover but the cursor. A button shrinks to its
+   content, so it is given the column's width for the picture's 100% to measure against. */
 .photo-open {
   display: block;
+  width: 100%;
   padding: 0;
   border: 0;
   background: none;
   cursor: zoom-in;
 }
 
-/* The picture fills the column; a portrait stops at the height of the screen instead */
+/* The picture fills the column, by a set width rather than its own size: with width auto, a browser that asked for
+   a larger file than the master (a 3x phone held sideways) sizes the picture from the advertised density and shrinks
+   it. On a screen with room to spare a portrait stops at the height of the screen instead, and keeps its shape. */
 .photo-image {
   display: block;
-  width: auto;
+  width: 100%;
   height: auto;
-  max-width: 100%;
-  max-height: 85vh;
+}
+
+@media (min-height: 600px) {
+  .photo-image {
+    max-height: 85vh;
+  }
 }
 
 /* Caption: gear on the left, place and month on the right, mono in the muted ink at a size that still reads */
@@ -1065,21 +1073,26 @@ body:has(.lightbox[open]) {
   overflow: hidden;
 }
 
-/* The figure takes the picture's width, so the caption lines up with its edges */
+/* The figure takes the picture's width, so the caption lines up with its edges. The picture's width is set inline
+   by Gallery.tsx from the screen and its own shape, for the reason given at .photo-image above. */
 .lightbox-figure {
   display: flex;
   flex-direction: column;
-  margin: 0;
+  width: fit-content;
   max-width: 100%;
+  margin: 0;
 }
 
 .lightbox-image {
   display: block;
-  width: auto;
   height: auto;
-  max-width: calc(100vw - 2 * var(--space-5));
-  max-height: calc(100dvh - var(--space-9) - var(--space-5));
-  object-fit: contain;
+  max-width: 100%;
+}
+
+/* The caption takes the picture's width and wraps inside it, instead of widening the figure past the picture */
+.lightbox-figure .photo-caption {
+  width: 0;
+  min-width: 100%;
 }
 
 /* The marks: mono glyphs in the muted ink that take the lime block on hover, like the home links */

@@ -32,6 +32,14 @@ function Caption({ photo }: { photo: Photo }) {
 
 const SWIPE = 40 // px of horizontal travel that counts as a swipe
 
+// The width that fits the screen with the caption under it: the screen's width less the padding, or what the
+// screen's height allows at the picture's own shape, whichever is less. Set as a width (not left to the
+// picture's own size) because a browser served a smaller file than it asked for would shrink it otherwise.
+function fitWidth({ image }: Photo) {
+  const ratio = (image.width / image.height).toFixed(4)
+  return `min(calc(100vw - 2 * var(--space-5)), calc((100dvh - var(--space-9) - var(--space-5)) * ${ratio}))`
+}
+
 // The column of photos, and the lightbox: a native dialog on the page ground that shows one photo
 // fitted to the screen with its caption. Esc, the mark in the corner or a click outside close it;
 // the arrow keys, the side marks or a swipe move along the list. No motion, like the rest of the site.
@@ -114,6 +122,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               quality={85}
               sizes="100vw"
               priority
+              style={{ width: fitWidth(photo) }}
             />
             <Caption photo={photo} />
           </figure>
