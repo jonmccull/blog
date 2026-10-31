@@ -2,6 +2,7 @@ import {
   addToList,
   cameraName,
   entryLines,
+  fallbackSlug,
   formatSettings,
   metaFrom,
   shutter,
@@ -77,6 +78,30 @@ describe('photo captions', () => {
     expect(entry).toContain("film: 'HP5'")
     expect(entry).not.toContain('settings:')
     expect(entry).not.toContain('date:')
+  })
+
+  it('never makes an import name out of a reserved word or nothing', () => {
+    expect(varName('default')).toBe('pdefault')
+    expect(varName('class')).toBe('pclass')
+    expect(varName('')).toBe('p')
+    expect(varName('default-settings')).toBe('defaultSettings')
+    expect(entryLines('default', {}).importLine).toBe(
+      "import pdefault from '@/public/images/photos/default.webp'"
+    )
+  })
+
+  it('names a nameless file from its EXIF date, counting up past what is taken', () => {
+    const today = new Date('2026-11-02T10:00:00Z')
+    expect(fallbackSlug('dscf0141', {}, () => false, today)).toBeNull()
+    expect(fallbackSlug('default', { date: '2026-10-31' }, () => false, today)).toBe(
+      'photo-2026-10-31'
+    )
+    expect(fallbackSlug('', {}, () => false, today)).toBe('photo-2026-11-02')
+    expect(fallbackSlug('IMG', {}, () => false, today)).toBe('photo-2026-11-02')
+    const taken = new Set(['photo-2026-10-31', 'photo-2026-10-31-2'])
+    expect(
+      fallbackSlug('default', { date: '2026-10-31' }, (s: string) => taken.has(s), today)
+    ).toBe('photo-2026-10-31-3')
   })
 
   it('fills in a location given with the batch, and quotes it', () => {

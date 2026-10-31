@@ -10,10 +10,31 @@ export function slugOf(name) {
     .replace(/(^-|-$)/g, '')
 }
 
-// Slug to identifier: "2026-10-30-dscf0141" -> "p20261030Dscf0141"
+// Words that cannot be an import name. "default.jpg" (what GitHub calls an upload with no
+// name) once became `import default from`, and Prettier refused the file.
+const RESERVED = new Set(
+  'await break case catch class const continue debugger default delete do else enum export extends false finally for function if implements import in instanceof interface let new null package private protected public return static super switch this throw true try typeof var void while with yield'.split(
+    ' '
+  )
+)
+
+// Slug to identifier: "2026-10-30-dscf0141" -> "p20261030Dscf0141"; a reserved word or an
+// empty slug gets the same p prefix
 export function varName(slug) {
   const camel = slug.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase())
-  return /^\d/.test(camel) ? `p${camel}` : camel
+  return /^\d/.test(camel) || RESERVED.has(camel) || !camel ? `p${camel}` : camel
+}
+
+// A name for a file that arrived without one: "default" (GitHub's name for a nameless upload),
+// "image", "photo", or nothing at all. The EXIF date if there is one, else today; a counter
+// keeps a batch apart and skips what the list already has.
+export function fallbackSlug(stem, meta = {}, taken = (_slug) => false, today = new Date()) {
+  if (!/^(default|image|img|photo|untitled)?$/i.test(stem)) return null
+  const d = meta.date ?? today.toISOString().slice(0, 10)
+  for (let n = 1; ; n++) {
+    const slug = `photo-${d}${n > 1 ? `-${n}` : ''}`
+    if (!taken(slug)) return slug
+  }
 }
 
 // "FUJIFILM" + "X100VI" -> "Fujifilm X100VI"; "Canon" + "Canon EOS R6" -> "Canon EOS R6"

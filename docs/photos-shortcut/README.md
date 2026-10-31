@@ -51,11 +51,14 @@ for reading it in the Shortcuts app.
 5. **Get Contents of URL** `POST https://api.github.com/repos/jonmccull/blog/releases` with
    `tag_name: photos-inbox-<date>`, `name`, `body`, `draft: true`. A draft makes no tag.
 6. **Get Dictionary Value** `id` → variable `ReleaseID`.
-7. **Repeat with Each** photo: **Get Name**, strip the extension (**Replace Text**, regex
-   `\.[A-Za-z0-9]+$`), **Convert Image** to JPEG at full quality with _Preserve Metadata_, then
-   **Get Contents of URL** `POST https://uploads.github.com/repos/jonmccull/blog/releases/<id>/assets?name=<name>.jpg`
-   with the image as the request body (`Content-Type: image/jpeg`). HEIC photos become JPEG here;
-   camera JPEGs are re-encoded once at quality 1.0, then resized to 3000px by the workflow anyway.
+7. **Repeat with Each** photo: **Convert Image** to JPEG at quality 0.9 with _Preserve Metadata_,
+   then **Get Contents of URL**
+   `POST https://uploads.github.com/repos/jonmccull/blog/releases/<id>/assets?name=photo-<date>-<n>.jpg`
+   with the image as the request body (`Content-Type: image/jpeg`). The name is the batch's time
+   and the photo's place in it, because a photo shared from the Photos app carries no file name
+   (the first real run uploaded `default.jpg`); rename on the pull request if you want the camera's.
+   HEIC photos become JPEG here; camera JPEGs are re-encoded once, then resized to 3000px by the
+   workflow anyway.
 8. **Get Contents of URL** `POST https://api.github.com/repos/jonmccull/blog/dispatches` with
    `event_type: photos` and `client_payload: { release_id, location }`.
 9. **Show Notification**: "Sent N to jonm.cc. A pull request opens in a couple of minutes."
@@ -66,8 +69,7 @@ and `X-GitHub-Api-Version: 2022-11-28`.
 ## When something goes wrong
 
 - **The shortcut stops with an HTTP error** at step 5: the token is wrong, expired, or lacks
-  Contents write. At step 7: a second photo in the batch has the same file name (asset names
-  must be unique in a release); send it on its own.
+  Contents write. At step 7: the upload itself failed; try again on Wi-Fi.
 - **No pull request after five minutes**: open Actions → photos. A run that failed at "Open a pull
   request" has kept the release (Releases → Drafts). Fix the cause, then run the workflow by hand:
   Actions → photos → Run workflow, with the `release_id` from the run summary and the location.
