@@ -1,20 +1,36 @@
 name: photos
 
-# The photos inbox. Put an original JPEG in photos/inbox/ on main (upload on github.com, or push it)
-# and this turns it into a Photos page file and a list entry, then opens a pull request for the
-# alt text and location. See photos/inbox/README.md. Needs "Allow GitHub Actions to create and
-# approve pull requests" on in Settings > Actions > General, or the pull request step fails.
+# The photos inbox. Originals arrive one of two ways and this turns each into a Photos page file and
+# a list entry, then opens a pull request for the alt text (and the location, if none was given):
+#  - a file put in photos/inbox/ on main (upload on github.com, or push it), see photos/inbox/README.md
+#  - the Add to Photos shortcut (docs/photos-shortcut/), which uploads the originals as assets on a
+#    draft release, so they never enter git history, and sends a repository_dispatch with its id.
+# Needs "Allow GitHub Actions to create and approve pull requests" on in Settings > Actions > General,
+# or the pull request step fails.
 on:
   push:
     branches: [main]
     paths: ['photos/inbox/**']
+  repository_dispatch:
+    types: [photos]
   workflow_dispatch:
+    inputs:
+      release_id:
+        description: 'Draft release whose assets are the originals. Empty: read photos/inbox/'
+        required: false
+      location:
+        description: 'Location for every photo in this run (optional)'
+        required: false
 
 permissions:
   contents: write
   pull-requests: write
 
 concurrency: photos-inbox
+
+env:
+  RELEASE_ID: ${{ github.event.client_payload.release_id || inputs.release_id }}
+  LOCATION: ${{ github.event.client_payload.location || inputs.location }}
 
 jobs:
   ingest:
@@ -26,14 +42,29 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - name: Fetch the originals from the release
+        if: env.RELEASE_ID != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID" --jq '"release \(.id): \(.name) (draft=\(.draft), \(.assets | length) assets)"'
+          gh api "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID/assets" --jq '.[] | "\(.id)\t\(.name)"' |
+            while IFS=$'\t' read -r id name; do
+              gh api -H 'Accept: application/octet-stream' "repos/$GITHUB_REPOSITORY/releases/assets/$id" > "photos/inbox/$name"
+              echo "fetched $name ($(stat -c %s "photos/inbox/$name") bytes)"
+            done
       - name: Ingest the inbox
         id: ingest
         run: |
           branch="photos/inbox-${{ github.run_id }}"
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
-          node scripts/photo-ingest.mjs --branch "$branch" --summary /tmp/summary.md | tee /tmp/ingest.log
+          node scripts/photo-ingest.mjs --branch "$branch" --summary /tmp/summary.md --location "$LOCATION" | tee /tmp/ingest.log
           echo "count=$(sed -n 's/^ingested=//p' /tmp/ingest.log)" >> "$GITHUB_OUTPUT"
+          cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
+          # Release originals that could not be read stay on the release, not in the branch
+          if [ -n "$RELEASE_ID" ]; then git clean -fdq photos/inbox; fi
       - name: Open a pull request
+        id: pr
         if: steps.ingest.outputs.count != '0'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -46,6 +77,16 @@ jobs:
           git add -A photos/inbox public/images/photos app/photos/photos.ts
           git commit -m "Photos: $COUNT from the inbox"
           git push -u origin "$BRANCH"
-          gh pr create --base main --head "$BRANCH" \
-            --title "Photos: $COUNT new, needs alt text and location" \
-            --body-file /tmp/summary.md
+          if [ -n "$LOCATION" ]; then title="Photos: $COUNT new from $LOCATION, needs alt text"
+          else title="Photos: $COUNT new, needs alt text and location"; fi
+          gh pr create --base main --head "$BRANCH" --title "$title" --body-file /tmp/summary.md
+      - name: Delete the release
+        if: env.RELEASE_ID != '' && steps.pr.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X DELETE "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID"
+      - name: Keep the release
+        if: env.RELEASE_ID != '' && steps.pr.outcome != 'success'
+        run: |
+          echo "::warning::No pull request was opened, so draft release $RELEASE_ID keeps the originals. Re-run with release_id=$RELEASE_ID once the cause is fixed, or delete it under Releases."
+          echo "Draft release $RELEASE_ID kept: no pull request was opened." >> "$GITHUB_STEP_SUMMARY"

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // The photos inbox (.github/workflows/photos.yml): every image in photos/inbox/ becomes a Photos page
-// file and a list entry at the top of app/photos/photos.ts, with alt text and location left for the
-// pull request. The original is deleted. Writes a markdown summary for the PR body.
-// Usage: node scripts/photo-ingest.mjs [--branch <name>] [--summary <file>]
+// file and a list entry at the top of app/photos/photos.ts, with alt text (and location, unless one
+// is given) left for the pull request. The original is deleted. Writes a markdown summary for the PR body.
+// Usage: node scripts/photo-ingest.mjs [--branch <name>] [--summary <file>] [--location <text>]
 import { readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs'
 import { extname, join } from 'node:path'
 import { execFileSync } from 'node:child_process'
@@ -16,6 +16,7 @@ const option = (name, fallback) => {
 }
 const branch = option('--branch', 'main')
 const summaryFile = option('--summary', '/tmp/photo-ingest.md')
+const location = option('--location', '').trim()
 const inbox = join(process.cwd(), 'photos', 'inbox')
 const rawBase = `https://raw.githubusercontent.com/jonmccull/blog/${branch}/public/images/photos`
 
@@ -32,7 +33,7 @@ for (const file of files) {
   }
   try {
     const { slug, width, height, meta } = await prepare(input)
-    list = addToList(list, slug, meta)
+    list = addToList(list, slug, meta, { location })
     unlinkSync(input)
     done.push({ file, slug, width, height, meta })
   } catch (error) {
@@ -47,7 +48,7 @@ if (done.length) {
 
 const lines = [
   done.length
-    ? `${done.length} photo${done.length === 1 ? '' : 's'} from \`photos/inbox/\`, resized and stripped of metadata. **Before merging, fill in \`alt\` and \`location\` for each in \`app/photos/photos.ts\`** (edit the file on this branch). Rename the file and its import too if you want a better name than the camera's.`
+    ? `${done.length} photo${done.length === 1 ? '' : 's'}, resized and stripped of metadata${location ? `, location "${location}"` : ''}. **Before merging, fill in \`alt\`${location ? '' : ' and `location`'} for each in \`app/photos/photos.ts\`** (edit the file on this branch). Rename the file and its import too if you want a better name than the camera's.`
     : 'Nothing to ingest.',
   '',
 ]
@@ -63,7 +64,7 @@ for (const p of done) {
     ''
   )
 }
-if (skipped.length) lines.push('### Left in the inbox', '', ...skipped.map((s) => `- ${s}`), '')
+if (skipped.length) lines.push('### Not ingested', '', ...skipped.map((s) => `- ${s}`), '')
 writeFileSync(summaryFile, lines.join('\n'))
 console.log(lines.join('\n'))
 console.log(`\ningested=${done.length}`)
