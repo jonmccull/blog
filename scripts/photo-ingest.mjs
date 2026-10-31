@@ -17,7 +17,8 @@ const option = (name, fallback) => {
 const branch = option('--branch', 'main')
 const summaryFile = option('--summary', '/tmp/photo-ingest.md')
 const inbox = join(process.cwd(), 'photos', 'inbox')
-const rawBase = `https://raw.githubusercontent.com/jonmccull/blog/${branch}/public/images/photos`
+const repo = process.env.GITHUB_REPOSITORY ?? 'jonmccull/blog'
+const rawBase = `https://raw.githubusercontent.com/${repo}/${branch}/public/images/photos`
 
 const files = readdirSync(inbox).filter((f) => !f.startsWith('.') && f !== 'README.md')
 const done = []
