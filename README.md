@@ -31,6 +31,8 @@ npm run dev
 
 CI also runs the Foundations kit check: `node app/styles/foundations/check-kit.mjs`.
 
+The `photos` workflow watches `photos/inbox/` on `main` and opens a pull request for each batch of new photos. It needs "Allow GitHub Actions to create and approve pull requests" switched on under Settings → Actions → General.
+
 ## Design system
 
 Every page uses the [Foundations kit](https://github.com/jonmccull/foundations-kit). Its stylesheets and the home page's Field script are vendored, byte-identical, in `app/styles/foundations/`. Never edit them there. Site styles live in `app/styles/base.css`. The kit check fails CI if a vendored file drifts from the pinned commit in `kit.lock.json`, or if the site uses a `var(--token)` that nothing declares.
@@ -59,6 +61,8 @@ content/
 docs/
   foundations-kit/  Restyle before/after screenshots
 e2e/              Playwright tests
+photos/inbox/     Drop originals here; the photos workflow turns them into Photos page entries
+scripts/          photo-prep.mjs (by hand) and photo-ingest.mjs (the workflow), on scripts/lib/
 public/
   images-blog/    Blog post images
   images/

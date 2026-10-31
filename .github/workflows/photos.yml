@@ -1,0 +1,51 @@
+name: photos
+
+# The photos inbox. Put an original JPEG in photos/inbox/ on main (upload on github.com, or push it)
+# and this turns it into a Photos page file and a list entry, then opens a pull request for the
+# alt text and location. See photos/inbox/README.md. Needs "Allow GitHub Actions to create and
+# approve pull requests" on in Settings > Actions > General, or the pull request step fails.
+on:
+  push:
+    branches: [main]
+    paths: ['photos/inbox/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency: photos-inbox
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Ingest the inbox
+        id: ingest
+        run: |
+          branch="photos/inbox-${{ github.run_id }}"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          node scripts/photo-ingest.mjs --branch "$branch" --summary /tmp/summary.md | tee /tmp/ingest.log
+          echo "count=$(sed -n 's/^ingested=//p' /tmp/ingest.log)" >> "$GITHUB_OUTPUT"
+      - name: Open a pull request
+        if: steps.ingest.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.ingest.outputs.branch }}
+          COUNT: ${{ steps.ingest.outputs.count }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$BRANCH"
+          git add -A photos/inbox public/images/photos app/photos/photos.ts
+          git commit -m "Photos: $COUNT from the inbox"
+          git push -u origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" \
+            --title "Photos: $COUNT new, needs alt text and location" \
+            --body-file /tmp/summary.md
