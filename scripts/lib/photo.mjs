@@ -1,11 +1,11 @@
-// Turns an original into a Photos page file: 2048px on the long edge, WebP at 85, metadata dropped
+// Turns an original into a Photos page file: 3000px on the long edge, WebP at 85, metadata dropped
 // (the camera's EXIF can carry GPS coordinates). The EXIF is read first, for the caption.
 import { basename, join } from 'node:path'
 import sharp from 'sharp'
 import exifReader from 'exif-reader'
 import { metaFrom, slugOf } from './caption.mjs'
 
-export const LONG_EDGE = 2048
+export const LONG_EDGE = 3000
 export const QUALITY = 85
 export const OUT_DIR = join(process.cwd(), 'public', 'images', 'photos')
 export const LIST_FILE = join(process.cwd(), 'app', 'photos', 'photos.ts')

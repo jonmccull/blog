@@ -1003,6 +1003,15 @@ main:has(> .home-field) + .site-footer {
   margin: 0;
 }
 
+/* The picture is a button that opens the lightbox; nothing changes on hover but the cursor */
+.photo-open {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
 /* The picture fills the column; a portrait stops at the height of the screen instead */
 .photo-image {
   display: block;
@@ -1024,4 +1033,101 @@ main:has(> .home-field) + .site-footer {
   line-height: 1.5;
   letter-spacing: 0.02em;
   color: var(--ink-muted);
+}
+
+/* Lightbox (Gallery.tsx): a native dialog over the whole screen, on the ground, the photo fitted inside it with its
+   caption under it. No motion: it is open or it is not. The page behind stops scrolling while it is open. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: var(--space-5);
+  border: 0;
+  background: var(--ground);
+  color: var(--ink);
+}
+
+.lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox::backdrop {
+  background: transparent;
+}
+
+body:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+/* The figure takes the picture's width, so the caption lines up with its edges */
+.lightbox-figure {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  max-width: 100%;
+}
+
+.lightbox-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: calc(100vw - 2 * var(--space-5));
+  max-height: calc(100dvh - var(--space-9) - var(--space-5));
+  object-fit: contain;
+}
+
+/* The marks: mono glyphs in the muted ink that take the lime block on hover, like the home links */
+.lightbox-mark {
+  position: absolute;
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  line-height: 1;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
+}
+
+.lightbox-mark:hover,
+.lightbox-mark:focus-visible {
+  background-color: var(--lime);
+  color: var(--on-lime);
+}
+
+.lightbox-mark.is-close {
+  top: var(--space-3);
+  right: var(--space-3);
+}
+
+/* The side marks sit beside the picture on wide screens; on phones they would cover it, and a swipe does the same job */
+.lightbox-mark.is-prev,
+.lightbox-mark.is-next {
+  display: none;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (min-width: 768px) {
+  .lightbox-mark.is-prev,
+  .lightbox-mark.is-next {
+    display: block;
+  }
+}
+
+.lightbox-mark.is-prev {
+  left: var(--space-2);
+}
+
+.lightbox-mark.is-next {
+  right: var(--space-2);
 }
