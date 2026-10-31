@@ -114,3 +114,20 @@ test.describe('Home field', () => {
     expect(portraitRequests).toEqual([])
   })
 })
+
+test.describe('Photos lightbox', () => {
+  test('opens a photo, steps with the keyboard, closes with Escape', async ({ page }) => {
+    await page.goto('/photos')
+    const dialog = page.locator('dialog.lightbox')
+    await expect(dialog).toBeHidden()
+    const first = page.locator('.photo-open').first()
+    const firstAlt = await first.locator('img').getAttribute('alt')
+    await first.click()
+    await expect(dialog).toBeVisible()
+    await expect(dialog.locator('.lightbox-image')).toHaveAttribute('alt', firstAlt ?? '')
+    await page.keyboard.press('ArrowRight')
+    await expect(dialog.locator('.lightbox-image')).not.toHaveAttribute('alt', firstAlt ?? '')
+    await page.keyboard.press('Escape')
+    await expect(dialog).toBeHidden()
+  })
+})
