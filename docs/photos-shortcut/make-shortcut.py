@@ -64,7 +64,7 @@ def gh_headers(extra=()):
 
 actions = []
 u_token, u_ask, u_count, u_date, u_fmt, u_create, u_id = (uid() for _ in range(7))
-u_name, u_strip, u_convert, u_upload, u_dispatch = (uid() for _ in range(5))
+u_convert, u_upload, u_dispatch = (uid() for _ in range(3))
 group = uid()
 
 actions += [
@@ -81,7 +81,7 @@ actions += [
     action('is.workflow.actions.count', UUID=u_count, WFCountType='Items', Input=attachment(INPUT_REF)),
     action('is.workflow.actions.date', UUID=u_date, WFDateActionMode='Current Date'),
     action('is.workflow.actions.format.date', UUID=u_fmt, WFDateFormatStyle='Custom', WFDateFormat='yyyyMMdd-HHmmss',
-           WFDate=attachment(out_ref(u_date, 'Date'))),
+           WFDate=attachment(out_ref(u_date, 'Current Date'))),
     # 1. A draft release: no tag is made, so the originals never enter git history.
     action('is.workflow.actions.downloadurl', UUID=u_create,
            WFURL=text(f'https://api.github.com/repos/{REPO}/releases'),
@@ -95,16 +95,16 @@ actions += [
     action('is.workflow.actions.getvalueforkey', UUID=u_id, WFGetDictionaryValueType='Value',
            WFDictionaryKey='id', WFInput=attachment(out_ref(u_create, 'Contents of URL'))),
     action('is.workflow.actions.setvariable', WFVariableName='ReleaseID', WFInput=attachment(out_ref(u_id, 'Dictionary Value'))),
-    # 2. Each photo: JPEG with its metadata kept (the captions come from the EXIF), uploaded as an asset.
+    # 2. Each photo: JPEG with its metadata kept (the captions come from the EXIF), uploaded as an
+    #    asset named by the batch's time and the photo's place in it. A photo shared from the Photos
+    #    app carries no file name (Get Name gave "" on the first real run, and GitHub called the
+    #    asset default.jpg), so the camera's name is not used; the pull request is where to rename.
+    #    Quality 0.9: 1.0 made a 45 MB file of a 20 MP shot, and the workflow resizes to 3000px anyway.
     action('is.workflow.actions.repeat.each', GroupingIdentifier=group, WFControlFlowMode=0, WFInput=attachment(INPUT_REF)),
-    action('is.workflow.actions.getitemname', UUID=u_name, WFInput=attachment(var_ref('Repeat Item'))),
-    action('is.workflow.actions.text.replace', UUID=u_strip, WFInput=attachment(out_ref(u_name, 'Name')),
-           WFReplaceTextFind=r'\.[A-Za-z0-9]+$', WFReplaceTextReplace='',
-           WFReplaceTextRegularExpression=True, WFReplaceTextCaseSensitive=False),
     action('is.workflow.actions.image.convert', UUID=u_convert, WFInput=attachment(var_ref('Repeat Item')),
-           WFImageFormat='JPEG', WFImageCompressionQuality=1.0, WFImagePreserveMetadata=True),
+           WFImageFormat='JPEG', WFImageCompressionQuality=0.9, WFImagePreserveMetadata=True),
     action('is.workflow.actions.downloadurl', UUID=u_upload,
-           WFURL=text(f'https://uploads.github.com/repos/{REPO}/releases/', var_ref('ReleaseID'), '/assets?name=', out_ref(u_strip, 'Updated Text'), '.jpg'),
+           WFURL=text(f'https://uploads.github.com/repos/{REPO}/releases/', var_ref('ReleaseID'), '/assets?name=photo-', out_ref(u_fmt, 'Formatted Date'), '-', var_ref('Repeat Index'), '.jpg'),
            WFHTTPMethod='POST', WFHTTPBodyType='File',
            WFHTTPHeaders=gh_headers([('Content-Type', text('image/jpeg'))]),
            WFRequestVariable=attachment(out_ref(u_convert, 'Converted Image'))),

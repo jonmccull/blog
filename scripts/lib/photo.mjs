@@ -3,7 +3,8 @@
 import { basename, join } from 'node:path'
 import sharp from 'sharp'
 import exifReader from 'exif-reader'
-import { metaFrom, slugOf } from './caption.mjs'
+import { fallbackSlug, metaFrom, slugOf } from './caption.mjs'
+import { existsSync } from 'node:fs'
 
 export const LONG_EDGE = 3000
 export const QUALITY = 85
@@ -11,9 +12,9 @@ export const OUT_DIR = join(process.cwd(), 'public', 'images', 'photos')
 export const LIST_FILE = join(process.cwd(), 'app', 'photos', 'photos.ts')
 export const INPUT_TYPES = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.avif'])
 
-export async function prepare(input, outDir = OUT_DIR) {
-  const slug = slugOf(basename(input))
-  const output = join(outDir, `${slug}.webp`)
+// taken(slug): true when a slug is already in use by the caller (the list being built), on
+// top of the files already in outDir; only consulted for a file that arrived without a name
+export async function prepare(input, outDir = OUT_DIR, { taken = () => false } = {}) {
   const source = sharp(input)
   const { exif } = await source.metadata()
   let meta = {}
@@ -24,6 +25,10 @@ export async function prepare(input, outDir = OUT_DIR) {
       meta = {}
     }
   }
+  const stem = slugOf(basename(input))
+  const slug =
+    fallbackSlug(stem, meta, (s) => taken(s) || existsSync(join(outDir, `${s}.webp`))) ?? stem
+  const output = join(outDir, `${slug}.webp`)
   const { width, height } = await source
     .clone()
     .rotate() // bake the orientation in before the EXIF goes

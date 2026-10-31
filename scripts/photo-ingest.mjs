@@ -33,7 +33,9 @@ for (const file of files) {
     continue
   }
   try {
-    const { slug, width, height, meta } = await prepare(input)
+    const { slug, width, height, meta } = await prepare(input, undefined, {
+      taken: (s) => done.some((d) => d.slug === s) || list.includes(`/photos/${s}.webp'`),
+    })
     list = addToList(list, slug, meta, { location })
     unlinkSync(input)
     done.push({ file, slug, width, height, meta })
