@@ -25,7 +25,7 @@ export type Photo = {
 export const photos: Photo[] = [
   {
     image: photo20261028,
-    alt: '',
+    alt: 'A wire fence on posts crosses rough yellow grass towards a grey sea breaking on a rocky shore under low cloud; a Norwegian flag flies from a tall pole beside a railed tarmac path on the right.',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/10 · 1/42 s · ISO 500',
     location: 'Haugesund, Norway',
