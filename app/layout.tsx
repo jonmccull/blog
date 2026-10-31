@@ -103,6 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {/* Production deploys only, so previews and local runs stay out of the counts. */}
         {process.env.VERCEL_ENV === 'production' && (
+          // eslint-disable-next-line @next/next/no-sync-scripts -- a module script defers by itself; the rule does not know that
           <script
             type="module"
             src="https://static.cloudflareinsights.com/beacon.min.js"
