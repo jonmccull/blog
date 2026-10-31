@@ -11,5 +11,9 @@ Ways to get a file in here:
 - On github.com (also on a phone): open this folder, **Add file → Upload files**, commit to `main`.
 - From a clone: copy the file in, commit, push.
 
+Either way the original lands in git history. **From a phone, prefer the Add to Photos shortcut**
+(`docs/photos-shortcut/`): it uploads the originals as assets on a draft release instead, the same
+workflow fetches them from there, and the location is filled in from the shortcut's one question.
+
 Only this README stays here. Anything that is not an image the script can read is left in place
 and listed in the pull request.

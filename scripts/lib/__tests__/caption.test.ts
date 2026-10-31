@@ -78,4 +78,15 @@ describe('photo captions', () => {
     expect(entry).not.toContain('settings:')
     expect(entry).not.toContain('date:')
   })
+
+  it('fills in a location given with the batch, and quotes it', () => {
+    const list = addToList(
+      emptyList,
+      'dscf0141',
+      { camera: 'Fujifilm X100VI' },
+      { location: "Trond's bench, Haugesund" }
+    )
+    expect(list).toContain("location: 'Trond\\'s bench, Haugesund',")
+    expect(entryLines('x', {}).entry).toContain("location: '',")
+  })
 })

@@ -86,7 +86,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh api -X DELETE "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID"
       - name: Keep the release
-        if: env.RELEASE_ID != '' && steps.pr.outcome != 'success'
+        if: always() && env.RELEASE_ID != '' && steps.pr.outcome != 'success'
         run: |
           echo "::warning::No pull request was opened, so draft release $RELEASE_ID keeps the originals. Re-run with release_id=$RELEASE_ID once the cause is fixed, or delete it under Releases."
           echo "Draft release $RELEASE_ID kept: no pull request was opened." >> "$GITHUB_STEP_SUMMARY"
