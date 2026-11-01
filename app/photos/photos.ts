@@ -2,6 +2,7 @@ import type { StaticImageData } from 'next/image'
 import firebirdOnTheBench from '@/public/images/photos/firebird-on-the-bench.webp'
 import churchWindows from '@/public/images/photos/church-windows.webp'
 import photo20261028 from '@/public/images/photos/photo-2026-10-28.webp'
+import photo1 from '@/public/images/photos/photo-1.webp'
 
 // The Photos page shows this list, in this order (newest first, by hand). Each image is a static
 // import from public/images/photos/, so its width and height are known at build time and a missing
@@ -23,6 +24,14 @@ export type Photo = {
 }
 
 export const photos: Photo[] = [
+  {
+    image: photo1,
+    alt: '',
+    camera: 'Fujifilm X100VI',
+    settings: '23mm · f/4 · 1/40 s · ISO 250',
+    location: 'MusikkHuset Haugesund',
+    date: '2026-10-30',
+  },
   {
     image: photo20261028,
     alt: 'A wire fence on posts crosses rough yellow grass towards a grey sea breaking on a rocky shore under low cloud; a Norwegian flag flies from a tall pole beside a railed tarmac path on the right.',
