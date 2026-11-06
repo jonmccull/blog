@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Image from './Image'
 import MdxImage from './MdxImage'
+import ThemedImage from './ThemedImage'
 import { headingClass } from './mdx'
 
 // Blog post headings take the same kit classes as the other MDX pages, without anchor links.
@@ -15,6 +16,7 @@ function heading(level: 1 | 2 | 3 | 4) {
 
 export const mdxComponents = {
   Image,
+  ThemedImage,
   img: MdxImage,
   h1: heading(1),
   h2: heading(2),
