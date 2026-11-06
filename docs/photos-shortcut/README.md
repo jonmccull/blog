@@ -3,8 +3,8 @@
 Adds photos to the Photos page from a phone. Share one or more pictures from the Photos app to
 **Add to Photos** (or run it and pick them), answer one question (where they were taken, or leave
 it empty) and a pull request appears a couple of minutes later with each photo resized, its camera,
-exposure and date read from the EXIF, and the location filled in. Only the `alt` text is left to
-write on the pull request.
+exposure and date read from the EXIF, the location filled in and the `alt` text drafted by Claude
+for screen readers. Check the alt text against the photo on the pull request, then merge.
 
 The originals never enter git history. The shortcut uploads them as assets on a **draft release**
 (GitHub hosts those outside the repository and a draft makes no tag), then sends a

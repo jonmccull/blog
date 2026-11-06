@@ -1,7 +1,7 @@
 name: photos
 
 # The photos inbox. Originals arrive one of two ways and this turns each into a Photos page file and
-# a list entry, then opens a pull request for the alt text (and the location, if none was given):
+# a list entry with drafted alt text, then opens a pull request to check it (and add the location, if none was given):
 #  - a file put in photos/inbox/ on main (upload on github.com, or push it), see photos/inbox/README.md
 #  - the Add to Photos shortcut (docs/photos-shortcut/), which uploads the originals as assets on a
 #    draft release, so they never enter git history, and sends a repository_dispatch with its id.
@@ -55,6 +55,9 @@ jobs:
             done
       - name: Ingest the inbox
         id: ingest
+        env:
+          # Drafts each photo's alt text with Claude; without the secret, alt is left empty
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           branch="photos/inbox-${{ github.run_id }}"
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
