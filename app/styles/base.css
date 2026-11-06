@@ -655,6 +655,22 @@ main:has(> .home-field) + .site-footer {
   margin-top: var(--space-3);
 }
 
+/* Themed image (app/components/ThemedImage.tsx): a light and a dark file, swapped on data-theme like the home
+   portrait. Never a filter. The hidden one is display: none, so it is out of the accessibility tree. */
+.themed-image,
+.themed-image-light {
+  display: block;
+}
+
+.themed-image-dark,
+[data-theme='dark'] .themed-image-light {
+  display: none;
+}
+
+[data-theme='dark'] .themed-image-dark {
+  display: block;
+}
+
 /* Layout width: narrow for reading, wide for home and portfolio pages. It switches, it does not animate.
    No explicit width: as a block box it fills the space left by its margins (mx-4). */
 .layout-narrow {
