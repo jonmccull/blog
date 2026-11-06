@@ -1003,8 +1003,17 @@ main:has(> .home-field) + .site-footer {
   list-style: none;
 }
 
+/* A portrait that would run past the screen's height is narrowed to fit it, figure and all, so the caption
+   lines up with the picture's edges; the picture's shape comes from Gallery.tsx as --photo-ratio. */
 .photo {
-  margin: 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-height: 600px) {
+  .photo {
+    width: min(100%, calc(85vh * var(--photo-ratio, 1)));
+  }
 }
 
 /* The picture is a button that opens the lightbox; nothing changes on hover but the cursor. A button shrinks to its
@@ -1020,8 +1029,8 @@ main:has(> .home-field) + .site-footer {
 
 /* The picture fills the column, by a set width rather than its own size: with width auto, a browser that asked for
    a larger file than the master (a 3x phone held sideways) sizes the picture from the advertised density and shrinks
-   it. On a screen with room to spare a portrait stops at the height of the screen instead; object-fit keeps its
-   shape inside the full-width box, centred, where it would otherwise be squeezed to the column's width. */
+   it. A portrait is held to the screen's height by its figure (.photo above); max-height and object-fit are the
+   backstop, keeping its shape if the two disagree by a rounding pixel. */
 .photo-image {
   display: block;
   width: 100%;
