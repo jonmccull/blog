@@ -38,7 +38,7 @@ export const photos: Photo[] = [
   },
   {
     image: photo202611063,
-    alt: 'Golden hour photo of trees overhanging parling lot',
+    alt: 'Golden hour photo of trees overhanging parking lot',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/4.5 · 1/250 s · ISO 200',
     location: 'Haugesund, Norway',
