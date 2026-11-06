@@ -47,7 +47,7 @@ for reading it in the Shortcuts app.
 1. Comment, then **Text** holding the token → variable `Token`.
 2. **Ask for Input**: "Where were these taken?" → variable `Location` (may be empty).
 3. **Count** the shared photos, for the notification.
-4. **Current Date**, formatted `yyyyMMdd-HHmmss`, to name the release.
+4. **Format Date** on the Current Date variable, `yyyyMMdd-HHmmss`, to name the release.
 5. **Get Contents of URL** `POST https://api.github.com/repos/jonmccull/blog/releases` with
    `tag_name: photos-inbox-<date>`, `name`, `body`, `draft: true`. A draft makes no tag.
 6. **Get Dictionary Value** `id` → variable `ReleaseID`.

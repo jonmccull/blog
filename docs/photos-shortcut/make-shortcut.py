@@ -63,7 +63,7 @@ def gh_headers(extra=()):
     return dict_value(items)
 
 actions = []
-u_token, u_ask, u_count, u_date, u_fmt, u_create, u_id = (uid() for _ in range(7))
+u_token, u_ask, u_count, u_fmt, u_create, u_id = (uid() for _ in range(6))
 u_convert, u_upload, u_dispatch = (uid() for _ in range(3))
 group = uid()
 
@@ -79,9 +79,11 @@ actions += [
            WFAskActionDefaultAnswer=text('')),
     action('is.workflow.actions.setvariable', WFVariableName='Location', WFInput=attachment(out_ref(u_ask, 'Provided Input'))),
     action('is.workflow.actions.count', UUID=u_count, WFCountType='Items', Input=attachment(INPUT_REF)),
-    action('is.workflow.actions.date', UUID=u_date, WFDateActionMode='Current Date'),
+    # The Current Date variable inline in the date field, as the Shortcuts app writes it. A separate
+    # Date action piped in as an attachment came out empty on the phone ("photo--1.jpg", tag
+    # "photos-inbox-"); the workflow names such files from the EXIF date anyway.
     action('is.workflow.actions.format.date', UUID=u_fmt, WFDateFormatStyle='Custom', WFDateFormat='yyyyMMdd-HHmmss',
-           WFDate=attachment(out_ref(u_date, 'Current Date'))),
+           WFDate=text({'Type': 'CurrentDate'})),
     # 1. A draft release: no tag is made, so the originals never enter git history.
     action('is.workflow.actions.downloadurl', UUID=u_create,
            WFURL=text(f'https://api.github.com/repos/{REPO}/releases'),

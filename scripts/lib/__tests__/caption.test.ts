@@ -98,6 +98,19 @@ describe('photo captions', () => {
     )
     expect(fallbackSlug('', {}, () => false, today)).toBe('photo-2026-11-02')
     expect(fallbackSlug('IMG', {}, () => false, today)).toBe('photo-2026-11-02')
+    expect(fallbackSlug('img-1234', {}, () => false, today)).toBeNull()
+    // the shortcut's names, with and without the batch time the phone sometimes leaves out
+    expect(fallbackSlug(slugOf('photo-20261106-170759-2.jpg'), {}, () => false, today)).toBe(
+      'photo-2026-11-02'
+    )
+    expect(
+      fallbackSlug(
+        slugOf('photo--1.jpg'),
+        { date: '2026-11-06' },
+        (s: string) => s === 'photo-1',
+        today
+      )
+    ).toBe('photo-2026-11-06')
     const taken = new Set(['photo-2026-10-31', 'photo-2026-10-31-2'])
     expect(
       fallbackSlug('default', { date: '2026-10-31' }, (s: string) => taken.has(s), today)
