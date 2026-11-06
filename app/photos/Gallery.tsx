@@ -1,7 +1,7 @@
 'use client'
 
 import NextImage from 'next/image'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState, type CSSProperties } from 'react'
 import type { Photo } from './photos'
 
 // The gear side of a caption: camera, then lens, film stock and exposure, whichever are given
@@ -68,7 +68,10 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
       <ol className="photos-list">
         {photos.map((item, index) => (
           <li key={item.image.src}>
-            <figure className="photo">
+            <figure
+              className="photo"
+              style={{ '--photo-ratio': item.image.width / item.image.height } as CSSProperties}
+            >
               <button
                 type="button"
                 className="photo-open"
