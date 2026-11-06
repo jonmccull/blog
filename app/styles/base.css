@@ -1020,11 +1020,13 @@ main:has(> .home-field) + .site-footer {
 
 /* The picture fills the column, by a set width rather than its own size: with width auto, a browser that asked for
    a larger file than the master (a 3x phone held sideways) sizes the picture from the advertised density and shrinks
-   it. On a screen with room to spare a portrait stops at the height of the screen instead, and keeps its shape. */
+   it. On a screen with room to spare a portrait stops at the height of the screen instead; object-fit keeps its
+   shape inside the full-width box, centred, where it would otherwise be squeezed to the column's width. */
 .photo-image {
   display: block;
   width: 100%;
   height: auto;
+  object-fit: contain;
 }
 
 @media (min-height: 600px) {
