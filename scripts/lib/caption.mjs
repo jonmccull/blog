@@ -29,7 +29,8 @@ export function varName(slug) {
 // "image", "photo", or nothing at all, or the shortcut's "photo-<batch time>-<n>" ("photo--1" slugs
 // to "photo-1" when the phone sends no time). The EXIF date if there is one, else today; a counter
 // keeps a batch apart and skips what the list already has.
-export function fallbackSlug(stem, meta = {}, taken = (_slug) => false, today = new Date()) {
+/** @param {string} stem @param {{ date?: string }} [meta] @param {(slug: string) => boolean} [taken] @param {Date} [today] */
+export function fallbackSlug(stem, meta = {}, taken = () => false, today = new Date()) {
   if (!/^(default|image|img|photo|untitled)?$|^photo(-\d+)+$/i.test(stem)) return null
   const d = meta.date ?? today.toISOString().slice(0, 10)
   for (let n = 1; ; n++) {
