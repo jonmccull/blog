@@ -38,7 +38,7 @@ export const photos: Photo[] = [
   },
   {
     image: photo202611063,
-    alt: '',
+    alt: 'Golden hour photo of trees overhanging parling lot',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/4.5 · 1/250 s · ISO 200',
     location: 'Haugesund, Norway',
@@ -46,7 +46,7 @@ export const photos: Photo[] = [
   },
   {
     image: photo202611062,
-    alt: '',
+    alt: 'Black and white photo of fencing and grass',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/4.5 · 1/300 s · ISO 200',
     location: 'Haugesund, Norway',
@@ -54,7 +54,7 @@ export const photos: Photo[] = [
   },
   {
     image: photo20261106,
-    alt: '',
+    alt: 'Black and white photo of bus stop fogged with early morning condensation',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/5 · 1/340 s · ISO 200',
     location: 'Haugesund, Norway',
@@ -62,7 +62,7 @@ export const photos: Photo[] = [
   },
   {
     image: photo1,
-    alt: '',
+    alt: 'Close up photo of the bridge of a Fender Telecaster Custom Select',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/4 · 1/40 s · ISO 250',
     location: 'MusikkHuset Haugesund',
