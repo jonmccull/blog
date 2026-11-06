@@ -27,14 +27,18 @@ export type Photo = {
 
 export const photos: Photo[] = [
   {
-    image: photo20261106,
-    alt: '',
-    camera: 'Fujifilm X100VI',
-    settings: '23mm · f/5 · 1/340 s · ISO 200',
     image: photo202611062,
     alt: '',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/4.5 · 1/300 s · ISO 200',
+    location: 'Haugesund, Norway',
+    date: '2026-11-06',
+  },
+  {
+    image: photo20261106,
+    alt: '',
+    camera: 'Fujifilm X100VI',
+    settings: '23mm · f/5 · 1/340 s · ISO 200',
     location: 'Haugesund, Norway',
     date: '2026-11-06',
   },
