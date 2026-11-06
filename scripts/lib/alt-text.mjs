@@ -3,7 +3,7 @@
 // at. Needs ANTHROPIC_API_KEY; the photos workflow passes the repository secret of that name.
 import sharp from 'sharp'
 
-export const MODEL = 'claude-opus-5-5'
+export const MODEL = 'claude-sonnet-5-5'
 
 const SYSTEM = `You write alt text for photographs on a personal website's photo page. Screen readers read it aloud to people who cannot see the picture, so it should give a listener what a sighted visitor takes in at a glance.
 
