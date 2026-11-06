@@ -1,0 +1,25 @@
+name: ci
+
+# Lint, formatting, types and unit tests on every pull request and on main. The pre-push hook runs only the build,
+# and the kit check (kit.yml) only the vendored kit, so before this a red lint or a failing test went unnoticed.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      # next-env.d.ts is gitignored and made by Next; type-check needs it
+      - run: npx next typegen
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run type-check
+      - run: npx jest --ci

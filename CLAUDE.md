@@ -39,6 +39,6 @@ The site uses the **Foundations kit** on every page (shell, home, blog, posts, p
 
 ## Conventions
 
-- Pre-commit hook runs Prettier check; pre-push runs full build
+- Pre-commit hook runs Prettier check; pre-push runs full build. CI (`.github/workflows/ci.yml`) runs lint, Prettier, type-check and Jest on every PR and on main; the kit check is separate (`kit.yml`)
 - Use CSS custom properties for colors, not hardcoded hex in components
 - Prefer CSS classes in `base.css` over inline Tailwind for complex/reusable styles
