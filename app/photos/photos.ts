@@ -3,6 +3,7 @@ import firebirdOnTheBench from '@/public/images/photos/firebird-on-the-bench.web
 import churchWindows from '@/public/images/photos/church-windows.webp'
 import photo20261028 from '@/public/images/photos/photo-2026-10-28.webp'
 import photo1 from '@/public/images/photos/photo-1.webp'
+import photo20261106 from '@/public/images/photos/photo-2026-11-06.webp'
 
 // The Photos page shows this list, in this order (newest first, by hand). Each image is a static
 // import from public/images/photos/, so its width and height are known at build time and a missing
@@ -24,6 +25,14 @@ export type Photo = {
 }
 
 export const photos: Photo[] = [
+  {
+    image: photo20261106,
+    alt: '',
+    camera: 'Fujifilm X100VI',
+    settings: '23mm · f/5 · 1/340 s · ISO 200',
+    location: 'Haugesund, Norway',
+    date: '2026-11-06',
+  },
   {
     image: photo1,
     alt: '',
