@@ -244,15 +244,6 @@ main:has(> .home-field) + .site-footer {
   image-rendering: pixelated;
 }
 
-.home-portrait-img.is-dark,
-[data-theme='dark'] .home-portrait-img.is-light {
-  display: none;
-}
-
-[data-theme='dark'] .home-portrait-img.is-dark {
-  display: block;
-}
-
 @media (min-width: 768px) {
   .home-editorial {
     grid-template-columns: minmax(0, 32rem) 256px;
@@ -655,19 +646,15 @@ main:has(> .home-field) + .site-footer {
   margin-top: var(--space-3);
 }
 
-/* Themed image (app/components/ThemedImage.tsx): a light and a dark file, swapped on data-theme like the home
-   portrait. Never a filter. The hidden one is display: none, so it is out of the accessibility tree. */
-.themed-image,
-.themed-image-light {
-  display: block;
-}
-
-.themed-image-dark,
-[data-theme='dark'] .themed-image-light {
+/* One image per theme, swapped on data-theme: the home portrait and ThemedImage put these on their imgs. Never a
+   filter. The hidden one is display: none, so it is out of the accessibility tree. The img selector outranks the
+   kit's .fdn-prose img. */
+img.theme-dark,
+[data-theme='dark'] img.theme-light {
   display: none;
 }
 
-[data-theme='dark'] .themed-image-dark {
+[data-theme='dark'] img.theme-dark {
   display: block;
 }
 
