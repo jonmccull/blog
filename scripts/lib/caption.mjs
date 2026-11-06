@@ -26,10 +26,11 @@ export function varName(slug) {
 }
 
 // A name for a file that arrived without one: "default" (GitHub's name for a nameless upload),
-// "image", "photo", or nothing at all. The EXIF date if there is one, else today; a counter
+// "image", "photo", or nothing at all, or the shortcut's "photo-<batch time>-<n>" ("photo--1" slugs
+// to "photo-1" when the phone sends no time). The EXIF date if there is one, else today; a counter
 // keeps a batch apart and skips what the list already has.
 export function fallbackSlug(stem, meta = {}, taken = (_slug) => false, today = new Date()) {
-  if (!/^(default|image|img|photo|untitled)?$/i.test(stem)) return null
+  if (!/^(default|image|img|photo|untitled)?$|^photo(-\d+)+$/i.test(stem)) return null
   const d = meta.date ?? today.toISOString().slice(0, 10)
   for (let n = 1; ; n++) {
     const slug = `photo-${d}${n > 1 ? `-${n}` : ''}`

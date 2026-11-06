@@ -91,3 +91,9 @@ jobs:
         run: |
           echo "::warning::No pull request was opened, so draft release $RELEASE_ID keeps the originals. Re-run with release_id=$RELEASE_ID once the cause is fixed, or delete it under Releases."
           echo "Draft release $RELEASE_ID kept: no pull request was opened." >> "$GITHUB_STEP_SUMMARY"
+      # A run that ingested nothing is a failure, not a green run with a warning nobody reads
+      - name: Fail when nothing was ingested
+        if: steps.ingest.outputs.count == '0'
+        run: |
+          echo "::error::Nothing was ingested, so no pull request was opened. The run summary says why for each file."
+          exit 1
