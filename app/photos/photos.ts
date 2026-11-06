@@ -6,6 +6,7 @@ import photo1 from '@/public/images/photos/photo-1.webp'
 import photo20261106 from '@/public/images/photos/photo-2026-11-06.webp'
 import photo202611062 from '@/public/images/photos/photo-2026-11-06-2.webp'
 import photo202611063 from '@/public/images/photos/photo-2026-11-06-3.webp'
+import photo20261104 from '@/public/images/photos/photo-2026-11-04.webp'
 
 // The Photos page shows this list, in this order (newest first, by hand). Each image is a static
 // import from public/images/photos/, so its width and height are known at build time and a missing
@@ -27,6 +28,14 @@ export type Photo = {
 }
 
 export const photos: Photo[] = [
+  {
+    image: photo20261104,
+    alt: '',
+    camera: 'Fujifilm X100VI',
+    settings: '23mm · f/8 · 1/500 s · ISO 400',
+    location: 'Haugesund, Norway',
+    date: '2026-11-04',
+  },
   {
     image: photo202611063,
     alt: '',
