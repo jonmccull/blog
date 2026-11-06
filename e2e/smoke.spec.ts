@@ -1,38 +1,44 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
 
 const pages = ['/', '/blog', '/projects', '/cv', '/photos']
+
+// Collects console errors and uncaught exceptions; read the list at the end with the non-critical ones filtered out
+function collectErrors(page: Page) {
+  const errors: string[] = []
+
+  // Capture console errors
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') {
+      errors.push(msg.text())
+    }
+  })
+
+  // Capture uncaught exceptions
+  page.on('pageerror', (err) => {
+    errors.push(err.message)
+  })
+
+  return () =>
+    errors.filter(
+      (e) =>
+        !e.includes('favicon') && // Ignore favicon 404s
+        !e.includes('Download the React DevTools') && // Ignore dev tools message
+        !e.includes('Failed to load resource') // Ignore missing assets (e.g., analytics)
+    )
+}
 
 test.describe('Smoke tests', () => {
   for (const path of pages) {
     test(`${path} loads without errors`, async ({ page }) => {
-      const errors: string[] = []
-
-      // Capture console errors
-      page.on('console', (msg) => {
-        if (msg.type() === 'error') {
-          errors.push(msg.text())
-        }
-      })
-
-      // Capture uncaught exceptions
-      page.on('pageerror', (err) => {
-        errors.push(err.message)
-      })
+      const criticalErrors = collectErrors(page)
 
       await page.goto(path)
 
       // Wait for hydration to complete
       await page.waitForLoadState('networkidle')
 
-      // Check no errors occurred (filter out non-critical issues)
-      const criticalErrors = errors.filter(
-        (e) =>
-          !e.includes('favicon') && // Ignore favicon 404s
-          !e.includes('Download the React DevTools') && // Ignore dev tools message
-          !e.includes('Failed to load resource') // Ignore missing assets (e.g., analytics)
-      )
-
-      expect(criticalErrors).toEqual([])
+      // Check no errors occurred
+      expect(criticalErrors()).toEqual([])
     })
 
     test(`${path} is interactive (no hydration issues)`, async ({ page }) => {
@@ -54,17 +60,7 @@ test.describe('Smoke tests', () => {
   }
 
   test('theme toggle works without errors', async ({ page }) => {
-    const errors: string[] = []
-
-    page.on('console', (msg) => {
-      if (msg.type() === 'error') {
-        errors.push(msg.text())
-      }
-    })
-
-    page.on('pageerror', (err) => {
-      errors.push(err.message)
-    })
+    const criticalErrors = collectErrors(page)
 
     await page.goto('/')
     await page.waitForLoadState('networkidle')
@@ -78,14 +74,7 @@ test.describe('Smoke tests', () => {
     await page.waitForTimeout(500)
 
     // Check no errors after toggle
-    const criticalErrors = errors.filter(
-      (e) =>
-        !e.includes('favicon') &&
-        !e.includes('Download the React DevTools') &&
-        !e.includes('Failed to load resource')
-    )
-
-    expect(criticalErrors).toEqual([])
+    expect(criticalErrors()).toEqual([])
   })
 })
 
