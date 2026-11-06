@@ -85,7 +85,7 @@ export default function HomePage() {
           {/* A plain img because next/image can't take a hand-written 1x/2x srcset */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            className="home-portrait-img is-light"
+            className="home-portrait-img theme-light"
             src="/images/jon-dither-light-soft-256.webp"
             srcSet="/images/jon-dither-light-soft-256.webp 1x, /images/jon-dither-light-soft-1024.webp 2x"
             alt="Jon McCullough, one-bit dither portrait"
@@ -96,7 +96,7 @@ export default function HomePage() {
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            className="home-portrait-img is-dark"
+            className="home-portrait-img theme-dark"
             src="/images/jon-dither-dark-soft-256.webp"
             srcSet="/images/jon-dither-dark-soft-256.webp 1x, /images/jon-dither-dark-soft-1024.webp 2x"
             alt="Jon McCullough, one-bit dither portrait"

@@ -18,18 +18,24 @@ function localImageSize(src: string): { width: number; height: number } | null {
 }
 
 // A markdown image (`![alt](src)`) in any MDX page. Local files go through next/image at their own size; anything else stays a plain img.
-export default function MdxImage({ src, alt, title }: React.ImgHTMLAttributes<HTMLImageElement>) {
+export default function MdxImage({
+  src,
+  alt,
+  title,
+  className,
+}: React.ImgHTMLAttributes<HTMLImageElement>) {
   if (!src || typeof src !== 'string') return null
   const size = src.startsWith('/') ? localImageSize(src) : null
   if (!size) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={alt || ''} title={title} loading="lazy" />
+    return <img src={src} alt={alt || ''} title={title} className={className} loading="lazy" />
   }
   return (
     <NextImage
       src={src}
       alt={alt || ''}
       title={title}
+      className={className}
       width={size.width}
       height={size.height}
       sizes="(max-width: 640px) 100vw, 576px"
