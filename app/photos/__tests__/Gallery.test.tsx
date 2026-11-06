@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import type { StaticImageData } from 'next/image'
-import Gallery, { gear, monthYear } from '../Gallery'
+import Gallery from '../Gallery'
+import { gear, monthYear } from '../Caption'
 import type { Photo } from '../photos'
 
 const image = (src: string): StaticImageData => ({
