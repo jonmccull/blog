@@ -30,7 +30,7 @@ export type Photo = {
 export const photos: Photo[] = [
   {
     image: photo20261104,
-    alt: '',
+    alt: 'A whitewashed shed with a red clay-tile roof in low sun, leaf shadows across its wall, against a deep blue sky; a peeling yellow wall stands beside it.',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/8 · 1/500 s · ISO 400',
     location: 'Haugesund, Norway',
