@@ -62,6 +62,13 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
   )
 
   const photo = current === null ? null : photos[current]
+  // The photos either side of the open one, each once, so the next step finds its file already fetched
+  const neighbours =
+    current === null
+      ? []
+      : [...new Set([(current + 1) % photos.length, (current - 1 + photos.length) % photos.length])]
+          .filter((index) => index !== current)
+          .map((index) => photos[index])
 
   return (
     <>
@@ -129,6 +136,21 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
             />
             <Caption photo={photo} />
           </figure>
+        )}
+        {neighbours.length > 0 && (
+          // Same props as the open photo so the browser asks for the same file; hidden, so it is neither seen nor read
+          <div hidden aria-hidden="true">
+            {neighbours.map((item) => (
+              <NextImage
+                key={item.image.src}
+                src={item.image}
+                alt=""
+                quality={85}
+                sizes="100vw"
+                loading="eager"
+              />
+            ))}
+          </div>
         )}
         <button type="button" className="lightbox-mark is-close" onClick={close} aria-label="Close">
           ×
