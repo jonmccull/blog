@@ -6,6 +6,7 @@ import photo1 from '@/public/images/photos/photo-1.webp'
 import photo20261106 from '@/public/images/photos/photo-2026-11-06.webp'
 import photo202611062 from '@/public/images/photos/photo-2026-11-06-2.webp'
 import photo202611063 from '@/public/images/photos/photo-2026-11-06-3.webp'
+import photo20261104 from '@/public/images/photos/photo-2026-11-04.webp'
 
 // The Photos page shows this list, in this order (newest first, by hand). Each image is a static
 // import from public/images/photos/, so its width and height are known at build time and a missing
@@ -28,8 +29,16 @@ export type Photo = {
 
 export const photos: Photo[] = [
   {
-    image: photo202611063,
+    image: photo20261104,
     alt: '',
+    camera: 'Fujifilm X100VI',
+    settings: '23mm · f/8 · 1/500 s · ISO 400',
+    location: 'Haugesund, Norway',
+    date: '2026-11-04',
+  },
+  {
+    image: photo202611063,
+    alt: 'Golden hour photo of trees overhanging parling lot',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/4.5 · 1/250 s · ISO 200',
     location: 'Haugesund, Norway',
@@ -37,7 +46,7 @@ export const photos: Photo[] = [
   },
   {
     image: photo202611062,
-    alt: '',
+    alt: 'Black and white photo of fencing and grass',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/4.5 · 1/300 s · ISO 200',
     location: 'Haugesund, Norway',
@@ -45,7 +54,7 @@ export const photos: Photo[] = [
   },
   {
     image: photo20261106,
-    alt: '',
+    alt: 'Black and white photo of bus stop fogged with early morning condensation',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/5 · 1/340 s · ISO 200',
     location: 'Haugesund, Norway',
@@ -53,7 +62,7 @@ export const photos: Photo[] = [
   },
   {
     image: photo1,
-    alt: '',
+    alt: 'Close up photo of the bridge of a Fender Telecaster Custom Select',
     camera: 'Fujifilm X100VI',
     settings: '23mm · f/4 · 1/40 s · ISO 250',
     location: 'MusikkHuset Haugesund',
