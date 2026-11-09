@@ -6,6 +6,24 @@ export const metadata = {
   description: 'Product marketing leader with 10+ years of experience in B2C and B2B.',
 }
 
+// One theme's portrait file. A plain img because next/image can't take a hand-written 1x/2x srcset.
+function PortraitImg({ theme }: { theme: 'light' | 'dark' }) {
+  const file = (size: number) => `/images/jon-dither-${theme}-soft-${size}.webp`
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      className={`home-portrait-img theme-${theme}`}
+      src={file(256)}
+      srcSet={`${file(256)} 1x, ${file(1024)} 2x`}
+      alt="Jon McCullough, one-bit dither portrait"
+      width={256}
+      height={256}
+      loading="lazy"
+      decoding="async"
+    />
+  )
+}
+
 export default function HomePage() {
   return (
     <HomeField>
@@ -82,29 +100,8 @@ export default function HomePage() {
           Shown at exactly 256px: the 256 file has 1px cells for 1x screens, the 1024 file 2px cells for 2x.
           Hidden on phones; loading="lazy" means a hidden img is never fetched. */}
         <div className="home-portrait">
-          {/* A plain img because next/image can't take a hand-written 1x/2x srcset */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className="home-portrait-img theme-light"
-            src="/images/jon-dither-light-soft-256.webp"
-            srcSet="/images/jon-dither-light-soft-256.webp 1x, /images/jon-dither-light-soft-1024.webp 2x"
-            alt="Jon McCullough, one-bit dither portrait"
-            width={256}
-            height={256}
-            loading="lazy"
-            decoding="async"
-          />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className="home-portrait-img theme-dark"
-            src="/images/jon-dither-dark-soft-256.webp"
-            srcSet="/images/jon-dither-dark-soft-256.webp 1x, /images/jon-dither-dark-soft-1024.webp 2x"
-            alt="Jon McCullough, one-bit dither portrait"
-            width={256}
-            height={256}
-            loading="lazy"
-            decoding="async"
-          />
+          <PortraitImg theme="light" />
+          <PortraitImg theme="dark" />
         </div>
       </div>
     </HomeField>
