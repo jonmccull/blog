@@ -2,6 +2,8 @@
 // foundations/field.js) with a code laid on the glyph grid. Rain reveals the first code, the changed digit rains
 // into the second, then the code falls out of the band, on a loop. Code and cloth in graph line; lime only on rain
 // heads, on cells as they lock in, and on the new digit. Still under reduced motion, idle off screen.
+// Blog-only, on Jon's call (#27): a copy, not shared with the kit. The cloth (h, KEY, vnoise and RAMP_SET) is
+// from foundations-kit 3b46159; a kit update to the Field's cloth won't reach it, so compare by hand.
 
 type Options = { from: string; to: string; speed?: number }
 type Relief = { v: Float32Array; gx: Float32Array; gz: Float32Array; halo: Float32Array }
