@@ -10,9 +10,17 @@ const SWIPE = 40 // px of horizontal travel that counts as a swipe
 // The width that fits the screen with the caption under it: the screen's width less the padding, or what the
 // screen's height allows at the picture's own shape, whichever is less. Set as a width (not left to the
 // picture's own size) because a browser served a smaller file than it asked for would shrink it otherwise.
-function fitWidth({ image }: Photo) {
+export function fitWidth({ image }: Photo) {
   const ratio = (image.width / image.height).toFixed(4)
   return `min(calc(100vw - 2 * var(--space-5)), calc((100dvh - var(--space-9) - var(--space-5)) * ${ratio}))`
+}
+
+// The indices either side of the open one, each once, so the next step finds its file already fetched. It wraps at
+// both ends; with two photos both sides are the same photo, and with one there are none.
+export function neighbourIndices(current: number, count: number) {
+  return [...new Set([(current + 1) % count, (current - 1 + count) % count])].filter(
+    (index) => index !== current
+  )
 }
 
 // The lightbox: a native dialog on the page ground that shows one photo fitted to the screen with its
@@ -42,13 +50,8 @@ export default function Lightbox({
   )
 
   const photo = current === null ? null : photos[current]
-  // The photos either side of the open one, each once, so the next step finds its file already fetched
   const neighbours =
-    current === null
-      ? []
-      : [...new Set([(current + 1) % photos.length, (current - 1 + photos.length) % photos.length])]
-          .filter((index) => index !== current)
-          .map((index) => photos[index])
+    current === null ? [] : neighbourIndices(current, photos.length).map((index) => photos[index])
 
   return (
     <dialog

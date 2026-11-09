@@ -70,8 +70,9 @@ test.describe('Smoke tests', () => {
     await expect(themeToggle).toBeVisible()
     await themeToggle.click()
 
-    // Wait a moment for any potential infinite loops to manifest
-    await page.waitForTimeout(500)
+    // Wait for the switch itself rather than a fixed delay; a render loop throws by then
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+    await page.waitForLoadState('networkidle')
 
     // Check no errors after toggle
     expect(criticalErrors()).toEqual([])
@@ -138,13 +139,26 @@ test.describe('Photos lightbox', () => {
       .then((sources) => sources.map((src) => new URL(src).searchParams.get('url')))
     const at = 3
     expect(files.length).toBeGreaterThan(at + 3)
-    const settle = async () => {
-      await page.waitForLoadState('networkidle')
-      await page.waitForTimeout(300)
-    }
-
     const dialog = page.locator('dialog.lightbox')
     const shown = dialog.locator('.lightbox-image')
+    // Settled when every image in the dialog, the shown one and the hidden neighbours, has finished loading. Each
+    // one's request is made before it completes, so the list is whole by then; no fixed delay to lose under load.
+    const settle = () =>
+      expect
+        .poll(() =>
+          dialog
+            .locator('img')
+            .evaluateAll(
+              (images) =>
+                images.length > 0 &&
+                images.every(
+                  (image) =>
+                    (image as HTMLImageElement).complete && (image as HTMLImageElement).currentSrc
+                )
+            )
+        )
+        .toBe(true)
+
     await page.locator('.photo-open').nth(at).click()
     await expect(dialog).toBeVisible()
     await settle()
